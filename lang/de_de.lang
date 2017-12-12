@@ -1,0 +1,12 @@
+d2u_linkbox = D2U Linkbox
+d2u_linkbox_categories = Kategorien
+d2u_linkbox_linkbox = Linkbox
+d2u_linkbox_name = Name
+d2u_linkbox_no_categories_found = Es wurden noch keine Kategorien angelegt
+d2u_linkbox_no_linkboxes_found = Es wurden keine Linkboxen angelegt
+d2u_linkbox_title = Überschrift
+
+d2u_linkbox_rights_all = D2U Linkbox Addon
+d2u_linkbox_rights_edit_data = D2U Linkbox Addon: Editierrechte für allgemeine Daten und sprachübergreifende Inhalte
+d2u_linkbox_rights_edit_lang = D2U Linkbox Addon: Editierrechte für Übersetzungen und sprachspezifische Inhalte (es gelten die Sprachen der Rolleneinstellungen)
+d2u_linkbox_rights_settings = D2U Linkbox Addon: Einstellungen
