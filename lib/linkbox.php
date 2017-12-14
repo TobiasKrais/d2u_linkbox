@@ -41,6 +41,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $title = "";
 	
 	/**
+	 * @var string Box teaser
+	 */
+	var $teaser = "";
+	
+	/**
 	 * @var string "yes" if translation needs update
 	 */
 	var $translation_needs_update = "delete";
@@ -65,6 +70,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->box_id = $result->getValue("box_id");
 				$this->article_id =$result->getValue("article_id");
 				$this->title = $result->getValue("title");
+				$this->teaser = $result->getValue("teaser");
 				$this->picture = $result->getValue("picture") != "" ? $result->getValue("picture") : \rex_url::addonAssets('d2u_linkbox', 'noavatar.jpg');
 				$category_ids = preg_grep('/^\s*$/s', explode("|", $result->getValue("category_ids")), PREG_GREP_INVERT);
 				foreach ($category_ids as $category_id) {
@@ -244,6 +250,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 						."box_id = '". $this->box_id ."', "
 						."clang_id = '". $this->clang_id ."', "
 						."title = '". $this->title ."', "
+						."teaser = '". $this->teaser ."', "
 						."translation_needs_update = '". $this->translation_needs_update ."' ";
 				$result = \rex_sql::factory();
 				$result->setQuery($query);

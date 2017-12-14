@@ -5,6 +5,7 @@ d2u_linkbox_name = Name
 d2u_linkbox_no_categories_found = No categories found.
 d2u_linkbox_no_linkboxes_found = No link boxes found
 d2u_linkbox_title = Headline
+d2u_linkbox_teaser = Teaser
 
 d2u_linkbox_rights_all = D2U Link Box Addon
 d2u_linkbox_rights_edit_data = D2U Link Box Addon: edit rights for data
