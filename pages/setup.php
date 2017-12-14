@@ -28,6 +28,11 @@ $d2u_module_manager->showManagerList();
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
+<p>1.1 (NEXT):</p>
+<ul>
+	<li>Bugfix beim Speichern von Kategrien.</li>
+	<li>Teaser hinzugefügt.</li>
+</ul>
 <p>1.0:</p>
 <ul>
 	<li>Initiale Version.</li>

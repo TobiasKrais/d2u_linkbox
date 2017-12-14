@@ -119,7 +119,7 @@ class Category {
 
 		if($this->category_id == 0 || $pre_save_category != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox_categories SET "
-					."name = ". $this->name ." ";
+					."name = '". $this->name ."' ";
 
 			if($this->category_id == 0) {
 				$query = "INSERT INTO ". $query;
