@@ -33,7 +33,7 @@ $d2u_module_manager->showManagerList();
 <p>1.1:</p>
 <ul>
 	<li>Endlich ein Bootstrap 4 Modul.</li>
-	<li>Bugfix beim Speichern von Kategrien.</li>
+	<li>Bugfix beim Speichern von Kategorien.</li>
 	<li>Teaser hinzugefügt.</li>
 </ul>
 <p>1.0:</p>
