@@ -36,6 +36,7 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 			$linkbox->clang_id = $rex_clang->getId();
 		}
 		$linkbox->title = $form['lang'][$rex_clang->getId()]['title'];
+		$linkbox->teaser = $form['lang'][$rex_clang->getId()]['teaser'];
 		$linkbox->translation_needs_update = $form['lang'][$rex_clang->getId()]['translation_needs_update'];
 		
 		if($linkbox->translation_needs_update == "delete") {
@@ -145,7 +146,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								}
 								
 								d2u_addon_backend_helper::form_input('d2u_linkbox_title', "form[lang][". $rex_clang->getId() ."][title]", $linkbox->title, $required, $readonly_lang);
-								d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, $required, $readonly_lang, FALSE)
+								d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, $required, $readonly_lang, FALSE)
 							?>
 						</div>
 					</fieldset>

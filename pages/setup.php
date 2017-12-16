@@ -19,17 +19,20 @@ $d2u_module_manager->showManagerList();
  * Templates
  */
 ?>
-<h2>Beispielseiten</h2>
+<h2>Beispielseiten D2U Linkbox Addon</h2>
 <ul>
-	<li>D2U Linkbox Addon: <a href="https://www.kaltenbach.com/de/" target="_blank">
+	<li><a href="http://www.neuropsychologie-in-basel.ch/" target="_blank">
+		www.neuropsychologie-in-basel.ch</a>.</li>
+	<li><a href="https://www.kaltenbach.com/de/" target="_blank">
 		www.kaltenbach.com</a>.</li>
 </ul>
 <h2>Support</h2>
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
-<p>1.1 (NEXT):</p>
+<p>1.1:</p>
 <ul>
+	<li>Endlich ein Bootstrap 4 Modul.</li>
 	<li>Bugfix beim Speichern von Kategrien.</li>
 	<li>Teaser hinzugefügt.</li>
 </ul>

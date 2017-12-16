@@ -1,0 +1,17 @@
+.linkbox {
+	padding-bottom: 30px;
+    position: relative;
+}
+.linkbox-teaser {
+	padding-top: 15px;
+}
+
+.linkbox-title {
+    padding: 0.25em 0.5em;
+    background: rgba(255, 255, 255, 0.9);
+	font-size: 1.25em;
+	font-weight: bold;
+    margin: 1.5em 0 0 0.25em;
+	position: absolute;
+	right: 0;
+}
