@@ -31,6 +31,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $online_status = "offline";
 	
 	/**
+	 * @var int Sort Priority
+	 */
+	var $priority = 0;
+	
+	/**
 	 * @var Category[] Array with categories, linkbox belongs to
 	 */
 	var $categories = [];
@@ -72,6 +77,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->title = $result->getValue("title");
 				$this->teaser = $result->getValue("teaser");
 				$this->picture = $result->getValue("picture") != "" ? $result->getValue("picture") : \rex_url::addonAssets('d2u_linkbox', 'noavatar.jpg');
+				$this->priority = $result->getValue("priority");
 				$category_ids = preg_grep('/^\s*$/s', explode("|", $result->getValue("category_ids")), PREG_GREP_INVERT);
 				foreach ($category_ids as $category_id) {
 					$this->categories[$category_id] = new Category($category_id, $clang_id);
@@ -163,7 +169,12 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		if($category_id > 0) {
 			$query .= " AND category_ids LIKE '%|". $category_id ."|%'";
 		}
-		$query .= " ORDER BY title DESC";
+		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name')) {
+			$query .= 'ORDER BY title DESC';
+		}
+		else {
+			$query .= 'ORDER BY priority';
+		}
 
 		$result = \rex_sql::factory();
 		$result->setQuery($query);
@@ -226,6 +237,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 					."article_id = ". $this->article_id .", "
 					."category_ids = '|". implode("|", array_keys($this->categories)) ."|', "
 					."picture = '". $this->picture ."', "
+					."priority = ". $this->priority .", "
 					."online_status = '". $this->online_status ."' ";
 
 			if($this->box_id == 0) {

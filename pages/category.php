@@ -74,7 +74,7 @@ if ($func == 'edit' || $func == 'add') {
 							$category = new D2U_Linkbox\Category($entry_id, rex_config::get("d2u_helper", "default_lang"));
 
 							$readonly = TRUE;
-							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_tech_data]')) {
+							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
 								$readonly = FALSE;
 							}
 							

@@ -7,6 +7,7 @@ $sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkb
 	`article_id` int(10) default NULL,
 	`category_ids` varchar(255) collate utf8_general_ci default NULL,
 	`online_status` varchar(10) collate utf8_general_ci default 'online',
+	`priority` int(10) default NULL,
 	PRIMARY KEY (`box_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;");
 $sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkbox_lang` (
@@ -23,3 +24,8 @@ $sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkb
 	`name` varchar(255) collate utf8_general_ci default NULL,
 	PRIMARY KEY (`category_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;");
+
+// Standard settings
+if (!$this->hasConfig()) {
+    $this->setConfig('default_sort', "name");
+}

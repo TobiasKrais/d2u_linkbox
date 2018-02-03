@@ -12,3 +12,16 @@ if(class_exists(D2UModuleManager)) {
 	$d2u_module_manager = new D2UModuleManager($modules, "", "d2u_linkbox");
 	$d2u_module_manager->autoupdate();
 }
+
+// 1.1.1 Update database
+$sql = rex_sql::factory();
+$sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'priority';");
+if($sql->getRows() == 0) {
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
+		. "ADD priority INT(10) NULL DEFAULT NULL AFTER online_status;");
+}
+
+// Standard settings
+if (!$this->hasConfig()) {
+    $this->setConfig('default_sort', "name");
+}

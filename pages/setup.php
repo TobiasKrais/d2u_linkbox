@@ -30,6 +30,10 @@ $d2u_module_manager->showManagerList();
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
+<p>1.1.1-DEV:</p>
+<ul>
+	<li>Sortierung der Boxen nach Priorität möglich.</li>
+</ul>
 <p>1.1:</p>
 <ul>
 	<li>Endlich ein Bootstrap 4 Modul.</li>
