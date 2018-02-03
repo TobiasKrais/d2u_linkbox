@@ -177,11 +177,16 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 }
 
 if ($func == '') {
-	$query = 'SELECT linkbox.box_id, title, online_status '
+	$query = 'SELECT linkbox.box_id, title, category_ids, priority, online_status '
 		. 'FROM '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
 		. 'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
-			. 'ON linkbox.box_id = lang.box_id AND lang.clang_id = '. rex_config::get("d2u_helper", "default_lang") .' '
-		.'ORDER BY title ASC';
+			. 'ON linkbox.box_id = lang.box_id AND lang.clang_id = '. rex_config::get("d2u_helper", "default_lang") .' ';
+	if($this->getConfig('default_sort') == 'priority') {
+		$query .= 'ORDER BY priority ASC';
+	}
+	else {
+		$query .= 'ORDER BY title ASC';
+	}
     $list = rex_list::factory($query);
 
     $list->addTableAttribute('class', 'table-striped table-hover');
@@ -199,6 +204,10 @@ if ($func == '') {
 
     $list->setColumnLabel('title', rex_i18n::msg('d2u_linkbox_title'));
     $list->setColumnParams('title', ['func' => 'edit', 'entry_id' => '###box_id###']);
+
+	$list->setColumnLabel('category_ids', rex_i18n::msg('d2u_linkbox_categories'));
+
+	$list->setColumnLabel('priority', rex_i18n::msg('header_priority'));
 
 	$list->addColumn(rex_i18n::msg('module_functions'), '<i class="rex-icon rex-icon-edit"></i> ' . rex_i18n::msg('edit'));
     $list->setColumnLayout(rex_i18n::msg('module_functions'), ['<th class="rex-table-action" colspan="2">###VALUE###</th>', '<td class="rex-table-action">###VALUE###</td>']);

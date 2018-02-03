@@ -19,6 +19,16 @@ $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE '
 if($sql->getRows() == 0) {
 	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
 		. "ADD priority INT(10) NULL DEFAULT NULL AFTER online_status;");
+	
+	$sql->setQuery("DROP FUNCTION IF EXISTS `getPriority`;");
+	$sql->setQuery("delimiter $$
+		CREATE FUNCTION `getPriority`() RETURNS int(11) DETERMINISTIC
+		begin
+			return if(@myPrio, @myPrio:=@myPrio+1, @myPrio:=1);
+		end$$
+		delimiter ;");
+	$sql->setQuery("UPDATE ". \rex::getTablePrefix() ."d2u_linkbox SET priority = getPriority() ORDER BY `box_id`;");
+	$sql->setQuery("DROP FUNCTION IF EXISTS `getPriority`;");
 }
 
 // Standard settings
