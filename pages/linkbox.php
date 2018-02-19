@@ -30,6 +30,7 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 			foreach ($category_ids as $category_id) {
 				$linkbox->categories[$category_id] = new D2U_Linkbox\Category($category_id, $rex_clang->getId());
 			}
+			$linkbox->priority = $form['priority'];
 			$linkbox->online_status = array_key_exists('online_status', $form) ? "online" : "offline";
 		}
 		else {
@@ -116,6 +117,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								$options_categories[$category->category_id] = $category->name;
 							}
 							d2u_addon_backend_helper::form_select('d2u_linkbox_categories', 'form[category_ids][]', $options_categories, (count($linkbox->categories) > 0 ? array_keys($linkbox->categories) : []), 5, TRUE, $readonly);
+							d2u_addon_backend_helper::form_input('header_priority', 'form[priority]', $linkbox->priority, TRUE, $readonly, 'number');
 							d2u_addon_backend_helper::form_checkbox('d2u_helper_online_status', 'form[online_status]', 'online', $linkbox->online_status == "online", $readonly);
 						?>
 					</div>
@@ -146,7 +148,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								}
 								
 								d2u_addon_backend_helper::form_input('d2u_linkbox_title', "form[lang][". $rex_clang->getId() ."][title]", $linkbox->title, $required, $readonly_lang);
-								d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, $required, $readonly_lang, FALSE)
+								d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, FALSE, $readonly_lang, FALSE)
 							?>
 						</div>
 					</fieldset>

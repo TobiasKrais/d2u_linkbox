@@ -169,11 +169,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		if($category_id > 0) {
 			$query .= " AND category_ids LIKE '%|". $category_id ."|%'";
 		}
-		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name')) {
-			$query .= 'ORDER BY title DESC';
+		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') == 'name') {
+			$query .= ' ORDER BY title';
 		}
 		else {
-			$query .= 'ORDER BY priority';
+			$query .= ' ORDER BY priority';
 		}
 
 		$result = \rex_sql::factory();
@@ -232,6 +232,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		// Save the not language specific part
 		$pre_save_linkbox = new Linkbox($this->box_id, $this->clang_id);
 
+		// save priority, but only if new or changed
+		if($this->priority != $pre_save_linkbox->priority || $this->property_id == 0) {
+			$this->setPriority();
+		}
+
 		if($this->box_id == 0 || $pre_save_linkbox != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox SET "
 					."article_id = ". $this->article_id .", "
@@ -271,5 +276,42 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		}
 		
 		return $error;
+	}
+		
+	/**
+	 * Reassigns priority to all properties in database.
+	 */
+	private function setPriority() {
+		// Pull prios from database
+		$query = "SELECT box_id, priority FROM ". \rex::getTablePrefix() ."d2u_linkbox "
+			."WHERE box_id <> ". $this->box_id ." ORDER BY priority";
+		$result = \rex_sql::factory();
+		$result->setQuery($query);
+		
+		// When priority is too small, set at beginning
+		if($this->priority <= 0) {
+			$this->priority = 1;
+		}
+		
+		// When prio is too high, simply add at end 
+		if($this->priority > $result->getRows()) {
+			$this->priority = $result->getRows() + 1;
+		}
+
+		$linkboxes = [];
+		for($i = 0; $i < $result->getRows(); $i++) {
+			$linkboxes[$result->getValue("priority")] = $result->getValue("box_id");
+			$result->next();
+		}
+		array_splice($linkboxes, ($this->priority - 1), 0, array($this->box_id));
+
+		// Save all prios
+		foreach($linkboxes as $prio => $box_id) {
+			$query = "UPDATE ". \rex::getTablePrefix() ."d2u_linkbox "
+					."SET priority = ". ($prio + 1) ." " // +1 because array_splice recounts at zero
+					."WHERE box_id = ". $box_id;
+			$result = \rex_sql::factory();
+			$result->setQuery($query);
+		}
 	}
 }

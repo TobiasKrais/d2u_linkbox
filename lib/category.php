@@ -95,7 +95,12 @@ class Category {
 		if($only_online) {
 			$query .= "AND online_status = 'online' ";
 		}
-		$query .= 'ORDER BY title ASC';
+		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') == 'name') {
+			$query .= ' ORDER BY title';
+		}
+		else {
+			$query .= ' ORDER BY priority';
+		}
 		$result = \rex_sql::factory();
 		$result->setQuery($query);
 		
