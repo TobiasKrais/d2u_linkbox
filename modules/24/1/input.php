@@ -1,7 +1,7 @@
 <?php
 $categories = D2U_Linkbox\Category::getAll(rex_clang::getCurrentId(), TRUE);
 if (count($categories) > 0) {
-	print 'Welche Linkbox Katgeorie soll angezeigt werden? <select name="REX_INPUT_VALUE[1]">';
+	print 'Welche Linkbox Kategorie soll angezeigt werden? <select name="REX_INPUT_VALUE[1]">';
 	foreach ($categories as $category) {
 		echo '<option value="'. $category->category_id .'" ';
 

@@ -33,6 +33,7 @@ $d2u_module_manager->showManagerList();
 <p>1.1.1-DEV:</p>
 <ul>
 	<li>Sortierung der Boxen nach Priorität möglich.</li>
+	<li>Bugfix: Speichern von Kategoriename mit einfachem Anführungszeichen führte zu Fehler.</li>
 </ul>
 <p>1.1:</p>
 <ul>

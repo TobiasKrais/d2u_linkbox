@@ -34,7 +34,7 @@ class Category {
 
 		if ($result->getRows() > 0) {
 			$this->category_id = $result->getValue("category_id");
-			$this->name =$result->getValue("name");
+			$this->name = stripslashes($result->getValue("name"));
 		}
 	}
 	
@@ -124,7 +124,7 @@ class Category {
 
 		if($this->category_id == 0 || $pre_save_category != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox_categories SET "
-					."name = '". $this->name ."' ";
+					."name = '". addslashes($this->name) ."' ";
 
 			if($this->category_id == 0) {
 				$query = "INSERT INTO ". $query;

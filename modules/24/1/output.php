@@ -31,7 +31,9 @@ else {
 			}
 			print '<div class="linkbox">';
 			print '<div class="linkbox-title">'. $linkbox->title .'</div>';
-			print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
+			if($linkbox->picture != "") {
+				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
+			}
 			if($linkbox->article_id > 0) {
 				print '</a>';
 			}

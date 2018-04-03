@@ -76,7 +76,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->article_id =$result->getValue("article_id");
 				$this->title = $result->getValue("title");
 				$this->teaser = $result->getValue("teaser");
-				$this->picture = $result->getValue("picture") != "" ? $result->getValue("picture") : \rex_url::addonAssets('d2u_linkbox', 'noavatar.jpg');
+				$this->picture = $result->getValue("picture");
 				$this->priority = $result->getValue("priority");
 				$category_ids = preg_grep('/^\s*$/s', explode("|", $result->getValue("category_ids")), PREG_GREP_INVERT);
 				foreach ($category_ids as $category_id) {
