@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.1.1-DEV:</p>
 <ul>
+	<li>Bugfix: Warnung beim löschen von Bildern die vom Addon verwendet werden entfernt.</li>
 	<li>Sortierung der Boxen nach Priorität möglich.</li>
 	<li>Bugfix: Speichern von Kategoriename mit einfachem Anführungszeichen führte zu Fehler.</li>
 </ul>
