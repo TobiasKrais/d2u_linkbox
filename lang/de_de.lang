@@ -1,8 +1,5 @@
 d2u_linkbox = D2U Linkbox
-d2u_linkbox_categories = Kategorien
 d2u_linkbox_linkbox = Linkbox
-d2u_linkbox_name = Name
-d2u_linkbox_no_categories_found = Es wurden noch keine Kategorien angelegt
 d2u_linkbox_no_linkboxes_found = Es wurden keine Linkboxen angelegt
 d2u_linkbox_title = Überschrift
 d2u_linkbox_teaser = Kurztext

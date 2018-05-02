@@ -116,7 +116,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 							foreach(D2U_Linkbox\Category::getAll(rex_config::get('d2u_helper', 'default_lang'), FALSE) as $category) {
 								$options_categories[$category->category_id] = $category->name;
 							}
-							d2u_addon_backend_helper::form_select('d2u_linkbox_categories', 'form[category_ids][]', $options_categories, (count($linkbox->categories) > 0 ? array_keys($linkbox->categories) : []), 5, TRUE, $readonly);
+							d2u_addon_backend_helper::form_select('d2u_helper_categories', 'form[category_ids][]', $options_categories, (count($linkbox->categories) > 0 ? array_keys($linkbox->categories) : []), 5, TRUE, $readonly);
 							d2u_addon_backend_helper::form_input('header_priority', 'form[priority]', $linkbox->priority, TRUE, $readonly, 'number');
 							d2u_addon_backend_helper::form_checkbox('d2u_helper_online_status', 'form[online_status]', 'online', $linkbox->online_status == "online", $readonly);
 						?>
@@ -141,7 +141,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 									$options_translations["yes"] = rex_i18n::msg('d2u_helper_translation_needs_update');
 									$options_translations["no"] = rex_i18n::msg('d2u_helper_translation_is_uptodate');
 									$options_translations["delete"] = rex_i18n::msg('d2u_helper_translation_delete');
-									d2u_addon_backend_helper::form_select('d2u_helper_translation', 'form[lang]['. $rex_clang->getId() .'][translation_needs_update]', $options_translations, array($linkbox->translation_needs_update), 1, FALSE, $readonly_lang);
+									d2u_addon_backend_helper::form_select('d2u_helper_translation', 'form[lang]['. $rex_clang->getId() .'][translation_needs_update]', $options_translations, [$linkbox->translation_needs_update], 1, FALSE, $readonly_lang);
 								}
 								else {
 									print '<input type="hidden" name="form[lang]['. $rex_clang->getId() .'][translation_needs_update]" value="">';
@@ -207,7 +207,7 @@ if ($func == '') {
     $list->setColumnLabel('title', rex_i18n::msg('d2u_linkbox_title'));
     $list->setColumnParams('title', ['func' => 'edit', 'entry_id' => '###box_id###']);
 
-	$list->setColumnLabel('category_ids', rex_i18n::msg('d2u_linkbox_categories'));
+	$list->setColumnLabel('category_ids', rex_i18n::msg('d2u_helper_categories'));
 
 	$list->setColumnLabel('priority', rex_i18n::msg('header_priority'));
 

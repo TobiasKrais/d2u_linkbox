@@ -63,7 +63,7 @@ if ($func == 'edit' || $func == 'add') {
 ?>
 	<form action="<?php print rex_url::currentBackendPage(); ?>" method="post">
 		<div class="panel panel-edit">
-			<header class="panel-heading"><div class="panel-title"><?php print rex_i18n::msg('d2u_linkbox_categories'); ?></div></header>
+			<header class="panel-heading"><div class="panel-title"><?php print rex_i18n::msg('d2u_helper_categories'); ?></div></header>
 			<div class="panel-body">
 				<input type="hidden" name="form[category_id]" value="<?php echo $entry_id; ?>">
 				<fieldset>
@@ -78,7 +78,7 @@ if ($func == 'edit' || $func == 'add') {
 								$readonly = FALSE;
 							}
 							
-							d2u_addon_backend_helper::form_input('d2u_linkbox_name', 'form[name]', $category->name, TRUE, $readonly);
+							d2u_addon_backend_helper::form_input('d2u_helper_name', 'form[name]', $category->name, TRUE, $readonly);
 						?>
 					</div>
 				</fieldset>
@@ -125,7 +125,7 @@ if ($func == '') {
     $list->setColumnLabel('category_id', rex_i18n::msg('id'));
     $list->setColumnLayout('category_id', ['<th class="rex-table-id">###VALUE###</th>', '<td class="rex-table-id">###VALUE###</td>']);
 
-    $list->setColumnLabel('name', rex_i18n::msg('d2u_linkbox_name'));
+    $list->setColumnLabel('name', rex_i18n::msg('d2u_helper_name'));
     $list->setColumnParams('name', ['func' => 'edit', 'entry_id' => '###category_id###']);
 
 	$list->addColumn(rex_i18n::msg('module_functions'), '<i class="rex-icon rex-icon-edit"></i> ' . rex_i18n::msg('edit'));
@@ -139,10 +139,10 @@ if ($func == '') {
 		$list->addLinkAttribute(rex_i18n::msg('delete_module'), 'data-confirm', rex_i18n::msg('d2u_helper_confirm_delete'));
 	}
 
-    $list->setNoRowsMessage(rex_i18n::msg('d2u_linkbox_no_categories_found'));
+    $list->setNoRowsMessage(rex_i18n::msg('d2u_helper_no_categories_found'));
 
     $fragment = new rex_fragment();
-    $fragment->setVar('title', rex_i18n::msg('d2u_linkbox_categories'), false);
+    $fragment->setVar('title', rex_i18n::msg('d2u_helper_categories'), false);
     $fragment->setVar('content', $list->get(), false);
     echo $fragment->parse('core/page/section.php');
 }

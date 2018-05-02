@@ -1,8 +1,12 @@
 .linkbox {
-	padding-bottom: 30px;
     position: relative;
 }
+.linkbox-spacer {
+	margin-bottom: 2em;
+}
+
 .linkbox-teaser {
+	flex: 1 0 auto;
 	padding-top: 15px;
 }
 

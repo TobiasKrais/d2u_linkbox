@@ -25,7 +25,8 @@ else {
 		}
 
 		foreach($linkboxes as $linkbox) {
-			print '<div class="col-12 col-sm-6 col-lg-4">';
+			print '<div class="col-12 col-sm-6 col-lg-4 linkbox-spacer">';
+			print '<div class="linkbox-outer">';
 			if($linkbox->article_id > 0) {
 				print '<a href="'. rex_getUrl($linkbox->article_id) .'">';
 			}
@@ -38,9 +39,10 @@ else {
 				print '</a>';
 			}
 			if($linkbox->teaser != '') {
-				print '<div class="linkbox-teaser">'. $linkbox->teaser .'</div>';
+				print '<div class="linkbox-teaser same-height">'. nl2br($linkbox->teaser) .'</div>';
 			}
 			print '</div>'; // class="linkbox"
+			print '</div>'; // class="linkbox-outer"
 			print '</div>'; // class="col...
 		}
 		
