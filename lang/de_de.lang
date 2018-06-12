@@ -1,4 +1,5 @@
 d2u_linkbox = D2U Linkbox
+d2u_linkbox_background_color = Hintergrundfarbe
 d2u_linkbox_linkbox = Linkbox
 d2u_linkbox_no_linkboxes_found = Es wurden keine Linkboxen angelegt
 d2u_linkbox_title = Überschrift

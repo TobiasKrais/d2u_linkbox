@@ -6,14 +6,22 @@ rex_sql_table::get(rex::getTable('d2u_linkbox_lang'))->ensureColumn(new \rex_sql
 if(class_exists(D2UModuleManager)) {
 	$modules = [];
 	$modules[] = new D2UModule("24-1",
-		"D2U Linkbox - Linkboxen",
+		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
+		2);
+	$modules[] = new D2UModule("24-2",
+		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
 		1);
-
+	$modules[] = new D2UModule("24-3",
+		"D2U Linkbox - Farbboxen mit seitlichem Bild",
+		1);
+	$modules[] = new D2UModule("24-4",
+		"D2U Linkbox - Slider",
+		1);
 	$d2u_module_manager = new D2UModuleManager($modules, "", "d2u_linkbox");
 	$d2u_module_manager->autoupdate();
 }
 
-// 1.1.1 Update database
+// 1.2 Update database
 $sql = rex_sql::factory();
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'priority';");
 if($sql->getRows() == 0) {
@@ -29,6 +37,11 @@ if($sql->getRows() == 0) {
 		delimiter ;");
 	$sql->setQuery("UPDATE ". \rex::getTablePrefix() ."d2u_linkbox SET priority = getPriority() ORDER BY `box_id`;");
 	$sql->setQuery("DROP FUNCTION IF EXISTS `getPriority`;");
+}
+$sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'background_color';");
+if($sql->getRows() == 0) {
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
+		. "ADD background_color VARCHAR(10) NULL DEFAULT NULL AFTER picture;");
 }
 
 // Standard settings

@@ -24,6 +24,7 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 			$linkbox = new D2U_Linkbox\Linkbox($box_id, $rex_clang->getId());
 			$linkbox->box_id = $box_id; // Ensure correct ID in case first language has no object
 			$linkbox->picture = $input_media[1];
+			$linkbox->background_color = $form['background_color'];
 			$linkbox->article_id = $link_ids["REX_INPUT_LINK"][1];
 			$category_ids = isset($form['category_ids']) ? $form['category_ids'] : [];
 			$linkbox->categories = [];
@@ -111,6 +112,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 							}
 							
 							d2u_addon_backend_helper::form_mediafield('d2u_helper_picture', '1', $linkbox->picture, $readonly);
+							d2u_addon_backend_helper::form_input('d2u_linkbox_background_color', 'form[background_color]', $linkbox->background_color, FALSE, FALSE, "color");
 							d2u_addon_backend_helper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, rex_config::get("d2u_helper", "default_lang"));
 							$options_categories = [];
 							foreach(D2U_Linkbox\Category::getAll(rex_config::get('d2u_helper', 'default_lang'), FALSE) as $category) {

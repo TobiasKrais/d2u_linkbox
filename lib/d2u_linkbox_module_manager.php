@@ -12,7 +12,16 @@ class D2ULinkboxModules {
 	public static function getModules() {
 		$modules = [];
 		$modules[] = new D2UModule("24-1",
-			"D2U Linkbox - Linkboxen",
+			"D2U Linkbox - Linkboxen mit Überschrift in Bild",
+			2);
+		$modules[] = new D2UModule("24-2",
+			"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
+			1);
+		$modules[] = new D2UModule("24-3",
+			"D2U Linkbox - Farbboxen mit seitlichem Bild",
+			1);
+		$modules[] = new D2UModule("24-4",
+			"D2U Linkbox - Slider",
 			1);
 		return $modules;
 	}

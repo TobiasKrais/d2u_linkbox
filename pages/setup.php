@@ -21,17 +21,21 @@ $d2u_module_manager->showManagerList();
 ?>
 <h2>Beispielseiten D2U Linkbox Addon</h2>
 <ul>
-	<li><a href="http://www.neuropsychologie-in-basel.ch/" target="_blank">
-		www.neuropsychologie-in-basel.ch</a>.</li>
 	<li><a href="https://www.kaltenbach.com/de/" target="_blank">
-		www.kaltenbach.com</a>.</li>
+		www.kaltenbach.com</a></li>
+	<li><a href="https://www.inotec-gmbh.com/" target="_blank">
+		www.inotec-gmbh.com</a></li>
 </ul>
 <h2>Support</h2>
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
-<p>1.1.1-DEV:</p>
+<p>1.2-DEV:</p>
 <ul>
+	<li>Modul hinzugefügt: D2U Linkbox - Slider.</li>
+	<li>Modul hinzugefügt: D2U Linkbox - Farbboxen mit seitlichem Bild.</li>
+	<li>Bugfix: Speichern Linkbox ohne Artikellink schlug fehl.</li>
+	<li>Neues Modul hinzugefügt und bei bestehendem Möglichkeit der Einstellung ob 3 oder 4 Boxen auf großen Bildschirmen angezeigt werden sollen.</li>
 	<li>Bugfix: Warnung beim löschen von Bildern die vom Addon verwendet werden entfernt.</li>
 	<li>Sortierung der Boxen nach Priorität möglich.</li>
 	<li>Bugfix: Speichern von Kategoriename mit einfachem Anführungszeichen führte zu Fehler.</li>

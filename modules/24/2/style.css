@@ -1,0 +1,15 @@
+.linkbox-spacer {
+	margin: 1em 0;
+}
+.linkbox-teaser {
+	color: #212529;
+	flex: 1 0 auto;
+}
+.linkbox-title {
+	color: #212529;
+	font-size: 1.25em;
+	margin: 0.5em 0;
+}
+.linkbox img {
+	border: 1px solid article_color_h;
+}

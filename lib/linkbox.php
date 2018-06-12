@@ -21,6 +21,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $picture = "";
 	
 	/**
+	 * @var string Background color (hex)
+	 */
+	var $background_color = "";
+	
+	/**
 	 * @var string Redaxo article ID for link
 	 */
 	var $article_id = 0;
@@ -77,6 +82,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->title = $result->getValue("title");
 				$this->teaser = $result->getValue("teaser");
 				$this->picture = $result->getValue("picture");
+				$this->background_color = $result->getValue("background_color");
 				$this->priority = $result->getValue("priority");
 				$category_ids = preg_grep('/^\s*$/s', explode("|", $result->getValue("category_ids")), PREG_GREP_INVERT);
 				foreach ($category_ids as $category_id) {
@@ -239,9 +245,10 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 
 		if($this->box_id == 0 || $pre_save_linkbox != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox SET "
-					."article_id = ". $this->article_id .", "
+					."article_id = ". ($this->article_id > 0 ? $this->article_id : 0) .", "
 					."category_ids = '|". implode("|", array_keys($this->categories)) ."|', "
 					."picture = '". $this->picture ."', "
+					."background_color = '". $this->background_color ."', "
 					."priority = ". $this->priority .", "
 					."online_status = '". $this->online_status ."' ";
 

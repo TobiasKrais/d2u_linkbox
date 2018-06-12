@@ -1,0 +1,19 @@
+.heading-lb-mod-4 {
+	text-align: center;
+}
+.linkbox-mod-4 {
+	background-color: white;
+	margin: 2em 4em;
+	padding: 2em;
+}
+.linkbox-mod-4-slider {
+	background-size: cover;
+	background-position: center;
+	padding: 2em;
+}
+.carousel-lb-mod-4-outer .carousel-control-next, .carousel-lb-mod-4-outer .carousel-control-prev {
+	width: 10%;
+}
+.linkbox-mod-4-slider.carousel-item {
+	transition-duration: 1.5s !important;
+}

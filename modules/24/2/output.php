@@ -10,7 +10,7 @@ if(rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php print ($category !== FALSE ? $category->name : 'keine'); ?>
+	Gewählte Kategorie: <?php print ($category !== FALSE ? $category->name : 'keine'); ?><br>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?php print $box_per_line; ?><br>
 	Teaser anzeigen: <?php print ($show_teaser ? 'Ja' : 'Nein'); ?><br>
 <?php
@@ -18,7 +18,7 @@ if(rex::isBackend()) {
 else {
 	// Ausgabe im FRONTEND
 	if($category !== FALSE) {
-		print '<div class="col-12">';
+		print '<div class="col-12 abstand">';
 		print '<div class="row">';
 		$linkboxes = $category->getLinkboxes(TRUE);
 
@@ -29,24 +29,22 @@ else {
 		}
 
 		foreach($linkboxes as $linkbox) {
-			print '<div class="col-12 col-sm-6 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
-			print '<div class="linkbox-outer">';
-			print '<div class="linkbox">';
+			print '<div class="col-12 col-sm-6 col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
 			if($linkbox->article_id > 0) {
 				print '<a href="'. rex_getUrl($linkbox->article_id) .'">';
 			}
-			print '<div class="linkbox-title">'. $linkbox->title .'</div>';
+			print '<div class="linkbox">';
 			if($linkbox->picture != "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
 			}
+			print '<div class="linkbox-title">'. $linkbox->title .'</div>';
+			if($show_teaser && $linkbox->teaser != '') {
+				print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
+			}
+			print '</div>'; // class="linkbox"
 			if($linkbox->article_id > 0) {
 				print '</a>';
 			}
-			if($show_teaser && $linkbox->teaser != '') {
-				print '<div class="linkbox-teaser same-height">'. nl2br($linkbox->teaser) .'</div>';
-			}
-			print '</div>'; // class="linkbox"
-			print '</div>'; // class="linkbox-outer"
 			print '</div>'; // class="col...
 		}
 		
