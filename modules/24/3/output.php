@@ -29,9 +29,13 @@ else {
 		$pic_orientation = "left";
 		foreach($linkboxes as $linkbox) {
 			print '<div class="col-12">';
-			if($linkbox->article_id > 0) {
-				print '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			if($linkbox->link_type == "document" && $linkbox->document != "") {
+				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
 			}
+			else if($linkbox->article_id > 0) {
+				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			}
+			print  $url;
 			print '<div class="linkbox-mod-3"'. ($linkbox->background_color != '' ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
 			print '<div class="row">';
 
@@ -39,7 +43,7 @@ else {
 			$picture = '<div class="col-12 col-md-6 picbox-'. $pic_orientation .'-outer">';
 			if($linkbox->picture != "") {
 				$picture .= '<div class="picbox-'. $pic_orientation .'-inner">';
-				$picture .= '<div><img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'"></div>';
+				$picture .= '<div><img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'"'. ($linkbox->background_color != '' ? ' style="border: 1px solid '. $linkbox->background_color .'"' : '') .'></div>';
 				$picture .= '<div class="border-lb-mod-3"'. ($linkbox->background_color != '' ? ' style="border-color:'. $linkbox->background_color .'"' : '') .'></div>';
 				$picture .=  '</div>';
 			}
@@ -66,7 +70,7 @@ else {
 
 			print '</div>';
 			print '</div>';
-			if($linkbox->article_id > 0) {
+			if($url != "") {
 				print '</a>';
 			}
 			print '</div>';

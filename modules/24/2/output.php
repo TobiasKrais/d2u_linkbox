@@ -30,9 +30,13 @@ else {
 
 		foreach($linkboxes as $linkbox) {
 			print '<div class="col-12 col-sm-6 col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
-			if($linkbox->article_id > 0) {
-				print '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			if($linkbox->link_type == "document" && $linkbox->document != "") {
+				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
 			}
+			else if($linkbox->article_id > 0) {
+				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			}
+			print  $url;
 			print '<div class="linkbox">';
 			if($linkbox->picture != "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
@@ -42,7 +46,7 @@ else {
 				print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
 			}
 			print '</div>'; // class="linkbox"
-			if($linkbox->article_id > 0) {
+			if($url != "") {
 				print '</a>';
 			}
 			print '</div>'; // class="col...

@@ -13,8 +13,8 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 	$form = (array) rex_post('form', 'array', []);
 
 	// Media fields and links need special treatment
-	$input_media = (array) rex_post('REX_INPUT_MEDIA', 'array', array());
-	$link_ids = filter_input_array(INPUT_POST, array('REX_INPUT_LINK'=> array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY)));
+	$input_media = (array) rex_post('REX_INPUT_MEDIA', 'array', []);
+	$link_ids = filter_input_array(INPUT_POST, ['REX_INPUT_LINK'=> ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY]]);
 
 	$success = TRUE;
 	$linkbox = FALSE;
@@ -25,7 +25,9 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 			$linkbox->box_id = $box_id; // Ensure correct ID in case first language has no object
 			$linkbox->picture = $input_media[1];
 			$linkbox->background_color = $form['background_color'];
+			$linkbox->link_type = $form['link_type'];
 			$linkbox->article_id = $link_ids["REX_INPUT_LINK"][1];
+			$linkbox->document = $input_media[2];
 			$category_ids = isset($form['category_ids']) ? $form['category_ids'] : [];
 			$linkbox->categories = [];
 			foreach ($category_ids as $category_id) {
@@ -113,7 +115,34 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 							
 							d2u_addon_backend_helper::form_mediafield('d2u_helper_picture', '1', $linkbox->picture, $readonly);
 							d2u_addon_backend_helper::form_input('d2u_linkbox_background_color', 'form[background_color]', $linkbox->background_color, FALSE, FALSE, "color");
+							$options_link = [
+								"article" => rex_i18n::msg('d2u_helper_article_id'),
+								"document" => rex_i18n::msg('d2u_linkbox_document'),
+							];
+							d2u_addon_backend_helper::form_select('d2u_linkbox_linktype', 'form[link_type]', $options_link, [$linkbox->link_type], 1, FALSE, $readonly);
 							d2u_addon_backend_helper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, rex_config::get("d2u_helper", "default_lang"));
+							d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document', '2', $linkbox->document, $readonly);
+						?>
+						<script>
+							function changeType() {
+								if($('select[name="form\\[link_type\\]"]').val() === "article") {
+									$('#LINK_1').show();
+									$('#MEDIA_2').hide();
+								}
+								else {
+									$('#LINK_1').hide();
+									$('#MEDIA_2').show();
+								}
+							}
+							
+							// On init
+							changeType();
+							// On change
+							$('select[name="form\\[link_type\\]"]').on('change', function() {
+								changeType();
+							});
+						</script>
+						<?php
 							$options_categories = [];
 							foreach(D2U_Linkbox\Category::getAll(rex_config::get('d2u_helper', 'default_lang'), FALSE) as $category) {
 								$options_categories[$category->category_id] = $category->name;

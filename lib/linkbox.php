@@ -26,6 +26,16 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $background_color = "";
 	
 	/**
+	 * @var string Link type
+	 */
+	var $link_type = "";
+	
+	/**
+	 * @var string Document filename
+	 */
+	var $document = "";
+	
+	/**
 	 * @var string Redaxo article ID for link
 	 */
 	var $article_id = 0;
@@ -78,7 +88,9 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 
 			if ($result->getRows() > 0) {
 				$this->box_id = $result->getValue("box_id");
-				$this->article_id =$result->getValue("article_id");
+				$this->link_type = $result->getValue("link_type");
+				$this->article_id = $result->getValue("article_id");
+				$this->document = $result->getValue("document");
 				$this->title = $result->getValue("title");
 				$this->teaser = $result->getValue("teaser");
 				$this->picture = $result->getValue("picture");
@@ -245,7 +257,9 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 
 		if($this->box_id == 0 || $pre_save_linkbox != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox SET "
+					."link_type = '". $this->link_type ."', "
 					."article_id = ". ($this->article_id > 0 ? $this->article_id : 0) .", "
+					."document = '". $this->document ."', "
 					."category_ids = '|". implode("|", array_keys($this->categories)) ."|', "
 					."picture = '". $this->picture ."', "
 					."background_color = '". $this->background_color ."', "

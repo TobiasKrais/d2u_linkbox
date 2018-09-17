@@ -3,14 +3,14 @@
 rex_sql_table::get(rex::getTable('d2u_linkbox_lang'))->ensureColumn(new \rex_sql_column('teaser', 'text', true, null))->alter();
 
 // Update modules
-if(class_exists(D2UModuleManager)) {
+if(class_exists('D2UModuleManager')) {
 	$modules = [];
 	$modules[] = new D2UModule("24-1",
 		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
-		2);
+		3);
 	$modules[] = new D2UModule("24-2",
 		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
-		1);
+		2);
 	$modules[] = new D2UModule("24-3",
 		"D2U Linkbox - Farbboxen mit seitlichem Bild",
 		1);
@@ -41,7 +41,17 @@ if($sql->getRows() == 0) {
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'background_color';");
 if($sql->getRows() == 0) {
 	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
-		. "ADD background_color VARCHAR(10) NULL DEFAULT NULL AFTER picture;");
+		. "ADD background_color VARCHAR(6) NULL DEFAULT NULL AFTER picture;");
+}
+$sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'link_type';");
+if($sql->getRows() == 0) {
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
+		. "ADD link_type VARCHAR(10) NULL DEFAULT NULL AFTER background_color;");
+}
+$sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'document';");
+if($sql->getRows() == 0) {
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
+		. "ADD document VARCHAR(255) NULL DEFAULT NULL AFTER link_type;");
 }
 
 // Standard settings

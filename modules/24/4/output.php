@@ -54,16 +54,21 @@ else {
 			}
 			print '" style="background-image: url('. rex_url::media($linkbox->picture) .')">';
 			
-			if($linkbox->article_id > 0) {
-				print '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			$url = "";
+			if($linkbox->link_type == "document" && $linkbox->document != "") {
+				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
 			}
+			else if($linkbox->article_id > 0) {
+				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			}
+			print  $url;
 			print '<div class="linkbox-mod-4"'. ($linkbox->background_color != '' ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
 			print '<div class="linkbox-title-lb-mod-4">'. $linkbox->title .'</div>';
 			if($linkbox->teaser != '') {
 				print '<div class="linkbox-teaser-lb-mod-4">'. nl2br($linkbox->teaser) .'</div>';
 			}
 			print '</div>';
-			if($linkbox->article_id > 0) {
+			if($url != "") {
 				print '</a>';
 			}
 			

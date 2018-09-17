@@ -13,10 +13,10 @@ class D2ULinkboxModules {
 		$modules = [];
 		$modules[] = new D2UModule("24-1",
 			"D2U Linkbox - Linkboxen mit Überschrift in Bild",
-			2);
+			3);
 		$modules[] = new D2UModule("24-2",
 			"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
-			1);
+			2);
 		$modules[] = new D2UModule("24-3",
 			"D2U Linkbox - Farbboxen mit seitlichem Bild",
 			1);

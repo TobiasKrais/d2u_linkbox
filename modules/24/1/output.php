@@ -32,14 +32,18 @@ else {
 			print '<div class="col-12 col-sm-6 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
 			print '<div class="linkbox-outer">';
 			print '<div class="linkbox">';
-			if($linkbox->article_id > 0) {
-				print '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			if($linkbox->link_type == "document" && $linkbox->document != "") {
+				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
 			}
-			print '<div class="linkbox-title">'. $linkbox->title .'</div>';
+			else if($linkbox->article_id > 0) {
+				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			}
+			print  $url;
+			print '<div class="linkbox-title-lk-mod-1">'. $linkbox->title .'</div>';
 			if($linkbox->picture != "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
 			}
-			if($linkbox->article_id > 0) {
+			if($url != "") {
 				print '</a>';
 			}
 			if($show_teaser && $linkbox->teaser != '') {

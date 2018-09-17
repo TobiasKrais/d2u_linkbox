@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2-DEV:</p>
 <ul>
+	<li>Link zu Dokumenten aus dem Medienpool möglich.</li>
 	<li>Modul hinzugefügt: D2U Linkbox - Slider.</li>
 	<li>Modul hinzugefügt: D2U Linkbox - Farbboxen mit seitlichem Bild.</li>
 	<li>Bugfix: Speichern Linkbox ohne Artikellink schlug fehl.</li>
