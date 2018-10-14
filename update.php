@@ -25,18 +25,14 @@ if(class_exists('D2UModuleManager')) {
 $sql = rex_sql::factory();
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'priority';");
 if($sql->getRows() == 0) {
-	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
-		. "ADD priority INT(10) NULL DEFAULT NULL AFTER online_status;");
-	
-	$sql->setQuery("DROP FUNCTION IF EXISTS `getPriority`;");
-	$sql->setQuery("delimiter $$
-		CREATE FUNCTION `getPriority`() RETURNS int(11) DETERMINISTIC
-		begin
-			return if(@myPrio, @myPrio:=@myPrio+1, @myPrio:=1);
-		end$$
-		delimiter ;");
-	$sql->setQuery("UPDATE ". \rex::getTablePrefix() ."d2u_linkbox SET priority = getPriority() ORDER BY `box_id`;");
-	$sql->setQuery("DROP FUNCTION IF EXISTS `getPriority`;");
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox ADD priority INT(10) NULL DEFAULT NULL AFTER online_status;");
+	$sql->setQuery("SELECT box_id FROM `". \rex::getTablePrefix() ."d2u_linkbox` ORDER BY name;");
+	$update_sql = rex_sql::factory();
+	for($i = 1; $i <= $sql->getRows(); $i++) {
+		$update_sql->setQuery("UPDATE `". \rex::getTablePrefix() ."d2u_linkbox` SET priority = ". $i ." WHERE box_id = ". $sql->getValue('box_id') .";");
+		$sql->next();
+	}
+
 }
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'background_color';");
 if($sql->getRows() == 0) {
