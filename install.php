@@ -4,7 +4,7 @@ $sql = rex_sql::factory();
 $sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkbox` (
 	`box_id` int(10) unsigned NOT NULL auto_increment,
 	`picture` varchar(255) collate utf8_general_ci default NULL,
-	`background_color` varchar(6) collate utf8_general_ci default NULL,
+	`background_color` varchar(7) collate utf8_general_ci default NULL,
 	`link_type` varchar(10) collate utf8_general_ci default NULL,
 	`article_id` int(10) default NULL,
 	`document` varchar(255) collate utf8_general_ci default NULL,

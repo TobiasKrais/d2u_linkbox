@@ -30,6 +30,7 @@ else {
 
 		foreach($linkboxes as $linkbox) {
 			print '<div class="col-12 col-sm-6 col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
+			$url = "";
 			if($linkbox->link_type == "document" && $linkbox->document != "") {
 				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
 			}
@@ -37,7 +38,11 @@ else {
 				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
 			}
 			print  $url;
-			print '<div class="linkbox">';
+			$bg_color = "";
+			if($linkbox->background_color != "") {
+				$bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+			}
+			print '<div class="linkbox"'. $bg_color .'>';
 			if($linkbox->picture != "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
 			}

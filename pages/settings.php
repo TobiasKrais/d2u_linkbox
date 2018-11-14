@@ -21,7 +21,7 @@ if (filter_input(INPUT_POST, "btn_save") == 'save') {
 				<div class="panel-body-wrapper slide">
 					<?php
 						$options_sort = ['name' => rex_i18n::msg('d2u_helper_name'), 'priority' => rex_i18n::msg('header_priority')];
-						d2u_addon_backend_helper::form_select('d2u_helper_translations_sort', 'settings[default_sort]', $options_sort, [$this->getConfig('default_sort')]);
+						d2u_addon_backend_helper::form_select('d2u_helper_sort', 'settings[default_sort]', $options_sort, [$this->getConfig('default_sort')]);
 					?>
 				</div>
 			</fieldset>

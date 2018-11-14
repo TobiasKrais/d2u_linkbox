@@ -8,8 +8,15 @@
 .linkbox-title {
 	color: #212529;
 	font-size: 1.25em;
-	margin: 0.5em 0;
+	padding: 0.5em 0;
 }
 .linkbox img {
 	border: 1px solid article_color_h;
+}
+.linkbox:hover img {
+	height: auto;
+	-webkit-transition: all 0.2s ease-out;
+	opacity: 0.7;
+    transition: all 0.2s ease-out;
+	width: 100%;
 }

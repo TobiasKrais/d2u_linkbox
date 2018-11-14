@@ -50,6 +50,9 @@ if($sql->getRows() == 0) {
 		. "ADD document VARCHAR(255) NULL DEFAULT NULL AFTER link_type;");
 }
 
+// 1.2.1 Update
+$sql->setQuery("ALTER TABLE `". \rex::getTablePrefix() ."d2u_linkbox` CHANGE `background_color` `background_color` VARCHAR(7) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+
 // Standard settings
 if (!$this->hasConfig()) {
     $this->setConfig('default_sort', "name");
