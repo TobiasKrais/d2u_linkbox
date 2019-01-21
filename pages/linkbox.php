@@ -177,10 +177,24 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								else {
 									print '<input type="hidden" name="form[lang]['. $rex_clang->getId() .'][translation_needs_update]" value="">';
 								}
-								
-								d2u_addon_backend_helper::form_input('d2u_linkbox_title', "form[lang][". $rex_clang->getId() ."][title]", $linkbox->title, $required, $readonly_lang);
-								d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, FALSE, $readonly_lang, FALSE)
 							?>
+							<script>
+								// Hide on document load
+								$(document).ready(function() {
+									toggleClangDetailsView(<?php print $rex_clang->getId(); ?>);
+								});
+
+								// Hide on selection change
+								$("select[name='form[lang][1][translation_needs_update]']").on('change', function(e) {
+									toggleClangDetailsView(<?php print $rex_clang->getId(); ?>);
+								});
+							</script>
+							<div id="details_clang_<?php print $rex_clang->getId(); ?>">
+								<?php
+									d2u_addon_backend_helper::form_input('d2u_linkbox_title', "form[lang][". $rex_clang->getId() ."][title]", $linkbox->title, $required, $readonly_lang);
+									d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, FALSE, $readonly_lang, FALSE)
+								?>
+							</div>
 						</div>
 					</fieldset>
 				<?php

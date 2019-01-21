@@ -14,4 +14,4 @@ page:
 
 requires:
     packages:
-        d2u_helper: '>=1.4.3'
+        d2u_helper: '>=1.5.5'
