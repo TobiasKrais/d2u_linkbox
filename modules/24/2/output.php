@@ -19,7 +19,7 @@ else {
 	// Ausgabe im FRONTEND
 	if($category !== FALSE) {
 		print '<div class="col-12 abstand">';
-		print '<div class="row">';
+		print '<div class="row" data-match-height>';
 		$linkboxes = $category->getLinkboxes(TRUE);
 
 		if($heading != "") {
@@ -30,6 +30,13 @@ else {
 
 		foreach($linkboxes as $linkbox) {
 			print '<div class="col-12 col-sm-6 col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
+
+			$bg_color = "";
+			if($linkbox->background_color != "") {
+				$bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+			}
+			print '<div class="linkbox"'. $bg_color .'  data-height-watch>';
+
 			$url = "";
 			if($linkbox->link_type == "document" && $linkbox->document != "") {
 				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
@@ -38,11 +45,8 @@ else {
 				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
 			}
 			print  $url;
-			$bg_color = "";
-			if($linkbox->background_color != "") {
-				$bg_color = ' style="background-color: '. $linkbox->background_color .'"';
-			}
-			print '<div class="linkbox"'. $bg_color .'>';
+			
+			print '<div class="linkbox-inner">';
 			if($linkbox->picture != "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
 			}
@@ -50,10 +54,10 @@ else {
 			if($show_teaser && $linkbox->teaser != '') {
 				print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
 			}
-			print '</div>'; // class="linkbox"
 			if($url != "") {
-				print '</a>';
+				print '</div></a>';
 			}
+			print '</div>'; // class="linkbox"
 			print '</div>'; // class="col...
 		}
 		
