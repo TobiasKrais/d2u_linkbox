@@ -1,4 +1,5 @@
 .linkbox {
+	hyphens: auto;
     position: relative;
 }
 .linkbox-spacer {

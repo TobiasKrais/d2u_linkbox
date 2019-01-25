@@ -2,6 +2,9 @@
 	text-align: center;
 }
 
+.linkbox {
+	hyphens: auto;
+}
 .linkbox-spacer {
 	margin: 1em 0;
 }

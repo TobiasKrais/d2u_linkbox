@@ -20,3 +20,6 @@
     transition: all 0.2s ease-out;
 	width: 100%;
 }
+.linkbox {
+	hyphens: auto;
+}
