@@ -30,6 +30,10 @@ $d2u_module_manager->showManagerList();
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
+<p>1.2.2:</p>
+<ul>
+	<li>Konvertierung der Datenbanktabellen zu utf8mb4.</li>
+</ul>
 <p>1.2.1:</p>
 <ul>
 	<li>Modul 24-2: div mit Klasse "linkbox" jetzt außerhalb des Links.</li>

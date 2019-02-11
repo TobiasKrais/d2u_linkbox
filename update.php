@@ -51,9 +51,14 @@ if($sql->getRows() == 0) {
 }
 
 // 1.2.1 Update
-$sql->setQuery("ALTER TABLE `". \rex::getTablePrefix() ."d2u_linkbox` CHANGE `background_color` `background_color` VARCHAR(7) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;");
+$sql->setQuery("ALTER TABLE `". \rex::getTablePrefix() ."d2u_linkbox` CHANGE `background_color` `background_color` VARCHAR(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;");
 
 // Standard settings
 if (!$this->hasConfig()) {
     $this->setConfig('default_sort', "name");
 }
+
+// Update database to 1.2.2
+$sql->setQuery("ALTER TABLE `". rex::getTablePrefix() ."d2u_linkbox` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+$sql->setQuery("ALTER TABLE `". rex::getTablePrefix() ."d2u_linkbox_lang` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+$sql->setQuery("ALTER TABLE `". rex::getTablePrefix() ."d2u_linkbox_categories` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
