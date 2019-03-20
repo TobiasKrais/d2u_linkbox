@@ -50,7 +50,7 @@ else {
 			if($linkbox->picture != "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
 			}
-			print '<div class="linkbox-title">'. $linkbox->title .'</div>';
+			print '<div class="linkbox-title"><h2>'. $linkbox->title .'</h2></div>';
 			if($show_teaser && $linkbox->teaser != '') {
 				print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
 			}

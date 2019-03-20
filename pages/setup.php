@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2.2:</p>
 <ul>
+	<li>Modul 24-2: Überschrift ist jetzt h2.</li>
 	<li>Konvertierung der Datenbanktabellen zu utf8mb4.</li>
 </ul>
 <p>1.2.1:</p>
