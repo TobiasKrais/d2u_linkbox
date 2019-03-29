@@ -30,8 +30,9 @@ $d2u_module_manager->showManagerList();
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
-<p>1.2.2:</p>
+<p>1.2.2-DEV:</p>
 <ul>
+	<li>Listen im Backend werden jetzt nicht mehr in Seiten unterteilt.</li>
 	<li>Modul 24-2: Überschrift ist jetzt h2.</li>
 	<li>Konvertierung der Datenbanktabellen zu utf8mb4.</li>
 </ul>
