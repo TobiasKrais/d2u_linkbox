@@ -36,9 +36,19 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $document = "";
 	
 	/**
-	 * @var string Redaxo article ID for link
+	 * @var int Redaxo article ID for link
 	 */
 	var $article_id = 0;
+	
+	/**
+	 * @var int ID for link to data (e.g. machine_id) from D2U Addons
+	 */
+	var $link_addon_id = 0;
+	
+	/**
+	 * @var string external URL
+	 */
+	var $external_url = "";
 	
 	/**
 	 * @var string Online status "online" or "offline".
@@ -71,6 +81,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $translation_needs_update = "delete";
 	
 	/**
+	 * @var string link
+	 */
+	private $link = "";
+	
+	/**
 	 * Constructor
 	 * @param int $box_id Linkbox ID.
 	 * @param int $clang_id Redaxo language ID
@@ -91,6 +106,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->link_type = $result->getValue("link_type");
 				$this->article_id = $result->getValue("article_id");
 				$this->document = $result->getValue("document");
+				$this->link_addon_id = $result->getValue("link_addon_id");
+				$this->external_url = $result->getValue("external_url");
 				$this->title = $result->getValue("title");
 				$this->teaser = $result->getValue("teaser");
 				$this->picture = $result->getValue("picture");
@@ -208,7 +225,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		
 		return $linkbox;
 	}
-	
+
 	/**
 	 * Get objects concerning translation updates
 	 * @param int $clang_id Redaxo language ID
@@ -244,6 +261,46 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
     }
 	
 	/**
+	 * Get link
+	 * @return string Link URL
+	 */
+	public function getUrl() {
+		if($this->link != "") {
+			return $this->link;
+		}
+
+		if($this->link_type == "document" && $this->document != "") {
+			$this->link = rex_url::media($this->document);
+		}
+		else if($this->link_type == "article" && $this->article_id > 0) {
+			$this->link = rex_getUrl($this->article_id);
+		}
+		else if($this->link_type == "url" && $this->external_url != "") {
+			$this->link = $this->external_url;
+		}
+		else if($this->link_type == "d2u_immo_property" && $this->link_addon_id > 0 && rex_addon::get('d2u_immo')->isAvailable()) {
+			$property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
+			$this->link = $property->getURL();
+		}
+		else if($this->link_addon_id > 0 && rex_addon::get('d2u_machinery')->isAvailable()) {
+			if($this->link_type == "d2u_immo_property" && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+				$industry_sector = new \IndustrySector($this->link_addon_id, $this->clang_id);
+				$this->link = $industry_sector->getURL();
+			}
+			elseif ($this->link_type == "d2u_machinery_machine") {
+				$machine = new \Machine($this->link_addon_id, $this->clang_id);
+				$this->link = $machine->getURL();
+			}
+			if($this->link_type == "d2u_machinery_used_machine" && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+				$used_machine = new \UsedMachine($this->link_addon_id, $this->clang_id);
+				$this->link = $used_machine->getURL();
+			}
+		}
+		
+		return $this->link;
+	}
+	
+	/**
 	 * Updates or inserts the object into database.
 	 * @return boolean TRUE if successful
 	 */
@@ -263,6 +320,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 					."link_type = '". $this->link_type ."', "
 					."article_id = ". ($this->article_id > 0 ? $this->article_id : 0) .", "
 					."document = '". $this->document ."', "
+					."link_addon_id = ". ($this->link_addon_id > 0 ? $this->link_addon_id : 0) .", "
+					."external_url = '". $this->external_url ."', "
 					."category_ids = '|". implode("|", array_keys($this->categories)) ."|', "
 					."picture = '". $this->picture ."', "
 					."background_color = '". $this->background_color ."', "

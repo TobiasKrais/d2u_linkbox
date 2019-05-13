@@ -7,16 +7,16 @@ if(class_exists('D2UModuleManager')) {
 	$modules = [];
 	$modules[] = new D2UModule("24-1",
 		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
-		3);
+		4);
 	$modules[] = new D2UModule("24-2",
 		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
-		3);
+		4);
 	$modules[] = new D2UModule("24-3",
 		"D2U Linkbox - Farbboxen mit seitlichem Bild",
-		1);
+		2);
 	$modules[] = new D2UModule("24-4",
 		"D2U Linkbox - Slider",
-		1);
+		2);
 	$d2u_module_manager = new D2UModuleManager($modules, "", "d2u_linkbox");
 	$d2u_module_manager->autoupdate();
 }
@@ -42,7 +42,7 @@ if($sql->getRows() == 0) {
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'link_type';");
 if($sql->getRows() == 0) {
 	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
-		. "ADD link_type VARCHAR(10) NULL DEFAULT NULL AFTER background_color;");
+		. "ADD link_type VARCHAR(50) NULL DEFAULT NULL AFTER background_color;");
 }
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'document';");
 if($sql->getRows() == 0) {
@@ -62,3 +62,14 @@ if (!$this->hasConfig()) {
 $sql->setQuery("ALTER TABLE `". rex::getTablePrefix() ."d2u_linkbox` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
 $sql->setQuery("ALTER TABLE `". rex::getTablePrefix() ."d2u_linkbox_lang` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
 $sql->setQuery("ALTER TABLE `". rex::getTablePrefix() ."d2u_linkbox_categories` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
+$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox CHANGE link_type link_type VARCHAR(50) NULL DEFAULT NULL;");
+$sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'link_addon_id';");
+if($sql->getRows() == 0) {
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
+		. "ADD link_addon_id INT(10) NULL DEFAULT NULL AFTER document;");
+}
+$sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'external_url';");
+if($sql->getRows() == 0) {
+	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox "
+		. "ADD external_url VARCHAR(255) NULL DEFAULT NULL AFTER link_addon_id;");
+}

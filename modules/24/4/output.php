@@ -54,12 +54,9 @@ else {
 			}
 			print '" style="background-image: url('. rex_url::media($linkbox->picture) .')">';
 			
-			$url = "";
-			if($linkbox->link_type == "document" && $linkbox->document != "") {
-				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
-			}
-			else if($linkbox->article_id > 0) {
-				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			$url = $linkbox->getUrl();
+			if($url != "") {
+				$url = '<a href="'. $url .'" target="_blank">';
 			}
 			print  $url;
 			print '<div class="linkbox-mod-4"'. ($linkbox->background_color != '' ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
@@ -92,4 +89,3 @@ else {
 		print '</div>';
 	}
 }
-?>

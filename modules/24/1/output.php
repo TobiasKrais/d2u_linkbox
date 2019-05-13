@@ -32,11 +32,9 @@ else {
 			print '<div class="col-12 col-sm-6 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
 			print '<div class="linkbox-outer">';
 			print '<div class="linkbox">';
-			if($linkbox->link_type == "document" && $linkbox->document != "") {
-				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
-			}
-			else if($linkbox->article_id > 0) {
-				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			$url = $linkbox->getUrl();
+			if($url != "") {
+				$url = '<a href="'. $url .'" target="_blank">';
 			}
 			print  $url;
 			print '<div class="linkbox-title-lk-mod-1">'. $linkbox->title .'</div>';
@@ -58,4 +56,3 @@ else {
 		print '</div>';
 	}
 }
-?>

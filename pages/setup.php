@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2.2-DEV:</p>
 <ul>
+	<li>Links können jetzt auch externen URLs und direkt zu Maschinen des D2U Machinery Addons und D2U Immo Addons gesetzt werden.</li>
 	<li>Listen im Backend werden jetzt nicht mehr in Seiten unterteilt.</li>
 	<li>Modul 24-2: Überschrift ist jetzt h2.</li>
 	<li>Konvertierung der Datenbanktabellen zu utf8mb4.</li>

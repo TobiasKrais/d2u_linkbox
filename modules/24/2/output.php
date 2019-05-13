@@ -37,12 +37,9 @@ else {
 			}
 			print '<div class="linkbox"'. $bg_color .'  data-height-watch>';
 
-			$url = "";
-			if($linkbox->link_type == "document" && $linkbox->document != "") {
-				$url = '<a href="'. rex_url::media($linkbox->document) .'" target="_blank">';
-			}
-			else if($linkbox->article_id > 0) {
-				$url = '<a href="'. rex_getUrl($linkbox->article_id) .'">';
+			$url = $linkbox->getUrl();
+			if($url != "") {
+				$url = '<a href="'. $url .'" target="_blank">';
 			}
 			print  $url;
 			
@@ -65,4 +62,3 @@ else {
 		print '</div>';
 	}
 }
-?>
