@@ -30,7 +30,7 @@ $d2u_module_manager->showManagerList();
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
-<p>1.2.2-DEV:</p>
+<p>1.2.2:</p>
 <ul>
 	<li>Links können jetzt auch externen URLs und direkt zu Maschinen des D2U Machinery Addons und D2U Immo Addons gesetzt werden.</li>
 	<li>Listen im Backend werden jetzt nicht mehr in Seiten unterteilt.</li>
