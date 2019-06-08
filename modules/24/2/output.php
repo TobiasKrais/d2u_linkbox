@@ -52,8 +52,9 @@ else {
 				print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
 			}
 			if($url != "") {
-				print '</div></a>';
+				print '</a>';
 			}
+			print '</div>'; // class="linkbox-inner"
 			print '</div>'; // class="linkbox"
 			print '</div>'; // class="col...
 		}
