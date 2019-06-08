@@ -7,16 +7,16 @@ if(class_exists('D2UModuleManager')) {
 	$modules = [];
 	$modules[] = new D2UModule("24-1",
 		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
-		4);
+		5);
 	$modules[] = new D2UModule("24-2",
 		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
-		4);
+		5);
 	$modules[] = new D2UModule("24-3",
 		"D2U Linkbox - Farbboxen mit seitlichem Bild",
-		2);
+		3);
 	$modules[] = new D2UModule("24-4",
 		"D2U Linkbox - Slider",
-		2);
+		3);
 	$d2u_module_manager = new D2UModuleManager($modules, "", "d2u_linkbox");
 	$d2u_module_manager->autoupdate();
 }

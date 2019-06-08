@@ -5,13 +5,14 @@
 	color: #212529;
 	flex: 1 0 auto;
 }
+.linkbox-title {
+	padding: 0.5em 1em;
+}
 .linkbox-title h2 {
 	color: #212529;
 	font-size: 1.25em;
-	padding: 0.5em 0;
-}
-.linkbox img {
-	border: 1px solid article_color_h;
+	margin: 0;
+	padding: 0;
 }
 .linkbox:hover img {
 	height: auto;
@@ -22,4 +23,7 @@
 }
 .linkbox {
 	hyphens: auto;
+}
+.linkbox a:hover {
+	text-decoration: none;
 }

@@ -32,7 +32,8 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2.3:</p>
 <ul>
-	<li>...</li>
+	<li>Eingabefelder aller Module in Redaxo Style dargestellt.</li>
+	<li>Modul 24-2: Standardhintergrundfarbe statt Schwarz ein leichtes Grau. Standardrahmen um Bild entfernt.</li>
 </ul>
 <p>1.2.2:</p>
 <ul>
