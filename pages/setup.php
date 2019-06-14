@@ -30,8 +30,9 @@ $d2u_module_manager->showManagerList();
 <p>Fehlermeldungen bitte über das Kontaktformular unter
 	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
 <h2>Changelog</h2>
-<p>1.2.3:</p>
+<p>1.2.3-DEV:</p>
 <ul>
+	<li>Bugfix: Fatal Error bei Medienverlinkung in neuer Linkbox::getUrl() Methode.</li>
 	<li>Eingabefelder aller Module in Redaxo Style dargestellt.</li>
 	<li>Modul 24-2: Standardhintergrundfarbe statt Schwarz ein leichtes Grau. Standardrahmen um Bild entfernt.</li>
 </ul>

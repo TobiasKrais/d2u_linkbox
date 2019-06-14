@@ -270,7 +270,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		}
 
 		if($this->link_type == "document" && $this->document != "") {
-			$this->link = rex_url::media($this->document);
+			$this->link = \rex_url::media($this->document);
 		}
 		else if($this->link_type == "url" && $this->external_url != "") {
 			$this->link = $this->external_url;
