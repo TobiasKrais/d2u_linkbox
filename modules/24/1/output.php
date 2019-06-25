@@ -34,7 +34,7 @@ else {
 			print '<div class="linkbox">';
 			$url = $linkbox->getUrl();
 			if($url != "") {
-				$url = '<a href="'. $url .'" target="_blank">';
+				$url = '<a href="'. $url .'">';
 			}
 			print  $url;
 			print '<div class="linkbox-title-lk-mod-1">'. $linkbox->title .'</div>';

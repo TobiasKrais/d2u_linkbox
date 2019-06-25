@@ -34,6 +34,7 @@ $d2u_module_manager->showManagerList();
 <ul>
 	<li>Bugfix: Fatal Error bei Medienverlinkung in neuer Linkbox::getUrl() Methode.</li>
 	<li>Eingabefelder aller Module in Redaxo Style dargestellt.</li>
+	<li>Alle Module: Links öffnen nicht mehr in neuem Fenster.</li>
 	<li>Modul 24-2: Standardhintergrundfarbe statt Schwarz ein leichtes Grau. Standardrahmen um Bild entfernt.</li>
 </ul>
 <p>1.2.2:</p>

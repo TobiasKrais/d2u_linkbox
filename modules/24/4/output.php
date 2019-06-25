@@ -56,7 +56,7 @@ else {
 			
 			$url = $linkbox->getUrl();
 			if($url != "") {
-				$url = '<a href="'. $url .'" target="_blank">';
+				$url = '<a href="'. $url .'">';
 			}
 			print  $url;
 			print '<div class="linkbox-mod-4"'. ($linkbox->background_color != '' ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';

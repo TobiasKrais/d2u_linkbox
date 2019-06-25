@@ -39,7 +39,7 @@ else {
 
 			$url = $linkbox->getUrl();
 			if($url != "") {
-				$url = '<a href="'. $url .'" target="_blank">';
+				$url = '<a href="'. $url .'">';
 			}
 			print  $url;
 			
