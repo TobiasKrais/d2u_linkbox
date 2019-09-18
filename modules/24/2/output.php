@@ -4,6 +4,7 @@ $category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang:
 $heading = "REX_VALUE[2]";
 $box_per_line = "REX_VALUE[3]";
 $show_teaser = "REX_VALUE[4]" == 'true' ? TRUE : FALSE;
+$picture_type = "REX_VALUE[5]" == '' ? 'd2u_helper_sm' : "REX_VALUE[5]";
 
 if(rex::isBackend()) {
 	// Ausgabe im BACKEND	
@@ -29,7 +30,9 @@ else {
 		}
 
 		foreach($linkboxes as $linkbox) {
-			print '<div class="col-12 col-sm-6 col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') .' linkbox-spacer">';
+			print '<div class="col-12 col-sm-6 '
+				. ($box_per_line > 2 ? 'col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') : '')
+				.' linkbox-spacer">';
 
 			$bg_color = "";
 			if($linkbox->background_color != "") {
@@ -45,7 +48,16 @@ else {
 			
 			print '<div class="linkbox-inner">';
 			if($linkbox->picture != "") {
-				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
+				$media = rex_media::get($linkbox->picture);
+				$html_picture = '<img src="';
+				if($picture_type == "") {
+					$html_picture .= rex_url::media($linkbox->picture);
+				}
+				else {
+					$html_picture .= 'index.php?rex_media_type='. $picture_type .'&rex_media_file='. $linkbox->picture;
+				}
+				$html_picture .= '" alt="'. $media->getValue('title') .'" title="'. $media->getValue('title') .'">';
+				print $html_picture;
 			}
 			print '<div class="linkbox-title"><h2>'. $linkbox->title .'</h2></div>';
 			if($show_teaser && $linkbox->teaser != '') {
