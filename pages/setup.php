@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2.3-DEV:</p>
 <ul>
+	<li>Bugfix: Fatal Error wenn D2U Maschinen Addon ohne aktiviertem industry_sectors Plugin installiert war.</li>
 	<li>Bugfix: Fatal Error bei Medienverlinkung in neuer Linkbox::getUrl() Methode.</li>
 	<li>Eingabefelder aller Module in Redaxo Style dargestellt.</li>
 	<li>Alle Module: Links öffnen nicht mehr in neuem Fenster.</li>

@@ -158,7 +158,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								d2u_addon_backend_helper::form_select('d2u_immo_property', 'form[d2u_immo_property_id]', $options_immo, [($linkbox->link_type == "d2u_immo_property" ? $linkbox->link_addon_id : "")], 1, FALSE, $readonly);
 							}
 							if(rex_addon::get('d2u_machinery')->isAvailable()) {
-								if(rex_plugin::get('d2u_machinery', 'industry_sectors')) {
+								if(rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
 									$options_industry_sectors = [];
 									$industry_sectors = IndustrySector::getAll(rex_clang::getCurrentId(), TRUE);
 									foreach($industry_sectors as $industry_sector)  {
