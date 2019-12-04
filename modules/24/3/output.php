@@ -39,9 +39,10 @@ else {
 
 			// Picture
 			$picture = '<div class="col-12 col-md-6 picbox-'. $pic_orientation .'-outer">';
-			if($linkbox->picture != "") {
+			if($linkbox->picture != "" || $linkbox->picture_lang != "") {
 				$picture .= '<div class="picbox-'. $pic_orientation .'-inner">';
-				$picture .= '<div><img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'"'. ($linkbox->background_color != '' ? ' style="border: 1px solid '. $linkbox->background_color .'"' : '') .'></div>';
+				$picture .= '<div><img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. ($linkbox->picture_lang != "" ? $linkbox->picture_lang : $linkbox->picture)
+					.'"'. ($linkbox->background_color != '' ? ' style="border: 1px solid '. $linkbox->background_color .'"' : '') .'></div>';
 				$picture .= '<div class="border-lb-mod-3"'. ($linkbox->background_color != '' ? ' style="border-color:'. $linkbox->background_color .'"' : '') .'></div>';
 				$picture .=  '</div>';
 			}

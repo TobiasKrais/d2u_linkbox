@@ -54,6 +54,9 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 		}
 		$linkbox->title = $form['lang'][$rex_clang->getId()]['title'];
 		$linkbox->teaser = $form['lang'][$rex_clang->getId()]['teaser'];
+		$linkbox->picture_lang = $input_media['picture_lang'. $rex_clang->getId()];
+		$linkbox->document_lang = $input_media['document_lang'. $rex_clang->getId()];
+		$linkbox->external_url_lang = $form['lang'][$rex_clang->getId()]['external_url_lang'];
 		$linkbox->translation_needs_update = $form['lang'][$rex_clang->getId()]['translation_needs_update'];
 		
 		if($linkbox->translation_needs_update == "delete") {
@@ -181,48 +184,6 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 									d2u_addon_backend_helper::form_select('d2u_machinery_used_machines_machine', 'form[d2u_machinery_used_machine_id]', $options_used_machines, [($linkbox->link_type == "d2u_machinery_used_machine" ? $linkbox->link_addon_id : "")], 1, FALSE, $readonly);
 								}
 							}
-						?>
-						<script>
-							function changeType() {
-								$('#LINK_1').hide();
-								$('#MEDIA_2').hide();
-								$('#form\\[external_url\\]').hide();
-								$('#form\\[d2u_immo_property_id\\]').hide();
-								$('#form\\[d2u_machinery_industry_sector_id\\]').hide();
-								$('#form\\[d2u_machinery_machine_id\\]').hide();
-								$('#form\\[d2u_machinery_used_machine_id\\]').hide();
-								
-								if($('select[name="form\\[link_type\\]"]').val() === "article") {
-									$('#LINK_1').show();
-								}
-								else if($('select[name="form\\[link_type\\]"]').val() === "document") {
-									$('#MEDIA_2').show();
-								}
-								else if($('select[name="form\\[link_type\\]"]').val() === "url") {
-									$('#form\\[external_url\\]').show();
-								}
-								else if($('select[name="form\\[link_type\\]"]').val() === "d2u_immo_property") {
-									$('#form\\[d2u_immo_property_id\\]').show();
-								}
-								else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_industry_sector") {
-									$('#form\\[d2u_machinery_industry_sector_id\\]').show();
-								}
-								else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_machine") {
-									$('#form\\[d2u_machinery_machine_id\\]').show();
-								}
-								else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_used_machine") {
-									$('#form\\[d2u_machinery_used_machine_id\\]').show();
-								}
-							}
-							
-							// On init
-							changeType();
-							// On change
-							$('select[name="form\\[link_type\\]"]').on('change', function() {
-								changeType();
-							});
-						</script>
-						<?php
 							$options_categories = [];
 							foreach(D2U_Linkbox\Category::getAll(rex_config::get('d2u_helper', 'default_lang'), FALSE) as $category) {
 								$options_categories[$category->category_id] = $category->name;
@@ -272,7 +233,10 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 							<div id="details_clang_<?php print $rex_clang->getId(); ?>">
 								<?php
 									d2u_addon_backend_helper::form_input('d2u_linkbox_title', "form[lang][". $rex_clang->getId() ."][title]", $linkbox->title, $required, $readonly_lang);
-									d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, FALSE, $readonly_lang, FALSE)
+									d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, FALSE, $readonly_lang, FALSE);
+									d2u_addon_backend_helper::form_mediafield('d2u_linkbox_picture_lang', 'picture_lang'. $rex_clang->getId(), $linkbox->picture_lang, $readonly_lang);
+									d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document_lang', 'document_lang'. $rex_clang->getId(), $linkbox->document_lang, $readonly_lang);
+									d2u_addon_backend_helper::form_input('d2u_linkbox_external_url_lang', "form[lang][". $rex_clang->getId() ."][external_url_lang]", $linkbox->external_url, FALSE, $readonly_lang);
 								?>
 							</div>
 						</div>
@@ -281,6 +245,62 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 					}
 				?>
 			</div>
+			<script>
+				function changeType() {
+					$('#LINK_1').hide();
+					$('#MEDIA_2').hide();
+					<?php
+					foreach(rex_clang::getAll() as $rex_clang) {
+						print "$('#MEDIA_document_lang". $rex_clang->getId() ."').hide();";
+						print "$('#form\\\\[lang\\\\]\\\\[". $rex_clang->getId() ."\\\\]\\\\[external_url_lang\\\\]').hide();";
+					}
+					?>
+					$('#form\\[external_url\\]').hide();
+					$('#form\\[d2u_immo_property_id\\]').hide();
+					$('#form\\[d2u_machinery_industry_sector_id\\]').hide();
+					$('#form\\[d2u_machinery_machine_id\\]').hide();
+					$('#form\\[d2u_machinery_used_machine_id\\]').hide();
+
+					if($('select[name="form\\[link_type\\]"]').val() === "article") {
+						$('#LINK_1').show();
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "document") {
+						$('#MEDIA_2').show();
+						<?php
+						foreach(rex_clang::getAll() as $rex_clang) {
+							print "$('#MEDIA_document_lang". $rex_clang->getId() ."').show();";
+						}
+						?>
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "url") {
+						$('#form\\[external_url\\]').show();
+						<?php
+						foreach(rex_clang::getAll() as $rex_clang) {
+							print "$('#form\\\\[lang\\\\]\\\\[". $rex_clang->getId() ."\\\\]\\\\[external_url_lang\\\\]').show();";
+						}
+						?>
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_immo_property") {
+						$('#form\\[d2u_immo_property_id\\]').show();
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_industry_sector") {
+						$('#form\\[d2u_machinery_industry_sector_id\\]').show();
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_machine") {
+						$('#form\\[d2u_machinery_machine_id\\]').show();
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_used_machine") {
+						$('#form\\[d2u_machinery_used_machine_id\\]').show();
+					}
+				}
+
+				// On init
+				changeType();
+				// On change
+				$('select[name="form\\[link_type\\]"]').on('change', function() {
+					changeType();
+				});
+			</script>
 			<footer class="panel-footer">
 				<div class="rex-form-panel-footer">
 					<div class="btn-toolbar">
@@ -321,7 +341,7 @@ if ($func == '') {
     $tdIcon = '<i class="rex-icon fa-window-maximize"></i>';
  	$thIcon = "";
 	if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
-		$thIcon = '<a href="' . $list->getUrl(['func' => 'add']) . '" title="' . rex_i18n::msg('add') . '"><i class="rex-icon rex-icon-add-module"></i></a>';
+		$thIcon = '<a href="'. $list->getUrl(['func' => 'add']) .'" title="'. rex_i18n::msg('add') .'"><i class="rex-icon rex-icon-add-module"></i></a>';
 	}
     $list->addColumn($thIcon, $tdIcon, 0, ['<th class="rex-table-icon">###VALUE###</th>', '<td class="rex-table-icon">###VALUE###</td>']);
     $list->setColumnParams($thIcon, ['func' => 'edit', 'entry_id' => '###box_id###']);

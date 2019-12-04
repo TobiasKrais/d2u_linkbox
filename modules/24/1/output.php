@@ -38,8 +38,9 @@ else {
 			}
 			print  $url;
 			print '<div class="linkbox-title-lk-mod-1">'. $linkbox->title .'</div>';
-			if($linkbox->picture != "") {
-				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. $linkbox->picture .'">';
+			if($linkbox->picture != "" || $linkbox->picture_lang != "") {
+				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
+					($linkbox->picture_lang != "" ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. $linkbox->title .'">';
 			}
 			if($url != "") {
 				print '</a>';

@@ -1,10 +1,13 @@
 d2u_linkbox = D2U Linkbox
 d2u_linkbox_background_color = Hintergrundfarbe
 d2u_linkbox_document = Dokument aus Medienpool
+d2u_linkbox_document_lang = Dokument aus Medienpool (überschreibt allg. Dokument)
 d2u_linkbox_external_url = Externe URL
+d2u_linkbox_external_url_lang = Externe URL (überschreibt allg. URL)
 d2u_linkbox_linkbox = Linkbox
 d2u_linkbox_linktype = Link zu ...
 d2u_linkbox_no_linkboxes_found = Es wurden keine Linkboxen angelegt
+d2u_linkbox_picture_lang = Bild (überschreibt allg. Bild)
 d2u_linkbox_title = Überschrift
 d2u_linkbox_teaser = Kurztext
 

@@ -47,14 +47,15 @@ else {
 			print  $url;
 			
 			print '<div class="linkbox-inner">';
-			if($linkbox->picture != "") {
-				$media = rex_media::get($linkbox->picture);
+			if($linkbox->picture != "" || $linkbox->picture_lang != "") {
+				$picture = $linkbox->picture_lang != "" ? $linkbox->picture_lang : $linkbox->picture;
+				$media = rex_media::get($picture);
 				$html_picture = '<img src="';
 				if($picture_type == "") {
-					$html_picture .= rex_url::media($linkbox->picture);
+					$html_picture .= rex_url::media($picture);
 				}
 				else {
-					$html_picture .= 'index.php?rex_media_type='. $picture_type .'&rex_media_file='. $linkbox->picture;
+					$html_picture .= 'index.php?rex_media_type='. $picture_type .'&rex_media_file='. $picture;
 				}
 				$html_picture .= '" alt="'. $media->getValue('title') .'" title="'. $media->getValue('title') .'">';
 				print $html_picture;

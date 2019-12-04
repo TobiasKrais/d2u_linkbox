@@ -21,20 +21,21 @@ $d2u_module_manager->showManagerList();
 ?>
 <h2>Beispielseiten D2U Linkbox Addon</h2>
 <ul>
-	<li><a href="https://www.kaltenbach.com/de/" target="_blank">
-		www.kaltenbach.com</a></li>
 	<li><a href="https://www.inotec-gmbh.com/" target="_blank">
 		www.inotec-gmbh.com</a></li>
+	<li><a href="https://www.kaltenbach.com/de/" target="_blank">
+		www.kaltenbach.com</a></li>
 </ul>
 <h2>Support</h2>
-<p>Fehlermeldungen bitte über das Kontaktformular unter
-	<a href="https://www.design-to-use.de" target="_blank">www.design-to-use.de</a> melden.</p>
+<p>Fehlermeldungen bitte im <a href="https://github.com/TobiasKrais/d2u_linkbox/" target="_blank">GitHub Repository</a> melden</p>
 <h2>Changelog</h2>
 <p>1.2.3-DEV:</p>
 <ul>
+	<li>Backend: Einstellungen und Setup Tabs rechts eingeordnet um sie vom Inhalt besser zu unterscheiden.</li>
 	<li>Bugfix: Fatal Error wenn D2U Maschinen Addon ohne aktiviertem industry_sectors Plugin installiert war.</li>
 	<li>Bugfix: Fatal Error bei Medienverlinkung in neuer Linkbox::getUrl() Methode.</li>
 	<li>Eingabefelder aller Module in Redaxo Style dargestellt.</li>
+	<li>Eingabe sprachspezifischer Bilder, Dokumente und externe URLs für jede Linkbox möglich.</li>
 	<li>Alle Module: Links öffnen nicht mehr in neuem Fenster.</li>
 	<li>Modul 24-2: Standardhintergrundfarbe statt Schwarz ein leichtes Grau. Standardrahmen um Bild entfernt. Auch nur 2 Boxen pro Reihe möglich.</li>
 	<li>Modul 24-2: Media Manager Typ ist jetzt auswählbar.</li>

@@ -20,6 +20,9 @@ $sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkb
 	`clang_id` int(10) NOT NULL,
 	`title` varchar(255) collate utf8mb4_unicode_ci default NULL,
 	`teaser` text collate utf8mb4_unicode_ci default NULL,
+	`picture_lang` varchar(255) collate utf8mb4_unicode_ci default NULL,
+	`document_lang` varchar(255) collate utf8mb4_unicode_ci default NULL,
+	`external_url_lang` varchar(255) collate utf8mb4_unicode_ci default NULL,
 	`translation_needs_update` varchar(7) collate utf8mb4_unicode_ci default NULL,
 	PRIMARY KEY (`box_id`, `clang_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;");

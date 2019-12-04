@@ -52,7 +52,7 @@ else {
 				print ' active';
 				$slide_is_active = FALSE;
 			}
-			print '" style="background-image: url('. rex_url::media($linkbox->picture) .')">';
+			print '" style="background-image: url('. rex_url::media($linkbox->picture_lang != "" ? $linkbox->picture_lang : $linkbox->picture) .')">';
 			
 			$url = $linkbox->getUrl();
 			if($url != "") {

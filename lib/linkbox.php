@@ -21,6 +21,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $picture = "";
 	
 	/**
+	 * @var string Language specific preview picture file name 
+	 */
+	var $picture_lang = "";
+	
+	/**
 	 * @var string Background color (hex)
 	 */
 	var $background_color = "";
@@ -31,9 +36,14 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	var $link_type = "";
 	
 	/**
-	 * @var string Document filename
+	 * @var string Document file name
 	 */
 	var $document = "";
+	
+	/**
+	 * @var string Language specific document file name
+	 */
+	var $document_lang = "";
 	
 	/**
 	 * @var int Redaxo article ID for link
@@ -49,6 +59,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	 * @var string external URL
 	 */
 	var $external_url = "";
+	
+	/**
+	 * @var string Language specific external URL
+	 */
+	var $external_url_lang = "";
 	
 	/**
 	 * @var string Online status "online" or "offline".
@@ -106,11 +121,14 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->link_type = $result->getValue("link_type");
 				$this->article_id = $result->getValue("article_id");
 				$this->document = $result->getValue("document");
+				$this->document_lang = $result->getValue("document_lang");
 				$this->link_addon_id = $result->getValue("link_addon_id");
 				$this->external_url = $result->getValue("external_url");
+				$this->external_url_lang = $result->getValue("external_url_lang");
 				$this->title = $result->getValue("title");
 				$this->teaser = $result->getValue("teaser");
 				$this->picture = $result->getValue("picture");
+				$this->picture_lang = $result->getValue("picture_lang");
 				$this->background_color = $result->getValue("background_color");
 				$this->priority = $result->getValue("priority");
 				$category_ids = preg_grep('/^\s*$/s', explode("|", $result->getValue("category_ids")), PREG_GREP_INVERT);
@@ -269,11 +287,11 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 			return $this->link;
 		}
 
-		if($this->link_type == "document" && $this->document != "") {
-			$this->link = \rex_url::media($this->document);
+		if($this->link_type == "document" && ($this->document != "" || $this->document_lang != "")) {
+			$this->link = \rex_url::media($this->document_lang != "" ? $this->document_lang : $this->document);
 		}
-		else if($this->link_type == "url" && $this->external_url != "") {
-			$this->link = $this->external_url;
+		else if($this->link_type == "url" && ($this->external_url != "" || $this->external_url_lang != "")) {
+			$this->link = $this->external_url_lang != "" ? $this->external_url_lang : $this->external_url;
 		}
 		else if($this->link_type == "d2u_immo_property" && $this->link_addon_id > 0 && rex_addon::get('d2u_immo')->isAvailable()) {
 			$property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
@@ -349,6 +367,9 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$query = "REPLACE INTO ". \rex::getTablePrefix() ."d2u_linkbox_lang SET "
 						."box_id = '". $this->box_id ."', "
 						."clang_id = '". $this->clang_id ."', "
+						."picture_lang = '". $this->picture_lang ."', "
+						."document_lang = '". $this->document_lang ."', "
+						."external_url_lang = '". $this->external_url_lang ."', "
 						."title = '". $this->title ."', "
 						."teaser = '". $this->teaser ."', "
 						."translation_needs_update = '". $this->translation_needs_update ."' ";
