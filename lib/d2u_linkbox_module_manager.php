@@ -19,7 +19,7 @@ class D2ULinkboxModules {
 			7);
 		$modules[] = new D2UModule("24-3",
 			"D2U Linkbox - Farbboxen mit seitlichem Bild",
-			4);
+			5);
 		$modules[] = new D2UModule("24-4",
 			"D2U Linkbox - Slider",
 			4);

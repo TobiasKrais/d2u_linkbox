@@ -1,4 +1,15 @@
 <?php
+$cols = "REX_VALUE[20]";
+if($cols == "") {
+	$cols = 8;
+}
+
+$offset_lg_cols = intval("REX_VALUE[17]");
+$offset_lg = "";
+if($offset_lg_cols > 0) {
+	$offset_lg = " mr-lg-auto ml-lg-auto ";
+}
+
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
 $category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : FALSE;
 $heading = "REX_VALUE[2]";
@@ -14,7 +25,7 @@ if(rex::isBackend()) {
 else {
 	// Ausgabe im FRONTEND
 	if($category !== FALSE) {
-		print '<div class="col-12 abstand">';
+		print '<div class="col-12 col-lg-'. $cols . $offset_lg .' abstand">';
 		$linkboxes = $category->getLinkboxes(TRUE);
 
 		if($heading != "") {

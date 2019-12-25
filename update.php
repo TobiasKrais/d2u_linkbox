@@ -10,7 +10,7 @@ if(class_exists('D2UModuleManager')) {
 		7);
 	$modules[] = new D2UModule("24-3",
 		"D2U Linkbox - Farbboxen mit seitlichem Bild",
-		4);
+		5);
 	$modules[] = new D2UModule("24-4",
 		"D2U Linkbox - Slider",
 		4);
@@ -24,7 +24,7 @@ if(class_exists('D2UModuleManager')) {
     ->ensureColumn(new \rex_sql_column('picture_lang', 'VARCHAR(255)'))
     ->ensureColumn(new \rex_sql_column('document_lang', 'VARCHAR(255)'))
     ->ensureColumn(new \rex_sql_column('external_url_lang', 'VARCHAR(255)'))
-    ->ensure();
+    ->alter();
 
 \rex_sql_table::get(\rex::getTable('d2u_linkbox'))
     ->ensureColumn(new \rex_sql_column('background_color', 'VARCHAR(7)'))
@@ -32,7 +32,7 @@ if(class_exists('D2UModuleManager')) {
     ->ensureColumn(new \rex_sql_column('link_addon_id', 'INT(10)'))
     ->ensureColumn(new \rex_sql_column('external_url', 'VARCHAR(255)'))
     ->ensureColumn(new \rex_sql_column('document', 'VARCHAR(255)'))
-    ->ensure();
+    ->alter();
 
 // 1.2 Update database
 $sql = rex_sql::factory();
