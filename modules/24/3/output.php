@@ -1,7 +1,7 @@
 <?php
 $cols = "REX_VALUE[20]";
 if($cols == "") {
-	$cols = 8;
+	$cols = 12;
 }
 
 $offset_lg_cols = intval("REX_VALUE[17]");
