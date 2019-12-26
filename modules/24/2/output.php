@@ -38,7 +38,7 @@ else {
 			if($linkbox->background_color != "") {
 				$bg_color = ' style="background-color: '. $linkbox->background_color .'"';
 			}
-			print '<div class="linkbox"'. $bg_color .'  data-height-watch>';
+			print '<div class="linkbox"'. $bg_color .' data-height-watch>';
 
 			$url = $linkbox->getUrl();
 			if($url != "") {
