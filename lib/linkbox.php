@@ -336,9 +336,9 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		if($this->box_id == 0 || $pre_save_linkbox != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox SET "
 					."link_type = '". $this->link_type ."', "
-					."article_id = ". ($this->article_id > 0 ? $this->article_id : 0) .", "
+					."article_id = ". ($this->article_id ?: 0) .", "
 					."document = '". $this->document ."', "
-					."link_addon_id = ". ($this->link_addon_id > 0 ? $this->link_addon_id : 0) .", "
+					."link_addon_id = ". ($this->link_addon_id ?: 0) .", "
 					."external_url = '". $this->external_url ."', "
 					."category_ids = '|". implode("|", array_keys($this->categories)) ."|', "
 					."picture = '". $this->picture ."', "
