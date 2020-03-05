@@ -99,7 +99,7 @@ else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
 	
 	$func = '';
 }
-// Change online status of category
+// Change online status
 else if($func == 'changestatus') {
 	$box_id = $entry_id;
 	$linkbox = new D2U_Linkbox\Linkbox($box_id, rex_config::get("d2u_helper", "default_lang"));
