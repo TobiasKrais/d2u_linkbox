@@ -311,6 +311,10 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->link = $used_machine->getURL();
 			}
 		}
+		else if($this->link_type == "d2u_courses_category" && $this->link_addon_id > 0 && rex_addon::get('d2u_courses')->isAvailable()) {
+			$category = new \D2U_Courses\Category($this->link_addon_id);
+			$this->link = $category->getURL();
+		}
 		else if(($this->link_type == "" || $this->link_type == "article") && $this->article_id > 0) {
 			$this->link = rex_getUrl($this->article_id);
 		}

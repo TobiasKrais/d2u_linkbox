@@ -41,6 +41,9 @@ if (filter_input(INPUT_POST, "btn_save") == 1 || filter_input(INPUT_POST, "btn_a
 			else if($linkbox->link_type == "d2u_machinery_used_machine") {
 				$linkbox->link_addon_id = $form['d2u_machinery_used_machine_id'];
 			}
+			if(rex_addon::get('d2u_courses')->isAvailable()) {
+				$linkbox->link_addon_id = $form['d2u_courses_category_id'];
+			}
 			$category_ids = isset($form['category_ids']) ? $form['category_ids'] : [];
 			$linkbox->categories = [];
 			foreach ($category_ids as $category_id) {
@@ -148,6 +151,9 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 									$options_link["d2u_machinery_used_machine"] = rex_i18n::msg('d2u_machinery_meta_title') .": ". rex_i18n::msg('d2u_machinery_used_machines_machine');
 								}
 							}
+							if(rex_addon::get('d2u_courses')->isAvailable()) {
+								$options_link["d2u_courses_category"] = rex_i18n::msg('d2u_courses') .": ". rex_i18n::msg('d2u_helper_category');
+							}
 							d2u_addon_backend_helper::form_select('d2u_linkbox_linktype', 'form[link_type]', $options_link, [$linkbox->link_type], 1, FALSE, $readonly);
 							d2u_addon_backend_helper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, rex_config::get("d2u_helper", "default_lang"));
 							d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document', '2', $linkbox->document, $readonly);
@@ -184,6 +190,15 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 									d2u_addon_backend_helper::form_select('d2u_machinery_used_machines_machine', 'form[d2u_machinery_used_machine_id]', $options_used_machines, [($linkbox->link_type == "d2u_machinery_used_machine" ? $linkbox->link_addon_id : "")], 1, FALSE, $readonly);
 								}
 							}
+							if(rex_addon::get('d2u_courses')->isAvailable()) {
+								$options_course_categories = [];
+								$course_categories = \D2U_Courses\Category::getAll();
+								foreach($course_categories as $category)  {
+									$options_course_categories[$category->category_id] = ($category->parent_category ? ($category->parent_category->parent_category ? $category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->name ." → " : "" ). $category->name;
+								}
+								d2u_addon_backend_helper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, [($linkbox->link_type == "d2u_courses_category" ? $linkbox->link_addon_id : "")], 1, FALSE, $readonly);
+							}
+
 							$options_categories = [];
 							foreach(D2U_Linkbox\Category::getAll(rex_config::get('d2u_helper', 'default_lang'), FALSE) as $category) {
 								$options_categories[$category->category_id] = $category->name;
@@ -260,6 +275,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 					$('#form\\[d2u_machinery_industry_sector_id\\]').hide();
 					$('#form\\[d2u_machinery_machine_id\\]').hide();
 					$('#form\\[d2u_machinery_used_machine_id\\]').hide();
+					$('#form\\[d2u_courses_category_id\\]').hide();
 
 					if($('select[name="form\\[link_type\\]"]').val() === "article") {
 						$('#LINK_1').show();
@@ -291,6 +307,9 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 					}
 					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_used_machine") {
 						$('#form\\[d2u_machinery_used_machine_id\\]').show();
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_courses_category") {
+						$('#form\\[d2u_courses_category_id\\]').show();
 					}
 				}
 
