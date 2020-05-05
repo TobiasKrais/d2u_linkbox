@@ -31,6 +31,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2.4-DEV:</p>
 <ul>
+	<li>In der Linkbox Liste werden jetzt die Namen der Kategorien angezeigt.</li>
 	<li>Es können nun auch Links zu Veranstaltungskategorien aus dem D2U Veranstaltungen Addon gesetzt werden.</li>
 	<li>Modul 24-3: Für große Bildschirme kann nun die Breit eingestellt werden.</li>
 </ul>

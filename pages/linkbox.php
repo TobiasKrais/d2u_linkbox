@@ -372,6 +372,15 @@ if ($func == '') {
     $list->setColumnParams('title', ['func' => 'edit', 'entry_id' => '###box_id###']);
 
 	$list->setColumnLabel('category_ids', rex_i18n::msg('d2u_helper_categories'));
+	$list->setColumnFormat('category_ids', 'custom', function ($params) {
+		$list_params = $params['list'];
+		$cat_names = [];
+		foreach(preg_grep('/^\s*$/s', explode("|", $list_params->getValue('category_ids')), PREG_GREP_INVERT) as $category_id) {
+			$category = new D2U_Linkbox\Category($category_id, rex_config::get("d2u_helper", "default_lang"));
+			$cat_names[] = $category ? $category->name : '';
+		}
+		return implode(', ', $cat_names);
+	});
 
 	$list->setColumnLabel('priority', rex_i18n::msg('header_priority'));
 
