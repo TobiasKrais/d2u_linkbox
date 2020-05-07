@@ -293,12 +293,12 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		else if($this->link_type == "url" && ($this->external_url != "" || $this->external_url_lang != "")) {
 			$this->link = $this->external_url_lang != "" ? $this->external_url_lang : $this->external_url;
 		}
-		else if($this->link_type == "d2u_immo_property" && $this->link_addon_id > 0 && rex_addon::get('d2u_immo')->isAvailable()) {
+		else if($this->link_type == "d2u_immo_property" && $this->link_addon_id > 0 && \rex_addon::get('d2u_immo')->isAvailable()) {
 			$property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
 			$this->link = $property->getURL();
 		}
-		else if($this->link_addon_id > 0 && rex_addon::get('d2u_machinery')->isAvailable()) {
-			if($this->link_type == "d2u_immo_property" && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+		else if($this->link_addon_id > 0 && \rex_addon::get('d2u_machinery')->isAvailable()) {
+			if($this->link_type == "d2u_immo_property" && \rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
 				$industry_sector = new \IndustrySector($this->link_addon_id, $this->clang_id);
 				$this->link = $industry_sector->getURL();
 			}
@@ -306,17 +306,17 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$machine = new \Machine($this->link_addon_id, $this->clang_id);
 				$this->link = $machine->getURL();
 			}
-			if($this->link_type == "d2u_machinery_used_machine" && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+			if($this->link_type == "d2u_machinery_used_machine" && \rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
 				$used_machine = new \UsedMachine($this->link_addon_id, $this->clang_id);
 				$this->link = $used_machine->getURL();
 			}
 		}
-		else if($this->link_type == "d2u_courses_category" && $this->link_addon_id > 0 && rex_addon::get('d2u_courses')->isAvailable()) {
+		else if($this->link_type == "d2u_courses_category" && $this->link_addon_id > 0 && \rex_addon::get('d2u_courses')->isAvailable()) {
 			$category = new \D2U_Courses\Category($this->link_addon_id);
 			$this->link = $category->getURL();
 		}
 		else if(($this->link_type == "" || $this->link_type == "article") && $this->article_id > 0) {
-			$this->link = rex_getUrl($this->article_id);
+			$this->link = \rex_getUrl($this->article_id);
 		}
 		
 		return $this->link;
