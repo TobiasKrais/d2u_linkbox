@@ -194,7 +194,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								$options_course_categories = [];
 								$course_categories = \D2U_Courses\Category::getAll();
 								foreach($course_categories as $category)  {
-									$options_course_categories[$category->category_id] = ($category->parent_category ? ($category->parent_category->parent_category ? $category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->name ." → " : "" ). $category->name;
+									$options_course_categories[$category->category_id] = ($category->parent_category ? ($category->parent_category->parent_category ? ($category->parent_category->parent_category->parent_category ? $category->parent_category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->name ." → " : "" ). $category->name;
 								}
 								d2u_addon_backend_helper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, [($linkbox->link_type == "d2u_courses_category" ? $linkbox->link_addon_id : "")], 1, FALSE, $readonly);
 							}
@@ -251,7 +251,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 									d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', "form[lang][". $rex_clang->getId() ."][teaser]", $linkbox->teaser, 3, FALSE, $readonly_lang, FALSE);
 									d2u_addon_backend_helper::form_mediafield('d2u_linkbox_picture_lang', 'picture_lang'. $rex_clang->getId(), $linkbox->picture_lang, $readonly_lang);
 									d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document_lang', 'document_lang'. $rex_clang->getId(), $linkbox->document_lang, $readonly_lang);
-									d2u_addon_backend_helper::form_input('d2u_linkbox_external_url_lang', "form[lang][". $rex_clang->getId() ."][external_url_lang]", $linkbox->external_url, FALSE, $readonly_lang);
+									d2u_addon_backend_helper::form_input('d2u_linkbox_external_url_lang', "form[lang][". $rex_clang->getId() ."][external_url_lang]", $linkbox->external_url_lang, FALSE, $readonly_lang);
 								?>
 							</div>
 						</div>
