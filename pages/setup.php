@@ -33,6 +33,7 @@ $d2u_module_manager->showManagerList();
 <ul>
 	<li>In der Linkbox Liste werden jetzt die Namen der Kategorien angezeigt.</li>
 	<li>Es können nun auch Links zu Veranstaltungskategorien aus dem D2U Veranstaltungen Addon gesetzt werden.</li>
+	<li>Modul 24-2: Breite des gesamten Modul Outputs kann nun eingestellt werden.</li>
 	<li>Modul 24-3: Für große Bildschirme kann nun die Breit eingestellt werden.</li>
 </ul>
 <p>1.2.3:</p>

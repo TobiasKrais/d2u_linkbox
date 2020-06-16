@@ -1,4 +1,22 @@
 <?php
+$cols_sm = "REX_VALUE[20]";
+if($cols_sm == "") {
+	$cols_sm = 12;
+}
+$cols_md = "REX_VALUE[19]";
+if($cols_md == "") {
+	$cols_md = 12;
+}
+$cols_lg = "REX_VALUE[18]";
+if($cols_lg == "") {
+	$cols_lg = 12;
+}
+$offset_lg_cols = intval("REX_VALUE[17]");
+$offset_lg = "";
+if($offset_lg_cols > 0) {
+	$offset_lg = " mr-lg-auto ml-lg-auto ";
+}
+
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
 $category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : FALSE;
 $heading = "REX_VALUE[2]";
@@ -19,7 +37,7 @@ if(rex::isBackend()) {
 else {
 	// Ausgabe im FRONTEND
 	if($category !== FALSE) {
-		print '<div class="col-12 abstand">';
+		print '<div class="col-12 col-sm-'. $cols_sm .' col-md-'. $cols_md .' col-lg-'. $cols_lg . $offset_lg .'" abstand>';
 		print '<div class="row" data-match-height>';
 		$linkboxes = $category->getLinkboxes(TRUE);
 
