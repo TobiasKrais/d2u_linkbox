@@ -31,7 +31,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.2.5-DEV:</p>
 <ul>
-	<li>...</li>
+	<li>Modul 24-2: Optional kann nun auch nur das Bild ohne Text ausgegeben werden.</li>
 </ul>
 <p>1.2.4:</p>
 <ul>

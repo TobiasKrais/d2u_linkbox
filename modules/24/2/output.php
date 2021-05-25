@@ -22,6 +22,7 @@ $category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang:
 $heading = "REX_VALUE[2]";
 $box_per_line = "REX_VALUE[3]";
 $show_teaser = "REX_VALUE[4]" == 'true' ? TRUE : FALSE;
+$picture_only = "REX_VALUE[6]" == 'true' ? TRUE : FALSE;
 $picture_type = "REX_VALUE[5]" == '' ? 'd2u_helper_sm' : "REX_VALUE[5]";
 
 if(rex::isBackend()) {
@@ -78,9 +79,11 @@ else {
 				$html_picture .= '" alt="'. $media->getValue('title') .'" title="'. $media->getValue('title') .'">';
 				print $html_picture;
 			}
-			print '<div class="linkbox-title"><h2>'. $linkbox->title .'</h2></div>';
-			if($show_teaser && $linkbox->teaser != '') {
-				print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
+			if(!$picture_only) {
+				print '<div class="linkbox-title"><h2>'. $linkbox->title .'</h2></div>';
+				if($show_teaser && $linkbox->teaser != '') {
+					print '<div class="linkbox-teaser">'. nl2br($linkbox->teaser) .'</div>';
+				}
 			}
 			if($url != "") {
 				print '</a>';
