@@ -155,17 +155,6 @@
 </div>
 <div class="row">
 	<div class="col-xs-4">
-		<input type="checkbox" name="REX_INPUT_VALUE[4]" value="true" <?php echo "REX_VALUE[4]" == 'true' ? ' checked="checked"' : ''; ?> style="float: right;" />
-	</div>
-	<div class="col-xs-8">
-		Teaser / Kurztext unterhalb der Überschriften anzeigen?<br />
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-12">&nbsp;</div>
-</div>
-<div class="row">
-	<div class="col-xs-4">
 		<input type="checkbox" name="REX_INPUT_VALUE[6]" value="true" <?php echo "REX_VALUE[6]" == 'true' ? ' checked="checked"' : ''; ?> style="float: right;" />
 	</div>
 	<div class="col-xs-8">
@@ -175,6 +164,36 @@
 <div class="row">
 	<div class="col-xs-12">&nbsp;</div>
 </div>
+<div class="row">
+	<div class="col-xs-4">
+		<input type="checkbox" name="REX_INPUT_VALUE[4]" value="true" <?php echo "REX_VALUE[4]" == 'true' ? ' checked="checked"' : ''; ?> style="float: right;" />
+	</div>
+	<div class="col-xs-8">
+		Teaser / Kurztext unterhalb der Überschriften anzeigen?<br />
+	</div>
+	<div class="col-xs-12">&nbsp;</div>
+</div>
+<script>
+	function pic_only_changer() {
+		if ($("input[name='REX_INPUT_VALUE[6]']").is(':checked')) {
+			$("input[name='REX_INPUT_VALUE[4]']").parent().parent().slideUp();
+		}
+		else {
+			$("input[name='REX_INPUT_VALUE[4]']").parent().parent().slideDown();
+		}
+	}
+
+	// Hide on document load
+	$(document).ready(function() {
+		pic_only_changer();
+	});
+
+	// Hide on selection change
+	$("input[name='REX_INPUT_VALUE[6]']").on('change', function(e) {
+		pic_only_changer();
+	});
+</script>
+
 <div class="row">
 	<div class="col-xs-4">
 		Anzuwendender Media Manager Typ:
