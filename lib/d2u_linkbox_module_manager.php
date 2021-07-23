@@ -23,6 +23,9 @@ class D2ULinkboxModules {
 		$modules[] = new D2UModule("24-4",
 			"D2U Linkbox - Slider",
 			4);
+		$modules[] = new D2UModule("24-5",
+			"D2U Linkbox - Linkboxen mit Text neben dem Bild",
+			1);
 		return $modules;
 	}
 }
