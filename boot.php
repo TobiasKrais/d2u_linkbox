@@ -33,8 +33,7 @@ function rex_d2u_linkbox_article_is_in_use(rex_extension_point $ep) {
 
 	// Linkbox Warnings
 	for($i = 0; $i < $sql->getRows(); $i++) {
-		$message = '<a href="javascript:openPage(\'index.php?page=d2u_linkbox/linkbox&func=edit&entry_id='.
-			$sql->getValue('box_id') .'\')">'. rex_i18n::msg('d2u_linkbox') .': '. $sql->getValue('name') .'</a>';
+		$message = '<a href="'. rex_url::backendPage('d2u_linkbox', ['func' => 'edit', 'entry_id' => $sql->getValue('box_id')]) .'">'. rex_i18n::msg('d2u_linkbox') .': '. $sql->getValue('title') .'</a>';
 		$warning[] = $message;
     }
 	
@@ -85,8 +84,7 @@ function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep) {
 
 	// Linkbox Warnings
 	for($i = 0; $i < $sql->getRows(); $i++) {
-		$message = '<a href="javascript:openPage(\'index.php?page=d2u_linkbox/linkbox&func=edit&entry_id='.
-			$sql->getValue('box_id') .'\')">'. rex_i18n::msg('d2u_linkbox') .': '. $sql->getValue('title') .'</a>';
+		$message = '<a href="javascript:openPage(\''. rex_url::backendPage('d2u_linkbox', ['entry_id' => $sql->getValue('box_id'), 'func' => 'edit']) .'\')">'. rex_i18n::msg('d2u_linkbox') .': '. $sql->getValue('title') .'</a>';
 		$warning[] = $message;
     }
 
