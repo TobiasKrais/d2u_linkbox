@@ -4,7 +4,7 @@ if(class_exists('D2UModuleManager')) {
 	$modules = [];
 	$modules[] = new D2UModule("24-1",
 		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
-		6);
+		7);
 	$modules[] = new D2UModule("24-2",
 		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
 		8);

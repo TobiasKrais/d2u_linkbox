@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <p>1.2.5-DEV:</p>
 <ul>
 	<li>Bugfix: Link beim Löschen von Artikeln war falsch gesetzt.</li>
+	<li>Modul 24-1 und 24-2: bessere Darstellung von Checkboen im Backend.</li>
 	<li>Modul 24-2: Optional kann nun auch nur das Bild ohne Text ausgegeben werden.</li>
 	<li>Neues Modul 24-5: "D2U Linkbox - Linkboxen mit Text neben dem Bild".</li>
 </ul>
