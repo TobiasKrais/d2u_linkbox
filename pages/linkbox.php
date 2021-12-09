@@ -346,7 +346,7 @@ if ($func == '') {
 	$query = 'SELECT linkbox.box_id, title, category_ids, priority, online_status '
 		. 'FROM '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
 		. 'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
-			. 'ON linkbox.box_id = lang.box_id AND lang.clang_id = '. rex_config::get("d2u_helper", "default_lang") .' ';
+			. 'ON linkbox.box_id = lang.box_id AND lang.clang_id = '. rex_config::get("d2u_helper", "default_lang", rex_clang::getStartId()) .' ';
 	if($this->getConfig('default_sort') == 'priority') {
 		$query .= 'ORDER BY priority ASC';
 	}
