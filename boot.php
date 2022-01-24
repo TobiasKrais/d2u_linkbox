@@ -35,6 +35,7 @@ function rex_d2u_linkbox_article_is_in_use(rex_extension_point $ep) {
 	for($i = 0; $i < $sql->getRows(); $i++) {
 		$message = '<a href="'. rex_url::backendPage('d2u_linkbox', ['func' => 'edit', 'entry_id' => $sql->getValue('box_id')]) .'">'. rex_i18n::msg('d2u_linkbox') .': '. $sql->getValue('title') .'</a>';
 		$warning[] = $message;
+		$sql->next();
     }
 	
 	if(count($warning) > 0) {
