@@ -87,6 +87,7 @@ function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep) {
 	for($i = 0; $i < $sql->getRows(); $i++) {
 		$message = '<a href="javascript:openPage(\''. rex_url::backendPage('d2u_linkbox', ['entry_id' => $sql->getValue('box_id'), 'func' => 'edit']) .'\')">'. rex_i18n::msg('d2u_linkbox') .': '. $sql->getValue('title') .'</a>';
 		$warning[] = $message;
+		$sql->next();
     }
 
 	return $warning;
