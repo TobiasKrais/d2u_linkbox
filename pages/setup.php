@@ -29,13 +29,13 @@ $d2u_module_manager->showManagerList();
 <h2>Support</h2>
 <p>Fehlermeldungen bitte im <a href="https://github.com/TobiasKrais/d2u_linkbox/" target="_blank">GitHub Repository</a> melden</p>
 <h2>Changelog</h2>
-<p>1.2.5-DEV:</p>
+<p>1.2.5:</p>
 <ul>
 	<li>Anpassungen an Publish Github Release to Redaxo.</li>
 	<li>Bugfix: Link beim Löschen von Artikeln war falsch gesetzt.</li>
 	<li>Bugfix: Beim Löschen von Bildern konnte es zu einem Fehler kommen.</li>
 	<li>Bugfix: Beim Löschen von Artikeln und Medien die vom Addon verlinkt werden wurde der Name der verlinkenden Quelle in der Warnmeldung nicht immer korrekt angegeben.</li>
-	<li>Modul 24-1 und 24-2: bessere Darstellung von Checkboen im Backend.</li>
+	<li>Modul 24-1 und 24-2: bessere Darstellung von Checkboxen im Backend.</li>
 	<li>Modul 24-2: Optional kann nun auch nur das Bild ohne Text ausgegeben werden.</li>
 	<li>Neues Modul 24-5: "D2U Linkbox - Linkboxen mit Text neben dem Bild".</li>
 </ul>
