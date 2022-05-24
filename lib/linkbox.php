@@ -333,7 +333,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		$pre_save_linkbox = new Linkbox($this->box_id, $this->clang_id);
 
 		// save priority, but only if new or changed
-		if($this->priority != $pre_save_linkbox->priority || $this->property_id == 0) {
+		if($this->priority != $pre_save_linkbox->priority || $this->box_id == 0) {
 			$this->setPriority();
 		}
 
