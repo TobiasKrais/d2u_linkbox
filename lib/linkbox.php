@@ -125,8 +125,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->link_addon_id = $result->getValue("link_addon_id");
 				$this->external_url = $result->getValue("external_url");
 				$this->external_url_lang = $result->getValue("external_url_lang");
-				$this->title = $result->getValue("title");
-				$this->teaser = $result->getValue("teaser");
+				$this->title = stripslashes($result->getValue("title"));
+				$this->teaser = stripslashes($result->getValue("teaser"));
 				$this->picture = $result->getValue("picture");
 				$this->picture_lang = $result->getValue("picture_lang");
 				$this->background_color = $result->getValue("background_color");
@@ -374,8 +374,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 						."picture_lang = '". $this->picture_lang ."', "
 						."document_lang = '". $this->document_lang ."', "
 						."external_url_lang = '". $this->external_url_lang ."', "
-						."title = '". $this->title ."', "
-						."teaser = '". $this->teaser ."', "
+						."title = '". addslashes($this->title) ."', "
+						."teaser = '". addslashes($this->teaser) ."', "
 						."translation_needs_update = '". $this->translation_needs_update ."' ";
 				$result = \rex_sql::factory();
 				$result->setQuery($query);
