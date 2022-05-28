@@ -12,9 +12,9 @@ if($cols_lg == "") {
 	$cols_lg = 12;
 }
 $offset_lg_cols = intval("REX_VALUE[17]");
-$offset_lg = "";
+$offsetg = "";
 if($offset_lg_cols > 0) {
-	$offset_lg = " mr-lg-auto ml-lg-auto ";
+	$offset = " mr-md-auto ml-md-auto ";
 }
 
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
@@ -35,7 +35,7 @@ if(rex::isBackend()) {
 else {
 	// Ausgabe im FRONTEND
 	if($category !== FALSE) {
-		print '<div class="col-12 col-sm-'. $cols_sm .' col-md-'. $cols_md .' col-lg-'. $cols_lg . $offset_lg .' abstand">';
+		print '<div class="col-12 col-sm-'. $cols_sm .' col-md-'. $cols_md .' col-lg-'. $cols_lg . $offset .' abstand">';
 		print '<div class="row">';
 		$linkboxes = $category->getLinkboxes(TRUE);
 
