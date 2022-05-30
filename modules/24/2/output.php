@@ -49,7 +49,7 @@ else {
 		}
 
 		foreach($linkboxes as $linkbox) {
-			print '<div class="col-12 col-sm-6 '
+			print '<div class="col-'. ($show_teaser ? '12' : '6') .' col-sm-6 '
 				. ($box_per_line > 2 ? 'col-md-4 col-lg-'. ($box_per_line == 4 ? '3' : '4') : '')
 				.' linkbox-spacer">';
 
