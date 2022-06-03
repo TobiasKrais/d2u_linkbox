@@ -15,3 +15,6 @@ page:
 requires:
     packages:
         d2u_helper: '>=1.5.5'
+        
+installer_ignore:
+    - .github
