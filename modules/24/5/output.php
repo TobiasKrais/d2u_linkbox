@@ -12,7 +12,7 @@ if($cols_lg == "") {
 	$cols_lg = 12;
 }
 $offset_lg_cols = intval("REX_VALUE[17]");
-$offsetg = "";
+$offset = "";
 if($offset_lg_cols > 0) {
 	$offset = " mr-md-auto ml-md-auto ";
 }

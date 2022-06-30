@@ -33,6 +33,7 @@ $d2u_module_manager->showManagerList();
 <ul>
 	<li>.github Verzeichnis aus Installer Action ausgeschlossen.</li>
 	<li>Modul 24-2: auf kleinen Biildschirmen werden jetzt 2 Boxen nebeneinander angezeigt, wenn kein Teasertext angezeigt werden soll.</li>
+	<li>Modul 24-5 "D2U Linkbox - Linkboxen mit Text neben dem Bild": Tippfehler behoben.</li>
 	<li>Bugfix: 2 Felder waren beim Speichern einer Linkbox nicht korrekt escaped.</li>
 	<li>Bugfix: Prioritäten der Boxen wurde nicht immer korrekt gesetzt.</li>
 </ul>

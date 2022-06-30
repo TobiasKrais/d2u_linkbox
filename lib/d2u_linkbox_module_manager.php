@@ -25,7 +25,7 @@ class D2ULinkboxModules {
 			4);
 		$modules[] = new D2UModule("24-5",
 			"D2U Linkbox - Linkboxen mit Text neben dem Bild",
-			1);
+			2);
 		return $modules;
 	}
 }
