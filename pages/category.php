@@ -37,7 +37,7 @@ else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
 		$form = (array) rex_post('form', 'array', []);
 		$category_id = $form['category_id'];
 	}
-	$category = new D2U_Linkbox\Category($category_id, rex_config::get("d2u_helper", "default_lang"));
+	$category = new D2U_Linkbox\Category($category_id, intval(rex_config::get("d2u_helper", "default_lang")));
 
 	// Check if object is used
 	$uses_linkboxes = $category->getLinkboxes();
@@ -71,7 +71,7 @@ if ($func == 'edit' || $func == 'add') {
 					<div class="panel-body-wrapper slide">
 						<?php
 							// Do not use last object from translations, because you don't know if it exists in DB
-							$category = new D2U_Linkbox\Category($entry_id, rex_config::get("d2u_helper", "default_lang"));
+							$category = new D2U_Linkbox\Category($entry_id, intval(rex_config::get("d2u_helper", "default_lang")));
 
 							$readonly = TRUE;
 							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {

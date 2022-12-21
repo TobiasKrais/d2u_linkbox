@@ -96,7 +96,7 @@ else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
 		$form = (array) rex_post('form', 'array', []);
 		$box_id = $form['box_id'];
 	}
-	$linkbox = new D2U_Linkbox\Linkbox($box_id, rex_config::get("d2u_helper", "default_lang"));
+	$linkbox = new D2U_Linkbox\Linkbox($box_id, intval(rex_config::get("d2u_helper", "default_lang")));
 	$linkbox->box_id = $box_id; // Ensure correct ID in case language has no object
 	$linkbox->delete();
 	
@@ -105,7 +105,7 @@ else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
 // Change online status
 else if($func == 'changestatus') {
 	$box_id = $entry_id;
-	$linkbox = new D2U_Linkbox\Linkbox($box_id, rex_config::get("d2u_helper", "default_lang"));
+	$linkbox = new D2U_Linkbox\Linkbox($box_id, intval(rex_config::get("d2u_helper", "default_lang")));
 	$linkbox->box_id = $box_id; // Ensure correct ID in case language has no object
 	$linkbox->changeStatus();
 	
@@ -126,7 +126,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 					<div class="panel-body-wrapper slide">
 						<?php
 							// Do not use last object from translations, because you don't know if it exists in DB
-							$linkbox = new D2U_Linkbox\Linkbox($entry_id, rex_config::get("d2u_helper", "default_lang"));
+							$linkbox = new D2U_Linkbox\Linkbox($entry_id, intval(rex_config::get("d2u_helper", "default_lang")));
 							$readonly = TRUE;
 							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
 								$readonly = FALSE;
@@ -155,7 +155,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 								$options_link["d2u_courses_category"] = rex_i18n::msg('d2u_courses') .": ". rex_i18n::msg('d2u_helper_category');
 							}
 							d2u_addon_backend_helper::form_select('d2u_linkbox_linktype', 'form[link_type]', $options_link, [$linkbox->link_type], 1, FALSE, $readonly);
-							d2u_addon_backend_helper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, rex_config::get("d2u_helper", "default_lang"));
+							d2u_addon_backend_helper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, intval(rex_config::get("d2u_helper", "default_lang")));
 							d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document', '2', $linkbox->document, $readonly);
 							d2u_addon_backend_helper::form_input('d2u_linkbox_external_url', "form[external_url]", $linkbox->external_url, FALSE, $readonly);
 							if(rex_addon::get('d2u_immo')->isAvailable()) {
@@ -212,7 +212,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 				<?php
 					foreach(rex_clang::getAll() as $rex_clang) {
 						$linkbox = new D2U_Linkbox\Linkbox($entry_id, $rex_clang->getId());
-						$required = $rex_clang->getId() == rex_config::get("d2u_helper", "default_lang") ? TRUE : FALSE;
+						$required = $rex_clang->getId() === intval(rex_config::get("d2u_helper", "default_lang")) ? TRUE : FALSE;
 						
 						$readonly_lang = TRUE;
 						if(rex::getUser()->isAdmin() || (rex::getUser()->hasPerm('d2u_linkbox[edit_lang]') && rex::getUser()->getComplexPerm('clang')->hasPerm($rex_clang->getId()))) {
@@ -223,7 +223,7 @@ if ($func == 'edit' || $func == 'clone' || $func == 'add') {
 						<legend><?php echo rex_i18n::msg('d2u_helper_text_lang') .' "'. $rex_clang->getName() .'"'; ?></legend>
 						<div class="panel-body-wrapper slide">
 							<?php
-								if($rex_clang->getId() != rex_config::get("d2u_helper", "default_lang")) {
+								if($rex_clang->getId() !== intval(rex_config::get("d2u_helper", "default_lang"))) {
 									$options_translations = [];
 									$options_translations["yes"] = rex_i18n::msg('d2u_helper_translation_needs_update');
 									$options_translations["no"] = rex_i18n::msg('d2u_helper_translation_is_uptodate');
@@ -376,7 +376,7 @@ if ($func == '') {
 		$list_params = $params['list'];
 		$cat_names = [];
 		foreach(preg_grep('/^\s*$/s', explode("|", $list_params->getValue('category_ids')), PREG_GREP_INVERT) as $category_id) {
-			$category = new D2U_Linkbox\Category($category_id, rex_config::get("d2u_helper", "default_lang"));
+			$category = new D2U_Linkbox\Category($category_id, intval(rex_config::get("d2u_helper", "default_lang")));
 			$cat_names[] = $category ? $category->name : '';
 		}
 		return implode(', ', $cat_names);
