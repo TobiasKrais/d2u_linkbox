@@ -11,7 +11,7 @@ if($offset_lg_cols > 0) {
 }
 
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
-$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : FALSE;
+$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : false;
 $heading = "REX_VALUE[2]";
 
 if(rex::isBackend()) {
@@ -19,14 +19,14 @@ if(rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php print ($category !== FALSE ? $category->name : 'keine'); ?><br>
+	Gewählte Kategorie: <?php print ($category !== false ? $category->name : 'keine'); ?><br>
 <?php
 }
 else {
 	// Ausgabe im FRONTEND
-	if($category !== FALSE) {
+	if($category !== false) {
 		print '<div class="col-12 col-lg-'. $cols . $offset_lg .' abstand">';
-		$linkboxes = $category->getLinkboxes(TRUE);
+		$linkboxes = $category->getLinkboxes(true);
 
 		if($heading != "") {
 			print '<div class="row">';

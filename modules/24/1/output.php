@@ -1,26 +1,26 @@
 <?php
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
-$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : FALSE;
+$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : false;
 $heading = "REX_VALUE[2]";
 $box_per_line = "REX_VALUE[3]";
-$show_teaser = "REX_VALUE[4]" == 'true' ? TRUE : FALSE;
+$show_teaser = "REX_VALUE[4]" == 'true' ? true : false;
 
 if(rex::isBackend()) {
 	// Ausgabe im BACKEND	
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php print ($category !== FALSE ? $category->name : 'keine'); ?>
+	Gewählte Kategorie: <?php print ($category !== false ? $category->name : 'keine'); ?>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?php print $box_per_line; ?><br>
 	Teaser anzeigen: <?php print ($show_teaser ? 'Ja' : 'Nein'); ?><br>
 <?php
 }
 else {
 	// Ausgabe im FRONTEND
-	if($category !== FALSE) {
+	if($category !== false) {
 		print '<div class="col-12">';
 		print '<div class="row">';
-		$linkboxes = $category->getLinkboxes(TRUE);
+		$linkboxes = $category->getLinkboxes(true);
 
 		if($heading != "") {
 			print '<div class="col-12">';

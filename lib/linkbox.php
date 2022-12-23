@@ -147,8 +147,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	/**
 	 * Changes the online status of this object
 	 */
-	public function changeStatus() {
-		if($this->online_status == "online") {
+	public function changeStatus():void {
+		if($this->online_status === "online") {
 			if($this->box_id > 0) {
 				$query = "UPDATE ". \rex::getTablePrefix() ."d2u_linkbox "
 					."SET online_status = 'offline' "
@@ -172,10 +172,10 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	
 	/**
 	 * Deletes the object in all languages.
-	 * @param int $delete_all If TRUE, all translations and main object are deleted. If 
-	 * FALSE, only this translation will be deleted.
+	 * @param bool $delete_all If true, all translations and main object are deleted. If 
+	 * false, only this translation will be deleted.
 	 */
-	public function delete($delete_all = TRUE) {
+	public function delete($delete_all = true):void {
 		$query_lang = "DELETE FROM ". \rex::getTablePrefix() ."d2u_linkbox_lang "
 			."WHERE box_id = ". $this->box_id
 			. ($delete_all ? '' : ' AND clang_id = '. $this->clang_id) ;
@@ -194,7 +194,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 			$result->setQuery($query);
 
 			// reset priorities
-			$this->setPriority(TRUE);			
+			$this->setPriority(true);			
 		}
 	}
 	
@@ -211,10 +211,10 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	 * Get all linkboxes
 	 * @param int $clang_id Redaxo language ID
 	 * @param int $category_id Category ID if only linkbox of that category should be returned.
-	 * @param boolean $online_only If only online linkbox should be returned TRUE, otherwise FALSE
+	 * @param boolean $online_only If only online linkbox should be returned true, otherwise false
 	 * @return Linkbox[] Array with linkbox objects
 	 */
-	public static function getAll($clang_id, $category_id = 0, $online_only = TRUE) {
+	public static function getAll($clang_id, $category_id = 0, $online_only = true) {
 		$query = "SELECT lang.box_id FROM ". \rex::getTablePrefix() ."d2u_linkbox_lang AS lang "
 				."LEFT JOIN ". \rex::getTablePrefix() ."d2u_linkbox AS linkbox "
 					."ON lang.box_id = linkbox.box_id "
@@ -256,7 +256,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 					.'ON lang.box_id = main.box_id '
 				."WHERE clang_id = ". $clang_id ." AND translation_needs_update = 'yes' "
 				.'ORDER BY title';
-		if($type == 'missing') {
+		if($type === 'missing') {
 			$query = 'SELECT main.box_id FROM '. \rex::getTablePrefix() .'d2u_linkbox AS main '
 					.'LEFT JOIN '. \rex::getTablePrefix() .'d2u_linkbox_lang AS target_lang '
 						.'ON main.box_id = target_lang.box_id AND target_lang.clang_id = '. $clang_id .' '
@@ -324,20 +324,20 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	
 	/**
 	 * Updates or inserts the object into database.
-	 * @return boolean TRUE if successful
+	 * @return boolean true if successful
 	 */
 	public function save() {
-		$error = FALSE;
+		$error = false;
 
 		// Save the not language specific part
 		$pre_save_linkbox = new Linkbox($this->box_id, $this->clang_id);
 
 		// save priority, but only if new or changed
-		if($this->priority != $pre_save_linkbox->priority || $this->box_id == 0) {
+		if($this->priority != $pre_save_linkbox->priority || $this->box_id === 0) {
 			$this->setPriority();
 		}
 
-		if($this->box_id == 0 || $pre_save_linkbox != $this) {
+		if($this->box_id === 0 || $pre_save_linkbox != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox SET "
 					."link_type = '". $this->link_type ."', "
 					."article_id = ". ($this->article_id ?: 0) .", "
@@ -350,7 +350,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 					."priority = ". $this->priority .", "
 					."online_status = '". $this->online_status ."' ";
 
-			if($this->box_id == 0) {
+			if($this->box_id === 0) {
 				$query = "INSERT INTO ". $query;
 			}
 			else {
@@ -358,8 +358,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 			}
 			$result = \rex_sql::factory();
 			$result->setQuery($query);
-			if($this->box_id == 0) {
-				$this->box_id = $result->getLastId();
+			if($this->box_id === 0) {
+				$this->box_id = intval($result->getLastId());
 				$error = $result->hasError();
 			}
 		}
@@ -390,7 +390,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	 * Reassigns priorities in database.
 	 * @param boolean $delete Reorder priority after deletion
 	 */
-	private function setPriority($delete = FALSE) {
+	private function setPriority($delete = false):void {
 		// Pull prios from database
 		$query = "SELECT box_id, priority FROM ". \rex::getTablePrefix() ."d2u_linkbox "
 			."WHERE box_id <> ". $this->box_id ." ORDER BY priority";
@@ -404,7 +404,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		
 		// When prio is too high or was deleted, simply add at end 
 		if($this->priority > $result->getRows() || $delete) {
-			$this->priority = $result->getRows() + 1;
+			$this->priority = intval($result->getRows()) + 1;
 		}
 
 		$linkboxes = [];
@@ -417,7 +417,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		// Save all prios
 		foreach($linkboxes as $prio => $box_id) {
 			$query = "UPDATE ". \rex::getTablePrefix() ."d2u_linkbox "
-					."SET priority = ". ($prio + 1) ." " // +1 because array_splice recounts at zero
+					."SET priority = ". (intval($prio) + 1) ." " // +1 because array_splice recounts at zero
 					."WHERE box_id = ". $box_id;
 			$result = \rex_sql::factory();
 			$result->setQuery($query);

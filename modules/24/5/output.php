@@ -18,7 +18,7 @@ if($offset_lg_cols > 0) {
 }
 
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
-$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : FALSE;
+$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : false;
 $heading = "REX_VALUE[2]";
 $picture_type = "REX_VALUE[5]" == '' ? 'd2u_helper_sm' : "REX_VALUE[5]";
 $display_type_1_row = intval('REX_VALUE[3]') !== 2;
@@ -28,16 +28,16 @@ if(rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php print ($category !== FALSE ? $category->name : 'keine'); ?><br>
+	Gewählte Kategorie: <?php print ($category !== false ? $category->name : 'keine'); ?><br>
 	Darstellungsart: <?php print ($display_type_1_row ? 'Eine Box - ganze Breite' : 'Boxen nebeneinander (abhängig von Bildschirmgröße)'); ?><br>
 <?php
 }
 else {
 	// Ausgabe im FRONTEND
-	if($category !== FALSE) {
+	if($category !== false) {
 		print '<div class="col-12 col-sm-'. $cols_sm .' col-md-'. $cols_md .' col-lg-'. $cols_lg . $offset .' abstand">';
 		print '<div class="row">';
-		$linkboxes = $category->getLinkboxes(TRUE);
+		$linkboxes = $category->getLinkboxes(true);
 
 		if($heading != "") {
 			print '<div class="col-12">';

@@ -40,7 +40,7 @@ if(class_exists('D2UModuleManager')) {
 // 1.2 Update database
 $sql = rex_sql::factory();
 $sql->setQuery("SHOW COLUMNS FROM ". \rex::getTablePrefix() ."d2u_linkbox LIKE 'priority';");
-if($sql->getRows() == 0) {
+if(intval($sql->getRows()) === 0) {
 	$sql->setQuery("ALTER TABLE ". \rex::getTablePrefix() ."d2u_linkbox ADD priority INT(10) NULL DEFAULT NULL AFTER online_status;");
 	$sql->setQuery("SELECT box_id FROM `". \rex::getTablePrefix() ."d2u_linkbox` ORDER BY name;");
 	$update_sql = rex_sql::factory();

@@ -10,7 +10,7 @@ if($message != "") {
 
 // save settings
 if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(INPUT_POST, "btn_apply")) === 1) {
-	$form = (array) rex_post('form', 'array', []);
+	$form = rex_post('form', 'array', []);
 
 	$category = new D2U_Linkbox\Category($form['category_id'], rex_config::get('d2u_helper', 'default_lang'));
 	$category->name = $form['name'];
@@ -22,19 +22,19 @@ if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(IN
 	}
 	
 	// Redirect to make reload and thus double save impossible
-	if(filter_input(INPUT_POST, "btn_apply") == 1 && $category !== FALSE) {
-		header("Location: ". rex_url::currentBackendPage(array("entry_id"=>$category->category_id, "func"=>'edit', "message"=>$message), FALSE));
+	if(intval(filter_input(INPUT_POST, "btn_apply", FILTER_VALIDATE_INT)) === 1 &&$category !== false) {
+		header("Location: ". rex_url::currentBackendPage(array("entry_id"=>$category->category_id, "func"=>'edit', "message"=>$message), false));
 	}
 	else {
-		header("Location: ". rex_url::currentBackendPage(array("message"=>$message), FALSE));
+		header("Location: ". rex_url::currentBackendPage(array("message"=>$message), false));
 	}
 	exit;
 }
 // Delete
-else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
+else if(intval(filter_input(INPUT_POST, "btn_delete", FILTER_VALIDATE_INT)) === 1 || $func === 'delete') {
 	$category_id = $entry_id;
-	if($category_id == 0) {
-		$form = (array) rex_post('form', 'array', []);
+	if($category_id === 0) {
+		$form = rex_post('form', 'array', []);
 		$category_id = $form['category_id'];
 	}
 	$category = new D2U_Linkbox\Category($category_id, intval(rex_config::get("d2u_helper", "default_lang")));
@@ -43,7 +43,7 @@ else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
 	$uses_linkboxes = $category->getLinkboxes();
 
 	if(count($uses_linkboxes) == 0) {
-		$category->delete(TRUE);
+		$category->delete(true);
 	}
 	else {
 		$message = '<ul>';
@@ -59,7 +59,7 @@ else if(filter_input(INPUT_POST, "btn_delete") == 1 || $func == 'delete') {
 }
 
 // Form
-if ($func == 'edit' || $func == 'add') {
+if ($func === 'edit' || $func === 'add') {
 ?>
 	<form action="<?php print rex_url::currentBackendPage(); ?>" method="post">
 		<div class="panel panel-edit">
@@ -73,12 +73,12 @@ if ($func == 'edit' || $func == 'add') {
 							// Do not use last object from translations, because you don't know if it exists in DB
 							$category = new D2U_Linkbox\Category($entry_id, intval(rex_config::get("d2u_helper", "default_lang")));
 
-							$readonly = TRUE;
+							$readonly = true;
 							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
-								$readonly = FALSE;
+								$readonly = false;
 							}
 							
-							d2u_addon_backend_helper::form_input('d2u_helper_name', 'form[name]', $category->name, TRUE, $readonly);
+							d2u_addon_backend_helper::form_input('d2u_helper_name', 'form[name]', $category->name, true, $readonly);
 						?>
 					</div>
 				</fieldset>
@@ -106,7 +106,7 @@ if ($func == 'edit' || $func == 'add') {
 		print d2u_addon_backend_helper::getJSOpenAll();
 }
 
-if ($func == '') {
+if ($func === '') {
 	$query = 'SELECT category_id, name '
 		. 'FROM '. rex::getTablePrefix() .'d2u_linkbox_categories '
 		.'ORDER BY name ASC';

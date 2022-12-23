@@ -54,7 +54,7 @@ class Category {
 	 * @param boolean $ignoreOfflines Ignore offline categories
 	 * @return Category[] Array with Category objects.
 	 */
-	public static function getAll($clang_id, $ignoreOfflines = TRUE) {
+	public static function getAll($clang_id, $ignoreOfflines = true) {
 		$query = "SELECT category_id FROM ". \rex::getTablePrefix() ."d2u_linkbox_categories "
 			.'ORDER BY name';
 		$result = \rex_sql::factory();
@@ -87,7 +87,7 @@ class Category {
 	 * @param boolean $only_online Show only online linkbox
 	 * @return Linkbox[] Linkboxes in this category
 	 */
-	public function getLinkboxes($only_online = FALSE) {
+	public function getLinkboxes($only_online = false) {
 		$query = "SELECT lang.box_id FROM ". \rex::getTablePrefix() ."d2u_linkbox_lang AS lang "
 			."LEFT JOIN ". \rex::getTablePrefix() ."d2u_linkbox AS linkbox "
 					."ON lang.box_id = linkbox.box_id "
@@ -114,19 +114,19 @@ class Category {
 
 	/**
 	 * Updates or inserts the object into database.
-	 * @return boolean TRUE if successful
+	 * @return boolean true if successful
 	 */
 	public function save() {
-		$error = TRUE;
+		$error = true;
 
 		// Save the not language specific part
 		$pre_save_category = new Category($this->category_id, $this->clang_id);
 
-		if($this->category_id == 0 || $pre_save_category != $this) {
+		if($this->category_id === 0 || $pre_save_category != $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox_categories SET "
 					."name = '". addslashes($this->name) ."' ";
 
-			if($this->category_id == 0) {
+			if($this->category_id === 0) {
 				$query = "INSERT INTO ". $query;
 			}
 			else {
@@ -134,8 +134,8 @@ class Category {
 			}
 			$result = \rex_sql::factory();
 			$result->setQuery($query);
-			if($this->category_id == 0) {
-				$this->category_id = $result->getLastId();
+			if($this->category_id === 0) {
+				$this->category_id = intval($result->getLastId());
 				$error = !$result->hasError();
 			}
 		}

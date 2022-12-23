@@ -1,6 +1,6 @@
 <?php
 $category_id = "REX_VALUE[1]" > 0 ? "REX_VALUE[1]" : 0;
-$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : FALSE;
+$category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : false;
 $heading = "REX_VALUE[2]";
 
 if(rex::isBackend()) {
@@ -8,14 +8,14 @@ if(rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php print ($category !== FALSE ? $category->name : 'keine'); ?><br>
+	Gewählte Kategorie: <?php print ($category !== false ? $category->name : 'keine'); ?><br>
 <?php
 }
 else {
 	// Ausgabe im FRONTEND
-	if($category !== FALSE) {
+	if($category !== false) {
 		print '<div class="col-12 abstand">';
-		$linkboxes = $category->getLinkboxes(TRUE);
+		$linkboxes = $category->getLinkboxes(true);
 
 		if($heading != "") {
 			print '<div class="row">';
@@ -45,12 +45,12 @@ else {
 
 		// Wrapper for slides
 		print '<div class="carousel-inner">';
-		$slide_is_active = TRUE;
+		$slide_is_active = true;
 		foreach($linkboxes as $linkbox) {
 			print '<div class="carousel-item linkbox-mod-4-slider';
 			if($slide_is_active) {
 				print ' active';
-				$slide_is_active = FALSE;
+				$slide_is_active = false;
 			}
 			print '" style="background-image: url('. rex_url::media($linkbox->picture_lang != "" ? $linkbox->picture_lang : $linkbox->picture) .')">';
 			

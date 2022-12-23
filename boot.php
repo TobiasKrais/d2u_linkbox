@@ -58,9 +58,9 @@ function rex_d2u_linkbox_clang_deleted(rex_extension_point $ep) {
 	$clang_id = $params['id'];
 
 	// Delete
-	$linkboxes = D2U_Linkbox\Linkbox::getAll($clang_id, 0, FALSE);
+	$linkboxes = D2U_Linkbox\Linkbox::getAll($clang_id, 0, false);
 	foreach ($linkboxes as $linkbox) {
-		$linkbox->delete(FALSE);
+		$linkbox->delete(false);
 	}
 	
 	return $warning;
