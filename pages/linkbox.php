@@ -32,19 +32,19 @@ if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(IN
 			if($linkbox->link_type == "d2u_immo_property") {
 				$linkbox->link_addon_id = $form['d2u_immo_property_id'];
 			}
-			else if($linkbox->link_type == "d2u_machinery_industry_sector") {
-				$linkbox->link_addon_id = $form['d2u_machinery_industry_sector_id'];
+			else if($linkbox->link_type === "d2u_machinery_industry_sector") {
+				$linkbox->link_addon_id = intval($form['d2u_machinery_industry_sector_id']);
 			}
-			else if($linkbox->link_type == "d2u_machinery_machine") {
-				$linkbox->link_addon_id = $form['d2u_machinery_machine_id'];
+			else if($linkbox->link_type === "d2u_machinery_machine") {
+				$linkbox->link_addon_id = intval($form['d2u_machinery_machine_id']);
 			}
-			else if($linkbox->link_type == "d2u_machinery_used_machine") {
-				$linkbox->link_addon_id = $form['d2u_machinery_used_machine_id'];
+			else if($linkbox->link_type === "d2u_machinery_used_machine") {
+				$linkbox->link_addon_id = intval($form['d2u_machinery_used_machine_id']);
 			}
 			if(rex_addon::get('d2u_courses')->isAvailable()) {
-				$linkbox->link_addon_id = $form['d2u_courses_category_id'];
+				$linkbox->link_addon_id = intval($form['d2u_courses_category_id']);
 			}
-			$category_ids = isset($form['category_ids']) ? $form['category_ids'] : [];
+			$category_ids = isset($form['category_ids']) ? array_map('intval', $form['category_ids']) : [];
 			$linkbox->categories = [];
 			foreach ($category_ids as $category_id) {
 				$linkbox->categories[$category_id] = new D2U_Linkbox\Category($category_id, $rex_clang->getId());
@@ -196,7 +196,7 @@ if ($func === 'edit' || $func === 'clone' || $func === 'add') {
 								foreach($course_categories as $category)  {
 									$options_course_categories[$category->category_id] = ($category->parent_category ? ($category->parent_category->parent_category ? ($category->parent_category->parent_category->parent_category ? $category->parent_category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->name ." → " : "" ). $category->name;
 								}
-								d2u_addon_backend_helper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, [($linkbox->link_type == "d2u_courses_category" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
+								d2u_addon_backend_helper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, [($linkbox->link_type === "d2u_courses_category" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
 							}
 
 							$options_categories = [];
