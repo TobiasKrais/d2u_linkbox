@@ -1,39 +1,54 @@
 <?php
-$sql = rex_sql::factory();
-// Install database
-$sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkbox` (
-	`box_id` int(10) unsigned NOT NULL auto_increment,
-	`picture` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`background_color` varchar(7) collate utf8mb4_unicode_ci default NULL,
-	`link_type` varchar(50) collate utf8mb4_unicode_ci default NULL,
-	`article_id` int(10) default NULL,
-	`document` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`external_url` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`link_addon_id` int(10) default NULL,
-	`category_ids` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`online_status` varchar(10) collate utf8mb4_unicode_ci default 'online',
-	`priority` int(10) default NULL,
-	PRIMARY KEY (`box_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;");
-$sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkbox_lang` (
-	`box_id` int(10) NOT NULL,
-	`clang_id` int(10) NOT NULL,
-	`title` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`teaser` text collate utf8mb4_unicode_ci default NULL,
-	`picture_lang` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`document_lang` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`external_url_lang` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	`translation_needs_update` varchar(7) collate utf8mb4_unicode_ci default NULL,
-	PRIMARY KEY (`box_id`, `clang_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;");
+\rex_sql_table::get(\rex::getTable('d2u_linkbox'))
+	->ensureColumn(new rex_sql_column('box_id', 'INT(11) unsigned', false, null, 'auto_increment'))
+	->setPrimaryKey('box_id')
+    ->ensureColumn(new \rex_sql_column('picture', 'VARCHAR(255)', true))
+	->ensureColumn(new \rex_sql_column('background_color', 'VARCHAR(7)', true))
+	->ensureColumn(new \rex_sql_column('link_type', 'VARCHAR(50)', true))
+	->ensureColumn(new \rex_sql_column('article_id', 'INT(11)', true))
+	->ensureColumn(new \rex_sql_column('document', 'VARCHAR(255)', true))
+	->ensureColumn(new \rex_sql_column('external_url', 'VARCHAR(255)', true))
+	->ensureColumn(new \rex_sql_column('link_addon_id', 'INT(11)', true))
+	->ensureColumn(new \rex_sql_column('category_ids', 'VARCHAR(255)', true))
+	->ensureColumn(new \rex_sql_column('online_status', 'VARCHAR(7)', true))
+    ->ensureColumn(new \rex_sql_column('priority', 'INT(10)', true))
+    ->ensure();
+\rex_sql_table::get(\rex::getTable('d2u_linkbox_lang'))
+	->ensureColumn(new rex_sql_column('box_id', 'INT(11)', false))
+    ->ensureColumn(new \rex_sql_column('clang_id', 'INT(11)', false))
+	->setPrimaryKey(['box_id', 'clang_id'])
+    ->ensureColumn(new \rex_sql_column('title', 'VARCHAR(255)'))
+    ->ensureColumn(new \rex_sql_column('teaser', 'TEXT', true))
+    ->ensureColumn(new \rex_sql_column('picture_lang', 'VARCHAR(255)', true))
+    ->ensureColumn(new \rex_sql_column('document_lang', 'VARCHAR(255)', true))
+    ->ensureColumn(new \rex_sql_column('external_url_lang', 'VARCHAR(255)', true))
+    ->ensureColumn(new \rex_sql_column('translation_needs_update', 'VARCHAR(7)', true))
+    ->ensure();
 
-$sql->setQuery("CREATE TABLE IF NOT EXISTS `". rex::getTablePrefix() ."d2u_linkbox_categories` (
-	`category_id` int(10) unsigned NOT NULL auto_increment,
-	`name` varchar(255) collate utf8mb4_unicode_ci default NULL,
-	PRIMARY KEY (`category_id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;");
+\rex_sql_table::get(\rex::getTable('d2u_linkbox_categories'))
+	->ensureColumn(new rex_sql_column('category_id', 'INT(11) unsigned', false, null, 'auto_increment'))
+	->setPrimaryKey('category_id')
+    ->ensureColumn(new \rex_sql_column('name', 'VARCHAR(255)', false))
+    ->ensure();
 
-// Standard settings
-if (!$this->hasConfig()) {
-    $this->setConfig('default_sort', "name");
+// Update modules
+if(class_exists('D2UModuleManager')) {
+	$modules = [];
+	$modules[] = new D2UModule("24-1",
+		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
+		7);
+	$modules[] = new D2UModule("24-2",
+		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
+		9);
+	$modules[] = new D2UModule("24-3",
+		"D2U Linkbox - Farbboxen mit seitlichem Bild",
+		5);
+	$modules[] = new D2UModule("24-4",
+		"D2U Linkbox - Slider",
+		4);
+	$modules[] = new D2UModule("24-5",
+		"D2U Linkbox - Linkboxen mit Text neben dem Bild",
+		2);
+	$d2u_module_manager = new D2UModuleManager($modules, "", "d2u_linkbox");
+	$d2u_module_manager->autoupdate();
 }

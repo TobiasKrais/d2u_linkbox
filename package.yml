@@ -15,6 +15,10 @@ page:
 requires:
     packages:
         d2u_helper: '>=1.5.5'
-        
+    php: '>=7.4'
+
+default_config:
+    default_sort: 'name'
+
 installer_ignore:
     - .github

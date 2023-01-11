@@ -8,17 +8,17 @@ class Category {
 	/**
 	 * @var int Database ID
 	 */
-	var $category_id = 0;
+	public int $category_id = 0;
 	
 	/**
 	 * @var int Redaxo language ID
 	 */
-	var $clang_id = 0;
+	public int $clang_id = 0;
 	
 	/**
 	 * @var string Name
 	 */
-	var $name = "";
+	public string $name = "";
 
 	/**
 	 * Constructor
@@ -33,8 +33,8 @@ class Category {
 		$result->setQuery($query);
 
 		if ($result->getRows() > 0) {
-			$this->category_id = $result->getValue("category_id");
-			$this->name = stripslashes($result->getValue("name"));
+			$this->category_id = (int) $result->getValue("category_id");
+			$this->name = stripslashes((string) $result->getValue("name"));
 		}
 	}
 	

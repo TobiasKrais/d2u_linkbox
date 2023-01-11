@@ -8,97 +8,97 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	/**
 	 * @var int Database linkbox ID
 	 */
-	var $box_id = 0;
+	public int $box_id = 0;
 	
 	/**
 	 * @var int Redaxo language ID
 	 */
-	var $clang_id = 0;
+	public int $clang_id = 0;
 	
 	/**
 	 * @var string Picture name
 	 */
-	var $picture = "";
+	public string $picture = "";
 	
 	/**
 	 * @var string Language specific preview picture file name 
 	 */
-	var $picture_lang = "";
+	public string $picture_lang = "";
 	
 	/**
 	 * @var string Background color (hex)
 	 */
-	var $background_color = "";
+	public string $background_color = "";
 	
 	/**
 	 * @var string Link type
 	 */
-	var $link_type = "";
+	public string $link_type = "";
 	
 	/**
 	 * @var string Document file name
 	 */
-	var $document = "";
+	public string $document = "";
 	
 	/**
 	 * @var string Language specific document file name
 	 */
-	var $document_lang = "";
+	public string $document_lang = "";
 	
 	/**
 	 * @var int Redaxo article ID for link
 	 */
-	var $article_id = 0;
+	public int $article_id = 0;
 	
 	/**
 	 * @var int ID for link to data (e.g. machine_id) from D2U Addons
 	 */
-	var $link_addon_id = 0;
+	public int $link_addon_id = 0;
 	
 	/**
 	 * @var string external URL
 	 */
-	var $external_url = "";
+	public string $external_url = "";
 	
 	/**
 	 * @var string Language specific external URL
 	 */
-	var $external_url_lang = "";
+	public string $external_url_lang = "";
 	
 	/**
 	 * @var string Online status "online" or "offline".
 	 */
-	var $online_status = "offline";
+	public string $online_status = "offline";
 	
 	/**
 	 * @var int Sort Priority
 	 */
-	var $priority = 0;
+	public int $priority = 0;
 	
 	/**
-	 * @var Category[] Array with categories, linkbox belongs to
+	 * @var array<Category> Array with categories, linkbox belongs to
 	 */
-	var $categories = [];
+	public array $categories = [];
 	
 	/**
 	 * @var string Box title
 	 */
-	var $title = "";
+	public string $title = "";
 	
 	/**
 	 * @var string Box teaser
 	 */
-	var $teaser = "";
+	public string $teaser = "";
 	
 	/**
 	 * @var string "yes" if translation needs update
 	 */
-	var $translation_needs_update = "delete";
+	public string $translation_needs_update = "delete";
 	
 	/**
 	 * @var string link
 	 */
-	private $link = "";
+	private string $link = "";
 	
 	/**
 	 * Constructor
@@ -117,27 +117,27 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 			$result->setQuery($query);
 
 			if ($result->getRows() > 0) {
-				$this->box_id = $result->getValue("box_id");
-				$this->link_type = $result->getValue("link_type");
-				$this->article_id = $result->getValue("article_id");
-				$this->document = $result->getValue("document");
-				$this->document_lang = $result->getValue("document_lang");
-				$this->link_addon_id = $result->getValue("link_addon_id");
-				$this->external_url = $result->getValue("external_url");
-				$this->external_url_lang = $result->getValue("external_url_lang");
-				$this->title = stripslashes($result->getValue("title"));
-				$this->teaser = stripslashes($result->getValue("teaser"));
-				$this->picture = $result->getValue("picture");
-				$this->picture_lang = $result->getValue("picture_lang");
-				$this->background_color = $result->getValue("background_color");
-				$this->priority = $result->getValue("priority");
-				$category_ids = preg_grep('/^\s*$/s', explode("|", $result->getValue("category_ids")), PREG_GREP_INVERT);
-				$category_ids = is_array($category_ids) ? array_map('intval', $category_ids) : [];
+				$this->box_id = (int) $result->getValue("box_id");
+				$this->link_type = (string) $result->getValue("link_type");
+				$this->article_id = (int) $result->getValue("article_id");
+				$this->document = (string) $result->getValue("document");
+				$this->document_lang = (string) $result->getValue("document_lang");
+				$this->link_addon_id = (int) $result->getValue("link_addon_id");
+				$this->external_url = (string) $result->getValue("external_url");
+				$this->external_url_lang = (string) $result->getValue("external_url_lang");
+				$this->title = stripslashes((string) $result->getValue("title"));
+				$this->teaser = stripslashes((string) $result->getValue("teaser"));
+				$this->picture = (string) $result->getValue("picture");
+				$this->picture_lang = (string) $result->getValue("picture_lang");
+				$this->background_color = (string) $result->getValue("background_color");
+				$this->priority = (int) $result->getValue("priority");
+				$category_ids_unmapped = preg_grep('/^\s*$/s', explode("|", (string) $result->getValue("category_ids")), PREG_GREP_INVERT);
+				$category_ids = is_array($category_ids_unmapped) ? array_map('intval', $category_ids_unmapped) : [];
 				foreach ($category_ids as $category_id) {
 					$this->categories[$category_id] = new Category($category_id, $clang_id);
 				}
-				$this->online_status = $result->getValue("online_status");
-				$this->translation_needs_update = $result->getValue("translation_needs_update");
+				$this->online_status = (string) $result->getValue("online_status");
+				$this->translation_needs_update = (string) $result->getValue("translation_needs_update");
 			}
 		}
 		else {
@@ -334,7 +334,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		$pre_save_linkbox = new Linkbox($this->box_id, $this->clang_id);
 
 		// save priority, but only if new or changed
-		if($this->priority != $pre_save_linkbox->priority || $this->box_id === 0) {
+		if($this->priority !== $pre_save_linkbox->priority || $this->box_id === 0) {
 			$this->setPriority();
 		}
 
@@ -357,6 +357,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 			else {
 				$query = "UPDATE ". $query ." WHERE box_id = ". $this->box_id;
 			}
+
 			$result = \rex_sql::factory();
 			$result->setQuery($query);
 			if($this->box_id === 0) {

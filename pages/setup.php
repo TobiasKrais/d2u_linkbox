@@ -32,6 +32,7 @@ $d2u_module_manager->showManagerList();
 <p>1.2.6-DEV:</p>
 <ul>
 	<li>.github Verzeichnis aus Installer Action ausgeschlossen.</li>
+	<li>Erste rexstan Verbesserungen.</li>
 	<li>Modul 24-2: auf kleinen Biildschirmen werden jetzt 2 Boxen nebeneinander angezeigt, wenn kein Teasertext angezeigt werden soll.</li>
 	<li>Modul 24-5 "D2U Linkbox - Linkboxen mit Text neben dem Bild": Tippfehler behoben.</li>
 	<li>Bugfix: 2 Felder waren beim Speichern einer Linkbox nicht korrekt escaped.</li>
