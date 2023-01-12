@@ -30,7 +30,7 @@ if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(IN
 			$linkbox->document = $input_media[2];
 			$linkbox->external_url = $form['external_url'];
 			if($linkbox->link_type === "d2u_immo_property") {
-				$linkbox->link_addon_id = $form['d2u_immo_property_id'];
+				$linkbox->link_addon_id = intval($form['d2u_immo_property_id']);
 			}
 			else if($linkbox->link_type === "d2u_machinery_industry_sector") {
 				$linkbox->link_addon_id = intval($form['d2u_machinery_industry_sector_id']);
@@ -41,7 +41,7 @@ if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(IN
 			else if($linkbox->link_type === "d2u_machinery_used_machine") {
 				$linkbox->link_addon_id = intval($form['d2u_machinery_used_machine_id']);
 			}
-			if(rex_addon::get('d2u_courses')->isAvailable()) {
+			else if($linkbox->link_type === "d2u_courses_category") {
 				$linkbox->link_addon_id = intval($form['d2u_courses_category_id']);
 			}
 			$category_ids = isset($form['category_ids']) ? array_map('intval', $form['category_ids']) : [];
