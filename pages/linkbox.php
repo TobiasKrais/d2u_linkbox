@@ -4,7 +4,7 @@ $entry_id = rex_request('entry_id', 'int');
 $message = rex_get('message', 'string');
 
 // Print comments
-if($message != "") {
+if($message !== '') {
 	print rex_view::success(rex_i18n::msg($message));
 }
 
@@ -26,10 +26,10 @@ if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(IN
 			$linkbox->picture = $input_media[1];
 			$linkbox->background_color = $form['background_color'];
 			$linkbox->link_type = $form['link_type'];
-			$linkbox->article_id = $link_ids["REX_INPUT_LINK"][1];
+			$linkbox->article_id = !is_array($link_ids) ? 0 : $link_ids["REX_INPUT_LINK"][1];
 			$linkbox->document = $input_media[2];
 			$linkbox->external_url = $form['external_url'];
-			if($linkbox->link_type == "d2u_immo_property") {
+			if($linkbox->link_type === "d2u_immo_property") {
 				$linkbox->link_addon_id = $form['d2u_immo_property_id'];
 			}
 			else if($linkbox->link_type === "d2u_machinery_industry_sector") {
@@ -85,7 +85,7 @@ if (intval(filter_input(INPUT_POST, "btn_save")) === 1 || intval(filter_input(IN
 		header("Location: ". rex_url::currentBackendPage(array("entry_id"=>$linkbox->box_id, "func"=>'edit', "message"=>$message), false));
 	}
 	else {
-		header("Location: ". rex_url::currentBackendPage(array("message"=>$message), false));
+		header("Location: ". rex_url::currentBackendPage(["message"=>$message], false));
 	}
 	exit;
 }
@@ -128,7 +128,7 @@ if ($func === 'edit' || $func === 'clone' || $func === 'add') {
 							// Do not use last object from translations, because you don't know if it exists in DB
 							$linkbox = new D2U_Linkbox\Linkbox($entry_id, intval(rex_config::get("d2u_helper", "default_lang")));
 							$readonly = true;
-							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
+							if(rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]'))) {
 								$readonly = false;
 							}
 							
@@ -164,7 +164,7 @@ if ($func === 'edit' || $func === 'clone' || $func === 'add') {
 								foreach($properties as $property)  {
 									$options_immo[$property->property_id] = $property->name;
 								}
-								d2u_addon_backend_helper::form_select('d2u_immo_property', 'form[d2u_immo_property_id]', $options_immo, [($linkbox->link_type == "d2u_immo_property" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
+								d2u_addon_backend_helper::form_select('d2u_immo_property', 'form[d2u_immo_property_id]', $options_immo, [($linkbox->link_type === "d2u_immo_property" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
 							}
 							if(rex_addon::get('d2u_machinery')->isAvailable()) {
 								if(rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
@@ -173,34 +173,34 @@ if ($func === 'edit' || $func === 'clone' || $func === 'add') {
 									foreach($industry_sectors as $industry_sector)  {
 										$options_industry_sectors[$industry_sector->industry_sector_id] = $industry_sector->name;
 									}
-									d2u_addon_backend_helper::form_select('d2u_machinery_industry_sectors', 'form[d2u_machinery_industry_sector_id]', $options_industry_sectors, [($linkbox->link_type == "d2u_machinery_industry_sector" ? $linkbox->link_addon_id : "")], 1, false, $readonly);									
+									d2u_addon_backend_helper::form_select('d2u_machinery_industry_sectors', 'form[d2u_machinery_industry_sector_id]', $options_industry_sectors, [($linkbox->link_type === "d2u_machinery_industry_sector" ? $linkbox->link_addon_id : "")], 1, false, $readonly);									
 								}
 								$options_machines = [];
 								$machines = Machine::getAll(rex_clang::getCurrentId(), true);
 								foreach($machines as $machine)  {
 									$options_machines[$machine->machine_id] = $machine->name;
 								}
-								d2u_addon_backend_helper::form_select('d2u_machinery_machine', 'form[d2u_machinery_machine_id]', $options_machines, [($linkbox->link_type == "d2u_machinery_machine" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
+								d2u_addon_backend_helper::form_select('d2u_machinery_machine', 'form[d2u_machinery_machine_id]', $options_machines, [($linkbox->link_type === "d2u_machinery_machine" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
 								if(rex_plugin::get('d2u_machinery', 'used_machines')->isAvailable()) {
 									$options_used_machines = [];
 									$used_machines = UsedMachine::getAll(rex_clang::getCurrentId(), true);
 									foreach($used_machines as $used_machine)  {
 										$options_used_machines[$used_machine->used_machine_id] = $used_machine->name;
 									}
-									d2u_addon_backend_helper::form_select('d2u_machinery_used_machines_machine', 'form[d2u_machinery_used_machine_id]', $options_used_machines, [($linkbox->link_type == "d2u_machinery_used_machine" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
+									d2u_addon_backend_helper::form_select('d2u_machinery_used_machines_machine', 'form[d2u_machinery_used_machine_id]', $options_used_machines, [($linkbox->link_type === "d2u_machinery_used_machine" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
 								}
 							}
 							if(rex_addon::get('d2u_courses')->isAvailable()) {
 								$options_course_categories = [];
 								$course_categories = \D2U_Courses\Category::getAll();
 								foreach($course_categories as $category)  {
-									$options_course_categories[$category->category_id] = ($category->parent_category ? ($category->parent_category->parent_category ? ($category->parent_category->parent_category->parent_category ? $category->parent_category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->name ." → " : "" ). $category->name;
+									$options_course_categories[$category->category_id] = ($category->parent_category instanceof D2U_Courses\Category ? ($category->parent_category->parent_category instanceof D2U_Courses\Category ? ($category->parent_category->parent_category->parent_category instanceof D2U_Courses\Category ? $category->parent_category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->parent_category->name ." → " : "" ). $category->parent_category->name ." → " : "" ). $category->name;
 								}
 								d2u_addon_backend_helper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, [($linkbox->link_type === "d2u_courses_category" ? $linkbox->link_addon_id : "")], 1, false, $readonly);
 							}
 
 							$options_categories = [];
-							foreach(D2U_Linkbox\Category::getAll(rex_config::get('d2u_helper', 'default_lang'), false) as $category) {
+							foreach(D2U_Linkbox\Category::getAll(intval(rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId())), false) as $category) {
 								$options_categories[$category->category_id] = $category->name;
 							}
 							d2u_addon_backend_helper::form_select('d2u_helper_categories', 'form[category_ids][]', $options_categories, (count($linkbox->categories) > 0 ? array_keys($linkbox->categories) : []), 5, true, $readonly);
@@ -215,7 +215,7 @@ if ($func === 'edit' || $func === 'clone' || $func === 'add') {
 						$required = $rex_clang->getId() === intval(rex_config::get("d2u_helper", "default_lang")) ? true : false;
 						
 						$readonly_lang = true;
-						if(rex::getUser()->isAdmin() || (rex::getUser()->hasPerm('d2u_linkbox[edit_lang]') && rex::getUser()->getComplexPerm('clang')->hasPerm($rex_clang->getId()))) {
+						if(rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || (rex::getUser()->hasPerm('d2u_linkbox[edit_lang]') && rex::getUser()->getComplexPerm('clang') instanceof rex_clang_perm && rex::getUser()->getComplexPerm('clang')->hasPerm($rex_clang->getId())))) {
 							$readonly_lang = false;
 						}
 				?>
@@ -327,7 +327,7 @@ if ($func === 'edit' || $func === 'clone' || $func === 'add') {
 						<button class="btn btn-apply" type="submit" name="btn_apply" value="1"><?php echo rex_i18n::msg('form_apply'); ?></button>
 						<button class="btn btn-abort" type="submit" name="btn_abort" formnovalidate="formnovalidate" value="1"><?php echo rex_i18n::msg('form_abort'); ?></button>
 						<?php
-							if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
+							if(rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]'))) {
 								print '<button class="btn btn-delete" type="submit" name="btn_delete" formnovalidate="formnovalidate" data-confirm="'. rex_i18n::msg('form_delete') .'?" value="1">'. rex_i18n::msg('form_delete') .'</button>';
 							}
 						?>
@@ -347,7 +347,7 @@ if ($func === '') {
 		. 'FROM '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
 		. 'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
 			. 'ON linkbox.box_id = lang.box_id AND lang.clang_id = '. rex_config::get("d2u_helper", "default_lang", rex_clang::getStartId()) .' ';
-	if($this->getConfig('default_sort') == 'priority') {
+	if(rex_config::get('d2u_linkbox', 'default_sort') === 'priority') {
 		$query .= 'ORDER BY priority ASC';
 	}
 	else {
@@ -359,7 +359,7 @@ if ($func === '') {
 
     $tdIcon = '<i class="rex-icon fa-window-maximize"></i>';
  	$thIcon = "";
-	if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
+	if(rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]'))) {
 		$thIcon = '<a href="'. $list->getUrl(['func' => 'add']) .'" title="'. rex_i18n::msg('add') .'"><i class="rex-icon rex-icon-add-module"></i></a>';
 	}
     $list->addColumn($thIcon, $tdIcon, 0, ['<th class="rex-table-icon">###VALUE###</th>', '<td class="rex-table-icon">###VALUE###</td>']);
@@ -375,9 +375,11 @@ if ($func === '') {
 	$list->setColumnFormat('category_ids', 'custom', function ($params) {
 		$list_params = $params['list'];
 		$cat_names = [];
-		foreach(preg_grep('/^\s*$/s', explode("|", $list_params->getValue('category_ids')), PREG_GREP_INVERT) as $category_id) {
+		$category_ids_unfilterd = preg_grep('/^\s*$/s', explode("|", (string) $list_params->getValue('category_ids')), PREG_GREP_INVERT);
+		$category_ids = is_array($category_ids_unfilterd) ? array_map('intval', $category_ids_unfilterd) : [];
+		foreach($category_ids as $category_id) {
 			$category = new D2U_Linkbox\Category($category_id, intval(rex_config::get("d2u_helper", "default_lang")));
-			$cat_names[] = $category ? $category->name : '';
+			$cat_names[] = $category->name;
 		}
 		return implode(', ', $cat_names);
 	});
@@ -389,7 +391,7 @@ if ($func === '') {
     $list->setColumnParams(rex_i18n::msg('module_functions'), ['func' => 'edit', 'entry_id' => '###box_id###']);
 
 	$list->removeColumn('online_status');
-	if(rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]')) {
+	if(rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]'))) {
 		$list->addColumn(rex_i18n::msg('status_online'), '<a class="rex-###online_status###" href="' . rex_url::currentBackendPage(['func' => 'changestatus']) . '&entry_id=###box_id###"><i class="rex-icon rex-icon-###online_status###"></i> ###online_status###</a>');
 		$list->setColumnLayout(rex_i18n::msg('status_online'), ['', '<td class="rex-table-action">###VALUE###</td>']);
 

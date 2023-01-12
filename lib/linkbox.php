@@ -2,6 +2,7 @@
 namespace D2U_Linkbox;
 
 /**
+ * @api
  * Linkbox details
  */
 class Linkbox implements \D2U_Helper\ITranslationHelper {
@@ -140,9 +141,6 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 				$this->translation_needs_update = (string) $result->getValue("translation_needs_update");
 			}
 		}
-		else {
-			return $this;
-		}
 	}
 	
 	/**
@@ -201,6 +199,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	
 
 	/**
+	 * @api
 	 * Create an empty object instance.
 	 * @return Linkbox empty new object
 	 */
@@ -226,7 +225,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		if($category_id > 0) {
 			$query .= " AND category_ids LIKE '%|". $category_id ."|%'";
 		}
-		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') == 'name') {
+		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') === 'name') {
 			$query .= ' ORDER BY title';
 		}
 		else {
@@ -238,7 +237,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		
 		$linkbox = [];
 		for($i = 0; $i < $result->getRows(); $i++) {
-			$linkbox[$result->getValue('box_id')] = new Linkbox($result->getValue('box_id'), $clang_id);
+			$linkbox[(int) $result->getValue('box_id')] = new Linkbox((int) $result->getValue('box_id'), $clang_id);
 			$result->next();
 		}
 		
@@ -265,14 +264,14 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 						.'ON main.box_id = default_lang.box_id AND default_lang.clang_id = '. \rex_config::get('d2u_helper', 'default_lang') .' '
 					."WHERE target_lang.box_id IS NULL "
 					.'ORDER BY default_lang.title';
-			$clang_id = \rex_config::get('d2u_helper', 'default_lang');
+			$clang_id = intval(\rex_config::get('d2u_helper', 'default_lang'));
 		}
 		$result = \rex_sql::factory();
 		$result->setQuery($query);
 
 		$objects = [];
 		for($i = 0; $i < $result->getRows(); $i++) {
-			$objects[] = new Linkbox($result->getValue("box_id"), $clang_id);
+			$objects[] = new Linkbox((int) $result->getValue("box_id"), $clang_id);
 			$result->next();
 		}
 		
@@ -284,39 +283,39 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 	 * @return string Link URL
 	 */
 	public function getUrl() {
-		if($this->link != "") {
+		if($this->link !== "") {
 			return $this->link;
 		}
 
-		if($this->link_type == "document" && ($this->document != "" || $this->document_lang != "")) {
-			$this->link = \rex_url::media($this->document_lang != "" ? $this->document_lang : $this->document);
+		if($this->link_type === "document" && ($this->document !== "" || $this->document_lang !== "")) {
+			$this->link = \rex_url::media($this->document_lang !== "" ? $this->document_lang : $this->document);
 		}
-		else if($this->link_type == "url" && ($this->external_url != "" || $this->external_url_lang != "")) {
-			$this->link = $this->external_url_lang != "" ? $this->external_url_lang : $this->external_url;
+		else if($this->link_type === "url" && ($this->external_url !== "" || $this->external_url_lang !== "")) {
+			$this->link = $this->external_url_lang !== "" ? $this->external_url_lang : $this->external_url;
 		}
-		else if($this->link_type == "d2u_immo_property" && $this->link_addon_id > 0 && \rex_addon::get('d2u_immo')->isAvailable()) {
+		else if($this->link_type === "d2u_immo_property" && $this->link_addon_id > 0 && \rex_addon::get('d2u_immo')->isAvailable()) {
 			$property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
 			$this->link = $property->getURL();
 		}
 		else if($this->link_addon_id > 0 && \rex_addon::get('d2u_machinery')->isAvailable()) {
-			if($this->link_type == "d2u_immo_property" && \rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+			if($this->link_type === "d2u_immo_property" && \rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
 				$industry_sector = new \IndustrySector($this->link_addon_id, $this->clang_id);
 				$this->link = $industry_sector->getURL();
 			}
-			elseif ($this->link_type == "d2u_machinery_machine") {
+			elseif ($this->link_type === "d2u_machinery_machine") {
 				$machine = new \Machine($this->link_addon_id, $this->clang_id);
 				$this->link = $machine->getURL();
 			}
-			if($this->link_type == "d2u_machinery_used_machine" && \rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+			if($this->link_type === "d2u_machinery_used_machine" && \rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
 				$used_machine = new \UsedMachine($this->link_addon_id, $this->clang_id);
 				$this->link = $used_machine->getURL();
 			}
 		}
-		else if($this->link_type == "d2u_courses_category" && $this->link_addon_id > 0 && \rex_addon::get('d2u_courses')->isAvailable()) {
+		else if($this->link_type === "d2u_courses_category" && $this->link_addon_id > 0 && \rex_addon::get('d2u_courses')->isAvailable()) {
 			$category = new \D2U_Courses\Category($this->link_addon_id);
 			$this->link = $category->getURL();
 		}
-		else if(($this->link_type == "" || $this->link_type == "article") && $this->article_id > 0) {
+		else if(($this->link_type === "" || $this->link_type === "article") && $this->article_id > 0) {
 			$this->link = \rex_getUrl($this->article_id);
 		}
 		
@@ -338,12 +337,12 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 			$this->setPriority();
 		}
 
-		if($this->box_id === 0 || $pre_save_linkbox != $this) {
+		if($this->box_id === 0 || $pre_save_linkbox !== $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox SET "
 					."link_type = '". $this->link_type ."', "
-					."article_id = ". ($this->article_id ?: 0) .", "
+					."article_id = ". ($this->article_id > 0 ? $this->article_id : 0) .", "
 					."document = '". $this->document ."', "
-					."link_addon_id = ". ($this->link_addon_id ?: 0) .", "
+					."link_addon_id = ". ($this->link_addon_id > 0 ? $this->link_addon_id : 0) .", "
 					."external_url = '". $this->external_url ."', "
 					."category_ids = '|". implode("|", array_keys($this->categories)) ."|', "
 					."picture = '". $this->picture ."', "
@@ -369,7 +368,7 @@ class Linkbox implements \D2U_Helper\ITranslationHelper {
 		if(!$error) {
 			// Save the language specific part
 			$pre_save_linkbox = new Linkbox($this->box_id, $this->clang_id);
-			if($pre_save_linkbox != $this) {
+			if($pre_save_linkbox !== $this) {
 				$query = "REPLACE INTO ". \rex::getTablePrefix() ."d2u_linkbox_lang SET "
 						."box_id = '". $this->box_id ."', "
 						."clang_id = '". $this->clang_id ."', "

@@ -15,7 +15,7 @@
 				foreach ($categories as $category) {
 					echo '<option value="'. $category->category_id .'" ';
 
-					if ("REX_VALUE[1]" == $category->category_id) {
+					if (intval("REX_VALUE[1]") === $category->category_id) { /** @phpstan-ignore-line */
 						echo 'selected="selected" ';
 					}
 					echo '>'. $category->name .'</option>';
@@ -33,8 +33,8 @@
 	<div class="col-xs-8">
 		<?php
 			print '<select name="REX_INPUT_VALUE[3]" class="form-control">';
-			print '<option value="3" '. ("REX_VALUE[3]" == 3 ? 'selected="selected" ' : '') .'>3</option>';
-			print '<option value="4" '. ("REX_VALUE[3]" == 4 ? 'selected="selected" ' : '') .'>4</option>';
+			print '<option value="3" '. (intval("REX_VALUE[3]") === 3 ? 'selected="selected" ' : '') .'>3</option>'; /** @phpstan-ignore-line */
+			print '<option value="4" '. (intval("REX_VALUE[3]") === 4 ? 'selected="selected" ' : '') .'>4</option>'; /** @phpstan-ignore-line */
 			print '</select>';
 		?>
 	</div>
@@ -44,7 +44,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-4">
-		<input type="checkbox" name="REX_INPUT_VALUE[4]" value="true" <?php echo "REX_VALUE[4]" == 'true' ? ' checked="checked"' : ''; ?> class="form-control d2u_helper_toggle" />
+		<input type="checkbox" name="REX_INPUT_VALUE[4]" value="true" <?php echo "REX_VALUE[4]" === 'true' ? ' checked="checked"' : ''; ?> class="form-control d2u_helper_toggle" /> <?php /** @phpstan-ignore-line */ ?>
 	</div>
 	<div class="col-xs-8">
 		Teaser / Kurztext unterhalb der Überschriften anzeigen?<br />

@@ -11,9 +11,10 @@ class Category {
 	public int $category_id = 0;
 	
 	/**
+	 * 
 	 * @var int Redaxo language ID
 	 */
-	public int $clang_id = 0;
+	private int $clang_id = 0;
 	
 	/**
 	 * @var string Name
@@ -41,7 +42,7 @@ class Category {
 	/**
 	 * Deletes the object in all languages.
 	 */
-	public function delete() {
+	public function delete():void {
 		$query_lang = "DELETE FROM ". \rex::getTablePrefix() ."d2u_linkbox_categories "
 			."WHERE category_id = ". $this->category_id;
 		$result_lang = \rex_sql::factory();
@@ -71,11 +72,11 @@ class Category {
 				$result_check_offline = \rex_sql::factory();
 				$result_check_offline->setQuery($query_check_offline);
 				if($result_check_offline->getRows() > 0) {
-					$categories[$result->getValue("category_id")] = new Category($result->getValue("category_id"), $clang_id);
+					$categories[(int) $result->getValue("category_id")] = new Category((int) $result->getValue("category_id"), $clang_id);
 				}
 			}
 			else {
-				$categories[$result->getValue("category_id")] = new Category($result->getValue("category_id"), $clang_id);
+				$categories[(int) $result->getValue("category_id")] = new Category((int) $result->getValue("category_id"), $clang_id);
 			}
 			$result->next();
 		}
@@ -95,7 +96,7 @@ class Category {
 		if($only_online) {
 			$query .= "AND online_status = 'online' ";
 		}
-		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') == 'name') {
+		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') === 'name') {
 			$query .= ' ORDER BY title';
 		}
 		else {
@@ -106,7 +107,7 @@ class Category {
 		
 		$linkbox = [];
 		for($i = 0; $i < $result->getRows(); $i++) {
-			$linkbox[] = new Linkbox($result->getValue("box_id"), $this->clang_id);
+			$linkbox[] = new Linkbox((int) $result->getValue("box_id"), $this->clang_id);
 			$result->next();
 		}
 		return $linkbox;
@@ -122,7 +123,7 @@ class Category {
 		// Save the not language specific part
 		$pre_save_category = new Category($this->category_id, $this->clang_id);
 
-		if($this->category_id === 0 || $pre_save_category != $this) {
+		if($this->category_id === 0 || $pre_save_category !== $this) {
 			$query = \rex::getTablePrefix() ."d2u_linkbox_categories SET "
 					."name = '". addslashes($this->name) ."' ";
 

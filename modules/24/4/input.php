@@ -15,7 +15,7 @@
 				foreach ($categories as $category) {
 					echo '<option value="'. $category->category_id .'" ';
 
-					if ("REX_VALUE[1]" == $category->category_id) {
+					if (intval("REX_VALUE[1]") === $category->category_id) { /** @phpstan-ignore-line */
 						echo 'selected="selected" ';
 					}
 					echo '>'. $category->name .'</option>';

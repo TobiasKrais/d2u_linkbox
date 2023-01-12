@@ -8,7 +8,7 @@ $d2u_module_manager = new D2UModuleManager(D2ULinkboxModules::getModules(), "mod
 $d2u_module_id = rex_request('d2u_module_id', 'string');
 $paired_module = rex_request('pair_'. $d2u_module_id, 'int');
 $function = rex_request('function', 'string');
-if($d2u_module_id != "") {
+if($d2u_module_id !== "") {
 	$d2u_module_manager->doActions($d2u_module_id, $function, $paired_module);
 }
 
@@ -32,8 +32,8 @@ $d2u_module_manager->showManagerList();
 <p>1.2.6-DEV:</p>
 <ul>
 	<li>.github Verzeichnis aus Installer Action ausgeschlossen.</li>
-	<li>Erste rexstan Verbesserungen.</li>
-	<li>Modul 24-2: auf kleinen Biildschirmen werden jetzt 2 Boxen nebeneinander angezeigt, wenn kein Teasertext angezeigt werden soll.</li>
+	<li>Ca. 300 rexstan Verbesserungen.</li>
+	<li>Modul 24-2: auf kleinen Bildschirmen werden jetzt 2 Boxen nebeneinander angezeigt, wenn kein Teasertext angezeigt werden soll.</li>
 	<li>Modul 24-5 "D2U Linkbox - Linkboxen mit Text neben dem Bild": Tippfehler behoben.</li>
 	<li>Bugfix: 2 Felder waren beim Speichern einer Linkbox nicht korrekt escaped.</li>
 	<li>Bugfix: Prioritäten der Boxen wurde nicht immer korrekt gesetzt.</li>

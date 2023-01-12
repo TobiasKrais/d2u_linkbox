@@ -14,8 +14,8 @@ if(rex::isBackend()) {
 
 /**
  * Checks if article is used by this addon
- * @param rex_extension_point $ep Redaxo extension point
- * @return string[] Warning message as array
+ * @param rex_extension_point<string> $ep Redaxo extension point
+ * @return string Warning message as array
  * @throws rex_api_exception If article is used
  */
 function rex_d2u_linkbox_article_is_in_use(rex_extension_point $ep) {
@@ -48,8 +48,8 @@ function rex_d2u_linkbox_article_is_in_use(rex_extension_point $ep) {
 
 /**
  * Deletes language specific configurations and objects
- * @param rex_extension_point $ep Redaxo extension point
- * @return string[] Warning message as array
+ * @param rex_extension_point<string> $ep Redaxo extension point
+ * @return array<string> Warning message as array
  */
 function rex_d2u_linkbox_clang_deleted(rex_extension_point $ep) {
 	/** @var string[] $warning */
@@ -68,8 +68,8 @@ function rex_d2u_linkbox_clang_deleted(rex_extension_point $ep) {
 
 /**
  * Checks if media is used by this addon
- * @param rex_extension_point $ep Redaxo extension point
- * @return string[] Warning message as array
+ * @param rex_extension_point<string> $ep Redaxo extension point
+ * @return array<string> Warning message as array
  */
 function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep) {
 	/** @var string[] $warning */
