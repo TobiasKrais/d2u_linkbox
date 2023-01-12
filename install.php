@@ -36,16 +36,16 @@ if(class_exists('D2UModuleManager')) {
 	$modules = [];
 	$modules[] = new D2UModule("24-1",
 		"D2U Linkbox - Linkboxen mit Überschrift in Bild",
-		7);
+		8);
 	$modules[] = new D2UModule("24-2",
 		"D2U Linkbox - Linkboxen mit Überschrift unter Bild",
 		9);
 	$modules[] = new D2UModule("24-3",
 		"D2U Linkbox - Farbboxen mit seitlichem Bild",
-		5);
+		6);
 	$modules[] = new D2UModule("24-4",
 		"D2U Linkbox - Slider",
-		4);
+		5);
 	$modules[] = new D2UModule("24-5",
 		"D2U Linkbox - Linkboxen mit Text neben dem Bild",
 		2);
