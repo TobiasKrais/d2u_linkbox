@@ -30,12 +30,12 @@ else {
 		$slider_id = rand(1, 1000);
 		
 		// Slider
-		print '<div id="'. $slider_id .'" class="carousel slide carousel-lb-mod-4-outer" data-pause="false">';
+		print '<div id="slider'. $slider_id .'" class="carousel slide carousel-lb-mod-4-outer" data-ride="carousel" data-pause="false">';
 
 		// Slider indicators
 		print '<ol class="carousel-indicators">';
 		for($i = 0; $i < count($linkboxes); $i++) {
-			print '<li data-target="#'. $slider_id .'" data-slide-to="'. $i .'"';
+			print '<li data-target="#slider'. $slider_id .'" data-slide-to="'. $i .'"';
 			if($i === 0) {
 				print 'class="active"';
 			}
@@ -74,16 +74,16 @@ else {
 		print '</div>';
 
 		// Left and right controls
-		print '<a class="carousel-control-prev" href="#'. $slider_id .'" role="button" data-slide="prev">';
+		print '<button class="carousel-control-prev" type="button" data-target="#slider'. $slider_id .'" data-slide="prev">';
 		print '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
 		print '<span class="sr-only">Previous</span>';
 		print '</a>';
-		print '<a class="carousel-control-next" href="#'. $slider_id .'" role="button" data-slide="next">';
+		print '<button class="carousel-control-next" type="button" data-target="#slider'. $slider_id .'" data-slide="next">';
 		print '<span class="carousel-control-next-icon" aria-hidden="true"></span>';
 		print '<span class="sr-only">Next</span>';
 		print '</a>';
 		print '</div>';
-		
+			
 		print '</div>';
 		print '</div>';
 		print '</div>';

@@ -2,14 +2,14 @@
 	margin: 0 0 1em 0;
 }
 .linkbox-teaser {
-	color: #212529;
+	color: white;
 	flex: 1 0 auto;
 }
 .linkbox-title {
 	padding: 0.5em 1em;
 }
 .linkbox-title h2 {
-	color: #212529;
+	color: white;
 	font-size: 1.25em;
 	margin: 0;
 	padding: 0;
@@ -19,7 +19,7 @@
 	  font-size: 0.8em;
 	}
 }
-.linkbox:hover img {
+.linkbox img:hover {
 	height: auto;
 	-webkit-transition: all 0.2s ease-out;
 	opacity: 0.7;

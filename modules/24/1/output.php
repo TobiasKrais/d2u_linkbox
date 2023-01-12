@@ -31,13 +31,17 @@ else {
 		foreach($linkboxes as $linkbox) {
 			print '<div class="col-12 col-sm-6 col-lg-'. ($box_per_line === 4 ? '3' : '4') .' linkbox-spacer">';/** @phpstan-ignore-line */
 			print '<div class="linkbox-outer">';
-			print '<div class="linkbox">';
+			print '<div class="linkbox-mod-1">';
 			$url = $linkbox->getUrl();
 			if($url !== "") {
 				$url = '<a href="'. $url .'">';
 			}
 			print  $url;
-			print '<div class="linkbox-title-lk-mod-1">'. $linkbox->title .'</div>';
+			$bg_color = "";
+			if($linkbox->background_color !== "") {
+				$bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+			}
+			print '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. $linkbox->title .'</div>';
 			if($linkbox->picture !== "" || $linkbox->picture_lang !== "") {
 				print '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
 					($linkbox->picture_lang !== "" ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. $linkbox->title .'" loading="lazy">';

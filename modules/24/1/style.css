@@ -1,4 +1,4 @@
-.linkbox {
+.linkbox-mod-1 {
 	hyphens: auto;
     position: relative;
 }
@@ -14,6 +14,7 @@
 .linkbox-title-lk-mod-1 {
     padding: 0.25em 0.5em;
     background: navi_color_bg;
+	color: white;
 	font-size: 1.25em;
 	font-weight: bold;
     margin: 1.5em 0 0 0.25em;
