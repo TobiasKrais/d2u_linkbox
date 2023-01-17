@@ -52,7 +52,7 @@ function rex_d2u_linkbox_article_is_in_use(rex_extension_point $ep) {
  * @return array<string> Warning message as array
  */
 function rex_d2u_linkbox_clang_deleted(rex_extension_point $ep) {
-	/** @var string[] $warning */
+	/** @var array<string> $warning */
 	$warning = $ep->getSubject();
 	$params = $ep->getParams();
 	$clang_id = $params['id'];
@@ -72,7 +72,7 @@ function rex_d2u_linkbox_clang_deleted(rex_extension_point $ep) {
  * @return array<string> Warning message as array
  */
 function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep) {
-	/** @var string[] $warning */
+	/** @var array<string> $warning */
 	$warning = $ep->getSubject();
 	$params = $ep->getParams();
 	$filename = addslashes($params['filename']);
