@@ -2,11 +2,7 @@
 $cols_sm = intval("REX_VALUE[20]") === 0 ? 12 : intval("REX_VALUE[20]"); /** @phpstan-ignore-line */
 $cols_md = intval("REX_VALUE[19]") === 0 ? 12 : intval("REX_VALUE[19]"); /** @phpstan-ignore-line */
 $cols_lg = intval("REX_VALUE[18]") === 0 ? 12 : intval("REX_VALUE[18]"); /** @phpstan-ignore-line */
-$offset_lg_cols = intval("REX_VALUE[17]");
-$offset_lg = "";
-if($offset_lg_cols > 0) { /** @phpstan-ignore-line */
-	$offset_lg = " mr-lg-auto ml-lg-auto ";
-}
+$offset_lg = intval("REX_VALUE[17]") > 0 ? " mr-lg-auto ml-lg-auto " : ""; /** @phpstan-ignore-line */
 
 $category_id = intval("REX_VALUE[1]") > 0 ? intval("REX_VALUE[1]") : 0; /** @phpstan-ignore-line */
 $category = $category_id > 0 ? new D2U_Linkbox\Category($category_id, rex_clang::getCurrentId()) : false; /** @phpstan-ignore-line */
