@@ -9,20 +9,20 @@
 	<div class="col-xs-4">Linkbox Kategorie</div>
 	<div class="col-xs-8">
 		<?php
-			$categories = D2U_Linkbox\Category::getAll(rex_clang::getCurrentId(), false);
-			if (count($categories) > 0) {
-				print '<select name="REX_INPUT_VALUE[1]" class="form-control">';
-				foreach ($categories as $category) {
-					echo '<option value="'. $category->category_id .'" ';
+            $categories = D2U_Linkbox\Category::getAll(rex_clang::getCurrentId(), false);
+            if (count($categories) > 0) {
+                echo '<select name="REX_INPUT_VALUE[1]" class="form-control">';
+                foreach ($categories as $category) {
+                    echo '<option value="'. $category->category_id .'" ';
 
-					if (intval("REX_VALUE[1]") === $category->category_id) { /** @phpstan-ignore-line */
-						echo 'selected="selected" ';
-					}
-					echo '>'. $category->name .'</option>';
-				}
-				print '</select>';
-			}
-		?>
+                    if ((int) 'REX_VALUE[1]' === $category->category_id) { /** @phpstan-ignore-line */
+                        echo 'selected="selected" ';
+                    }
+                    echo '>'. $category->name .'</option>';
+                }
+                echo '</select>';
+            }
+        ?>
 	</div>
 </div>
 <div class="row">

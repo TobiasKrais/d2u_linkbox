@@ -1,146 +1,147 @@
 <?php
+
 namespace D2U_Linkbox;
 
+use rex;
+use rex_config;
+use rex_sql;
+
 /**
- * Category class
+ * Category class.
  */
-class Category {
-	/**
-	 * @var int Database ID
-	 */
-	public int $category_id = 0;
-	
-	/**
-	 * 
-	 * @var int Redaxo language ID
-	 */
-	private int $clang_id = 0;
-	
-	/**
-	 * @var string Name
-	 */
-	public string $name = "";
+class Category
+{
+    /** @var int Database ID */
+    public int $category_id = 0;
 
-	/**
-	 * Constructor
-	 * @param int $category_id Category ID.
-	 * @param int $clang_id Redaxo language ID.
-	 */
-	public function __construct($category_id, $clang_id) {
-		$this->clang_id = $clang_id;
-		$query = "SELECT * FROM ". \rex::getTablePrefix() ."d2u_linkbox_categories "
-				."WHERE category_id = ". $category_id;
-		$result = \rex_sql::factory();
-		$result->setQuery($query);
+    /** @var int Redaxo language ID */
+    private int $clang_id = 0;
 
-		if ($result->getRows() > 0) {
-			$this->category_id = (int) $result->getValue("category_id");
-			$this->name = stripslashes((string) $result->getValue("name"));
-		}
-	}
-	
-	/**
-	 * Deletes the object in all languages.
-	 */
-	public function delete():void {
-		$query_lang = "DELETE FROM ". \rex::getTablePrefix() ."d2u_linkbox_categories "
-			."WHERE category_id = ". $this->category_id;
-		$result_lang = \rex_sql::factory();
-		$result_lang->setQuery($query_lang);
-	}
-	
-	/**
-	 * Get all categories.
-	 * @param int $clang_id Redaxo clang id.
-	 * @param boolean $ignoreOfflines Ignore offline categories
-	 * @return Category[] Array with Category objects.
-	 */
-	public static function getAll($clang_id, $ignoreOfflines = true) {
-		$query = "SELECT category_id FROM ". \rex::getTablePrefix() ."d2u_linkbox_categories "
-			.'ORDER BY name';
-		$result = \rex_sql::factory();
-		$result->setQuery($query);
-		
-		$categories = [];
-		for($i = 0; $i < $result->getRows(); $i++) {
-			if($ignoreOfflines) {
-				$query_check_offline = "SELECT lang.box_id FROM ". \rex::getTablePrefix() ."d2u_linkbox_lang AS lang "
-					."LEFT JOIN ". \rex::getTablePrefix() ."d2u_linkbox AS linkbox "
-						."ON lang.box_id = linkbox.box_id AND lang.clang_id = ". $clang_id ." "
-					."WHERE category_ids LIKE '%|". $result->getValue("category_id") ."|%'";
+    /** @var string Name */
+    public string $name = '';
 
-				$result_check_offline = \rex_sql::factory();
-				$result_check_offline->setQuery($query_check_offline);
-				if($result_check_offline->getRows() > 0) {
-					$categories[(int) $result->getValue("category_id")] = new Category((int) $result->getValue("category_id"), $clang_id);
-				}
-			}
-			else {
-				$categories[(int) $result->getValue("category_id")] = new Category((int) $result->getValue("category_id"), $clang_id);
-			}
-			$result->next();
-		}
-		return $categories;
-	}
+    /**
+     * Constructor.
+     * @param int $category_id category ID
+     * @param int $clang_id redaxo language ID
+     */
+    public function __construct($category_id, $clang_id)
+    {
+        $this->clang_id = $clang_id;
+        $query = 'SELECT * FROM '. rex::getTablePrefix() .'d2u_linkbox_categories '
+                .'WHERE category_id = '. $category_id;
+        $result = rex_sql::factory();
+        $result->setQuery($query);
 
-	/**
-	 * Get the linkboxes of the category.
-	 * @param boolean $only_online Show only online linkbox
-	 * @return Linkbox[] Linkboxes in this category
-	 */
-	public function getLinkboxes($only_online = false) {
-		$query = "SELECT lang.box_id FROM ". \rex::getTablePrefix() ."d2u_linkbox_lang AS lang "
-			."LEFT JOIN ". \rex::getTablePrefix() ."d2u_linkbox AS linkbox "
-					."ON lang.box_id = linkbox.box_id "
-			."WHERE category_ids LIKE '%|". $this->category_id ."|%' AND clang_id = ". $this->clang_id ." ";
-		if($only_online) {
-			$query .= "AND online_status = 'online' ";
-		}
-		if(\rex_config::get('d2u_linkbox', 'default_sort', 'name') === 'name') {
-			$query .= ' ORDER BY title';
-		}
-		else {
-			$query .= ' ORDER BY priority';
-		}
-		$result = \rex_sql::factory();
-		$result->setQuery($query);
-		
-		$linkbox = [];
-		for($i = 0; $i < $result->getRows(); $i++) {
-			$linkbox[] = new Linkbox((int) $result->getValue("box_id"), $this->clang_id);
-			$result->next();
-		}
-		return $linkbox;
-	}
+        if ($result->getRows() > 0) {
+            $this->category_id = (int) $result->getValue('category_id');
+            $this->name = stripslashes((string) $result->getValue('name'));
+        }
+    }
 
-	/**
-	 * Updates or inserts the object into database.
-	 * @return boolean true if successful
-	 */
-	public function save() {
-		$error = true;
+    /**
+     * Deletes the object in all languages.
+     */
+    public function delete(): void
+    {
+        $query_lang = 'DELETE FROM '. rex::getTablePrefix() .'d2u_linkbox_categories '
+            .'WHERE category_id = '. $this->category_id;
+        $result_lang = rex_sql::factory();
+        $result_lang->setQuery($query_lang);
+    }
 
-		// Save the not language specific part
-		$pre_save_category = new Category($this->category_id, $this->clang_id);
+    /**
+     * Get all categories.
+     * @param int $clang_id redaxo clang id
+     * @param bool $ignoreOfflines Ignore offline categories
+     * @return Category[] array with Category objects
+     */
+    public static function getAll($clang_id, $ignoreOfflines = true)
+    {
+        $query = 'SELECT category_id FROM '. rex::getTablePrefix() .'d2u_linkbox_categories '
+            .'ORDER BY name';
+        $result = rex_sql::factory();
+        $result->setQuery($query);
 
-		if($this->category_id === 0 || $pre_save_category !== $this) {
-			$query = \rex::getTablePrefix() ."d2u_linkbox_categories SET "
-					."name = '". addslashes($this->name) ."' ";
+        $categories = [];
+        for ($i = 0; $i < $result->getRows(); ++$i) {
+            if ($ignoreOfflines) {
+                $query_check_offline = 'SELECT lang.box_id FROM '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
+                    .'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
+                        .'ON lang.box_id = linkbox.box_id AND lang.clang_id = '. $clang_id .' '
+                    ."WHERE category_ids LIKE '%|". $result->getValue('category_id') ."|%'";
 
-			if($this->category_id === 0) {
-				$query = "INSERT INTO ". $query;
-			}
-			else {
-				$query = "UPDATE ". $query ." WHERE category_id = ". $this->category_id;
-			}
-			$result = \rex_sql::factory();
-			$result->setQuery($query);
-			if($this->category_id === 0) {
-				$this->category_id = intval($result->getLastId());
-				$error = !$result->hasError();
-			}
-		}
+                $result_check_offline = rex_sql::factory();
+                $result_check_offline->setQuery($query_check_offline);
+                if ($result_check_offline->getRows() > 0) {
+                    $categories[(int) $result->getValue('category_id')] = new self((int) $result->getValue('category_id'), $clang_id);
+                }
+            } else {
+                $categories[(int) $result->getValue('category_id')] = new self((int) $result->getValue('category_id'), $clang_id);
+            }
+            $result->next();
+        }
+        return $categories;
+    }
 
-		return $error;
-	}
+    /**
+     * Get the linkboxes of the category.
+     * @param bool $only_online Show only online linkbox
+     * @return Linkbox[] Linkboxes in this category
+     */
+    public function getLinkboxes($only_online = false)
+    {
+        $query = 'SELECT lang.box_id FROM '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
+            .'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
+                    .'ON lang.box_id = linkbox.box_id '
+            ."WHERE category_ids LIKE '%|". $this->category_id ."|%' AND clang_id = ". $this->clang_id .' ';
+        if ($only_online) {
+            $query .= "AND online_status = 'online' ";
+        }
+        if ('name' === rex_config::get('d2u_linkbox', 'default_sort', 'name')) {
+            $query .= ' ORDER BY title';
+        } else {
+            $query .= ' ORDER BY priority';
+        }
+        $result = rex_sql::factory();
+        $result->setQuery($query);
+
+        $linkbox = [];
+        for ($i = 0; $i < $result->getRows(); ++$i) {
+            $linkbox[] = new Linkbox((int) $result->getValue('box_id'), $this->clang_id);
+            $result->next();
+        }
+        return $linkbox;
+    }
+
+    /**
+     * Updates or inserts the object into database.
+     * @return bool true if successful
+     */
+    public function save()
+    {
+        $error = true;
+
+        // Save the not language specific part
+        $pre_save_category = new self($this->category_id, $this->clang_id);
+
+        if (0 === $this->category_id || $pre_save_category !== $this) {
+            $query = rex::getTablePrefix() .'d2u_linkbox_categories SET '
+                    ."name = '". addslashes($this->name) ."' ";
+
+            if (0 === $this->category_id) {
+                $query = 'INSERT INTO '. $query;
+            } else {
+                $query = 'UPDATE '. $query .' WHERE category_id = '. $this->category_id;
+            }
+            $result = rex_sql::factory();
+            $result->setQuery($query);
+            if (0 === $this->category_id) {
+                $this->category_id = (int) $result->getLastId();
+                $error = !$result->hasError();
+            }
+        }
+
+        return $error;
+    }
 }

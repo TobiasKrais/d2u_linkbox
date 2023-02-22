@@ -5,16 +5,16 @@
 	<div class="col-xs-8">
 		<select name="REX_INPUT_VALUE[20]"  class="form-control">
 		<?php
-		$values = [12=>"12 von 12 Spalten (ganze Breite)", 10=>"10 von 12 Spalten", 9=>"9 von 12 Spalten", 8=>"8 von 12 Spalten", 6=>"6 von 12 Spalten", 4=>"4 von 12 Spalten", 3=>"3 von 12 Spalten"];
-		foreach($values as $key => $value) {
-			echo '<option value="'. $key .'" ';
-	
-			if (intval("REX_VALUE[20]") === $key) { /** @phpstan-ignore-line */
-				echo 'selected="selected" ';
-			}
-			echo '>'. $value .'</option>';
-		}
-		?>
+        $values = [12 => '12 von 12 Spalten (ganze Breite)', 10 => '10 von 12 Spalten', 9 => '9 von 12 Spalten', 8 => '8 von 12 Spalten', 6 => '6 von 12 Spalten', 4 => '4 von 12 Spalten', 3 => '3 von 12 Spalten'];
+        foreach ($values as $key => $value) {
+            echo '<option value="'. $key .'" ';
+
+            if ((int) 'REX_VALUE[20]' === $key) { /** @phpstan-ignore-line */
+                echo 'selected="selected" ';
+            }
+            echo '>'. $value .'</option>';
+        }
+        ?>
 		</select>
 	</div>
 </div>
@@ -28,16 +28,16 @@
 	<div class="col-xs-8">
 		<select name="REX_INPUT_VALUE[19]"  class="form-control">
 		<?php
-		$values = [12=>"12 von 12 Spalten (ganze Breite)", 10=>"10 von 12 Spalten", 9=>"9 von 12 Spalten", 8=>"8 von 12 Spalten", 6=>"6 von 12 Spalten", 4=>"4 von 12 Spalten", 3=>"3 von 12 Spalten"];
-		foreach($values as $key => $value) {
-			echo '<option value="'. $key .'" ';
-	
-			if (intval("REX_VALUE[19]") === $key) { /** @phpstan-ignore-line */
-				echo 'selected="selected" ';
-			}
-			echo '>'. $value .'</option>';
-		}
-		?>
+        $values = [12 => '12 von 12 Spalten (ganze Breite)', 10 => '10 von 12 Spalten', 9 => '9 von 12 Spalten', 8 => '8 von 12 Spalten', 6 => '6 von 12 Spalten', 4 => '4 von 12 Spalten', 3 => '3 von 12 Spalten'];
+        foreach ($values as $key => $value) {
+            echo '<option value="'. $key .'" ';
+
+            if ((int) 'REX_VALUE[19]' === $key) { /** @phpstan-ignore-line */
+                echo 'selected="selected" ';
+            }
+            echo '>'. $value .'</option>';
+        }
+        ?>
 		</select>
 	</div>
 </div>
@@ -51,16 +51,16 @@
 	<div class="col-xs-8">
 		<select name="REX_INPUT_VALUE[18]"  class="form-control">
 		<?php
-		$values = [12=>"12 von 12 Spalten (ganze Breite)", 10=>"10 von 12 Spalten", 9=>"9 von 12 Spalten", 8=>"8 von 12 Spalten", 6=>"6 von 12 Spalten", 4=>"4 von 12 Spalten", 3=>"3 von 12 Spalten"];
-		foreach($values as $key => $value) {
-			echo '<option value="'. $key .'" ';
-	
-			if (intval("REX_VALUE[18]") === $key) { /** @phpstan-ignore-line */
-				echo 'selected="selected" ';
-			}
-			echo '>'. $value .'</option>';
-		}
-		?>
+        $values = [12 => '12 von 12 Spalten (ganze Breite)', 10 => '10 von 12 Spalten', 9 => '9 von 12 Spalten', 8 => '8 von 12 Spalten', 6 => '6 von 12 Spalten', 4 => '4 von 12 Spalten', 3 => '3 von 12 Spalten'];
+        foreach ($values as $key => $value) {
+            echo '<option value="'. $key .'" ';
+
+            if ((int) 'REX_VALUE[18]' === $key) { /** @phpstan-ignore-line */
+                echo 'selected="selected" ';
+            }
+            echo '>'. $value .'</option>';
+        }
+        ?>
 		</select>
 	</div>
 </div>
@@ -72,16 +72,16 @@
 	<div class="col-xs-8">
 		<select name="REX_INPUT_VALUE[17]"  class="form-control">
 		<?php
-		$values_offset = [0=>"Nicht zentrieren.", 1=>"Zentrieren, wenn freie Breite von anderem Inhalt nicht genutzt wird"];
-		foreach($values_offset as $key => $value) {
-			echo '<option value="'. $key .'" ';
-	
-			if (intval("REX_VALUE[17]") === $key) { /** @phpstan-ignore-line */
-				echo 'selected="selected" ';
-			}
-			echo '>'. $value .'</option>';
-		}
-		?>
+        $values_offset = [0 => 'Nicht zentrieren.', 1 => 'Zentrieren, wenn freie Breite von anderem Inhalt nicht genutzt wird'];
+        foreach ($values_offset as $key => $value) {
+            echo '<option value="'. $key .'" ';
+
+            if ((int) 'REX_VALUE[17]' === $key) { /** @phpstan-ignore-line */
+                echo 'selected="selected" ';
+            }
+            echo '>'. $value .'</option>';
+        }
+        ?>
 		</select>
 	</div>
 </div>
@@ -119,20 +119,20 @@
 	<div class="col-xs-4">Linkbox Kategorie</div>
 	<div class="col-xs-8">
 		<?php
-			$categories = D2U_Linkbox\Category::getAll(rex_clang::getCurrentId(), false);
-			if (count($categories) > 0) {
-				print '<select name="REX_INPUT_VALUE[1]" class="form-control" >';
-				foreach ($categories as $category) {
-					echo '<option value="'. $category->category_id .'" ';
+            $categories = D2U_Linkbox\Category::getAll(rex_clang::getCurrentId(), false);
+            if (count($categories) > 0) {
+                echo '<select name="REX_INPUT_VALUE[1]" class="form-control" >';
+                foreach ($categories as $category) {
+                    echo '<option value="'. $category->category_id .'" ';
 
-					if (intval("REX_VALUE[1]") === $category->category_id) { /** @phpstan-ignore-line */
-						echo 'selected="selected" ';
-					}
-					echo '>'. $category->name .'</option>';
-				}
-				print '</select>';
-			}
-		?>
+                    if ((int) 'REX_VALUE[1]' === $category->category_id) { /** @phpstan-ignore-line */
+                        echo 'selected="selected" ';
+                    }
+                    echo '>'. $category->name .'</option>';
+                }
+                echo '</select>';
+            }
+        ?>
 	</div>
 </div>
 <div class="row">
@@ -142,12 +142,12 @@
 	<div class="col-xs-4">Anzahl Linkboxen / Zeile</div>
 	<div class="col-xs-8">
 		<?php
-			print '<select name="REX_INPUT_VALUE[3]" class="form-control">';
-			print '<option value="2" '. (intval("REX_VALUE[3]") === 2 ? 'selected="selected" ' : '') .'>2</option>'; /** @phpstan-ignore-line */
-			print '<option value="3" '. (intval("REX_VALUE[3]") === 3 ? 'selected="selected" ' : '') .'>3</option>'; /** @phpstan-ignore-line */
-			print '<option value="4" '. (intval("REX_VALUE[3]") === 4 ? 'selected="selected" ' : '') .'>4</option>'; /** @phpstan-ignore-line */
-			print '</select>';
-		?>
+            echo '<select name="REX_INPUT_VALUE[3]" class="form-control">';
+            echo '<option value="2" '. (2 === (int) 'REX_VALUE[3]' ? 'selected="selected" ' : '') .'>2</option>'; /** @phpstan-ignore-line */
+            echo '<option value="3" '. (3 === (int) 'REX_VALUE[3]' ? 'selected="selected" ' : '') .'>3</option>'; /** @phpstan-ignore-line */
+            echo '<option value="4" '. (4 === (int) 'REX_VALUE[3]' ? 'selected="selected" ' : '') .'>4</option>'; /** @phpstan-ignore-line */
+            echo '</select>';
+        ?>
 	</div>
 </div>
 <div class="row">
@@ -155,7 +155,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-4">
-		<input type="checkbox" name="REX_INPUT_VALUE[6]" value="true" <?php echo "REX_VALUE[6]" === 'true' ? ' checked="checked"' : '';  /** @phpstan-ignore-line */ ?> class="form-control d2u_helper_toggle" />
+		<input type="checkbox" name="REX_INPUT_VALUE[6]" value="true" <?php echo 'REX_VALUE[6]' === 'true' ? ' checked="checked"' : '';  /** @phpstan-ignore-line */ ?> class="form-control d2u_helper_toggle" />
 	</div>
 	<div class="col-xs-8">
 		Nur Bild anzeigen<br />
@@ -166,7 +166,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-4">
-		<input type="checkbox" name="REX_INPUT_VALUE[4]" value="true" <?php echo "REX_VALUE[4]" === 'true' ? ' checked="checked"' : '';  /** @phpstan-ignore-line */ ?> class="form-control d2u_helper_toggle" />
+		<input type="checkbox" name="REX_INPUT_VALUE[4]" value="true" <?php echo 'REX_VALUE[4]' === 'true' ? ' checked="checked"' : '';  /** @phpstan-ignore-line */ ?> class="form-control d2u_helper_toggle" />
 	</div>
 	<div class="col-xs-8">
 		Teaser / Kurztext unterhalb der Überschriften anzeigen?<br />
@@ -202,14 +202,14 @@
 		<select name="REX_INPUT_VALUE[5]" class="form-control">
 			<option value="none">Bild im Original einbinden</option>
 		<?php
-			$sql = rex_sql::factory();
-			$result = $sql->setQuery('SELECT name FROM ' . \rex::getTablePrefix() . 'media_manager_type ORDER BY status, name');
-			for($i = 0; $i < $result->getRows(); $i++) {
-				$name = $result->getValue("name");
-				echo '<option value="'. $name .'" '. ("REX_VALUE[5]" === $name ? 'selected="selected" ' : '') .'>'. $name .'</option>';
-				$result->next();
-			}
-		?>
+            $sql = rex_sql::factory();
+            $result = $sql->setQuery('SELECT name FROM ' . \rex::getTablePrefix() . 'media_manager_type ORDER BY status, name');
+            for ($i = 0; $i < $result->getRows(); ++$i) {
+                $name = $result->getValue('name');
+                echo '<option value="'. $name .'" '. ('REX_VALUE[5]' === $name ? 'selected="selected" ' : '') .'>'. $name .'</option>';
+                $result->next();
+            }
+        ?>
 		</select>
 	</div>
 </div>
