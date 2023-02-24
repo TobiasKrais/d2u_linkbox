@@ -273,22 +273,22 @@ class Linkbox implements \D2U_Helper\ITranslationHelper
             $this->link = '' !== $this->external_url_lang ? $this->external_url_lang : $this->external_url;
         } elseif ('d2u_immo_property' === $this->link_type && $this->link_addon_id > 0 && rex_addon::get('d2u_immo')->isAvailable()) {
             $property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
-            $this->link = $property->getURL();
+            $this->link = $property->getUrl();
         } elseif ($this->link_addon_id > 0 && rex_addon::get('d2u_machinery')->isAvailable()) {
             if ('d2u_immo_property' === $this->link_type && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
                 $industry_sector = new IndustrySector($this->link_addon_id, $this->clang_id);
-                $this->link = $industry_sector->getURL();
+                $this->link = $industry_sector->getUrl();
             } elseif ('d2u_machinery_machine' === $this->link_type) {
                 $machine = new Machine($this->link_addon_id, $this->clang_id);
-                $this->link = $machine->getURL();
+                $this->link = $machine->getUrl();
             }
             if ('d2u_machinery_used_machine' === $this->link_type && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
                 $used_machine = new UsedMachine($this->link_addon_id, $this->clang_id);
-                $this->link = $used_machine->getURL();
+                $this->link = $used_machine->getUrl();
             }
         } elseif ('d2u_courses_category' === $this->link_type && $this->link_addon_id > 0 && rex_addon::get('d2u_courses')->isAvailable()) {
             $category = new \D2U_Courses\Category($this->link_addon_id);
-            $this->link = $category->getURL();
+            $this->link = $category->getUrl();
         } elseif (('' === $this->link_type || 'article' === $this->link_type) && $this->article_id > 0) {
             $this->link = rex_getUrl($this->article_id);
         }
