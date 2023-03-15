@@ -35,9 +35,14 @@ if (rex::isBackend()) {
         }
 
         foreach ($linkboxes as $linkbox) {
-            echo '<div class="col-'. ($show_teaser ? '12' : '6') .' col-sm-6 ' /** @phpstan-ignore-line */
-                . ($box_per_line > 2 ? 'col-md-4 col-lg-'. (4 === $box_per_line ? '3' : '4') : '') /** @phpstan-ignore-line */
-                .' linkbox-spacer">';
+            if(1 === $box_per_line) { /** @phpstan-ignore-line */
+                echo '<div class="col-12 linkbox-spacer">';
+            }
+            else {
+                echo '<div class="col-'. ($show_teaser ? '12' : '6') .' col-sm-6 ' /** @phpstan-ignore-line */
+                    . ($box_per_line > 2 ? 'col-md-4 col-lg-'. (4 === $box_per_line ? '3' : '4') : '') /** @phpstan-ignore-line */
+                    .' linkbox-spacer">';
+            }
 
             $bg_color = '';
             if ('' !== $linkbox->background_color) {

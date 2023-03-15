@@ -142,10 +142,16 @@
 	<div class="col-xs-4">Anzahl Linkboxen / Zeile</div>
 	<div class="col-xs-8">
 		<?php
-            echo '<select name="REX_INPUT_VALUE[3]" class="form-control">';
-            echo '<option value="2" '. (2 === (int) 'REX_VALUE[3]' ? 'selected="selected" ' : '') .'>2</option>'; /** @phpstan-ignore-line */
-            echo '<option value="3" '. (3 === (int) 'REX_VALUE[3]' ? 'selected="selected" ' : '') .'>3</option>'; /** @phpstan-ignore-line */
-            echo '<option value="4" '. (4 === (int) 'REX_VALUE[3]' ? 'selected="selected" ' : '') .'>4</option>'; /** @phpstan-ignore-line */
+        	$values_number = [1, 2, 3, 4];
+			echo '<select name="REX_INPUT_VALUE[3]" class="form-control">';
+			foreach ($values_number as $number) {
+				echo '<option value="'. $number .'" ';
+	
+				if ((int) 'REX_VALUE[3]' === $number) { /** @phpstan-ignore-line */
+					echo 'selected="selected" ';
+				}
+				echo '>'. $number .'</option>';
+			}
             echo '</select>';
         ?>
 	</div>

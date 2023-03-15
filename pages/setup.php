@@ -21,10 +21,8 @@ $d2u_module_manager->showManagerList();
 ?>
 <h2>Beispielseiten D2U Linkbox Addon</h2>
 <ul>
-	<li><a href="https://www.inotec-gmbh.com/" target="_blank">
-		www.inotec-gmbh.com</a></li>
-	<li><a href="https://www.kaltenbach.com/de/" target="_blank">
-		www.kaltenbach.com</a></li>
+	<li><a href="https://test.design-to-use.de/de/addontests/d2u-linkbox/" target="_blank">
+		https://test.design-to-use.de/de/addontests/d2u-linkbox/</a></li>
 </ul>
 <h2>Support</h2>
 <p>Fehlermeldungen bitte im <a href="https://github.com/TobiasKrais/d2u_linkbox/" target="_blank">GitHub Repository</a> melden</p>
@@ -32,13 +30,14 @@ $d2u_module_manager->showManagerList();
 <p>1.3.1-DEV:</p>
 <ul>
 	<li>PHP-CS-Fixer Code Verbesserungen.</li>
+	<li>Modul '24-2 D2U Linkbox - Linkboxen mit Überschrift unter Bild': Es kann nun auch nur eine Linkbox nebeneinander ausgewählt werden.</li>
 </ul>
 <p>1.3:</p>
 <ul>
 	<li>.github Verzeichnis aus Installer Action ausgeschlossen.</li>
 	<li>Ca. 300 rexstan Verbesserungen.</li>
-	<li>Modul 24-2: auf kleinen Bildschirmen werden jetzt 2 Boxen nebeneinander angezeigt, wenn kein Teasertext angezeigt werden soll.</li>
-	<li>Modul 24-5 "D2U Linkbox - Linkboxen mit Text neben dem Bild": Tippfehler behoben.</li>
+	<li>Modul '24-2 D2U Linkbox - Linkboxen mit Überschrift unter Bild': auf kleinen Bildschirmen werden jetzt 2 Boxen nebeneinander angezeigt, wenn kein Teasertext angezeigt werden soll.</li>
+	<li>Modul '24-5 D2U Linkbox - Linkboxen mit Text neben dem Bild': Tippfehler behoben.</li>
 	<li>Bugfix: 2 Felder waren beim Speichern einer Linkbox nicht korrekt escaped.</li>
 	<li>Bugfix: Prioritäten der Boxen wurde nicht immer korrekt gesetzt.</li>
 </ul>
