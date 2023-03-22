@@ -5,6 +5,9 @@
 	color: white;
 	flex: 1 0 auto;
 }
+.linkbox-teaser a {
+	color: white;
+}
 .linkbox-title {
 	padding: 0.5em 1em;
 }

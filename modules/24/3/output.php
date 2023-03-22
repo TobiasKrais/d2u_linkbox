@@ -60,7 +60,7 @@ if (rex::isBackend()) {
             $text .= '<div class="linkbox-content-lb-mod-3">';
             $text .= '<div class="linkbox-title-lb-mod-3">'. $linkbox->title .'</div>';
             if ('' !== $linkbox->teaser) {
-                $text .= '<div class="linkbox-teaser-lb-mod-3">'. nl2br($linkbox->teaser) .'</div>';
+                $text .= '<div class="linkbox-teaser-lb-mod-3">'. $linkbox->teaser .'</div>';
             }
             $text .= '</div>';
             $text .= '</div>';

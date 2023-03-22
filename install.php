@@ -37,19 +37,32 @@ if (class_exists('D2UModuleManager')) {
     $modules = [];
     $modules[] = new D2UModule('24-1',
         'D2U Linkbox - Linkboxen mit Überschrift in Bild',
-        8);
+        9);
     $modules[] = new D2UModule('24-2',
         'D2U Linkbox - Linkboxen mit Überschrift unter Bild',
         10);
     $modules[] = new D2UModule('24-3',
         'D2U Linkbox - Farbboxen mit seitlichem Bild',
-        6);
+        7);
     $modules[] = new D2UModule('24-4',
         'D2U Linkbox - Slider',
-        5);
+        6);
     $modules[] = new D2UModule('24-5',
         'D2U Linkbox - Linkboxen mit Text neben dem Bild',
-        2);
+        3);
     $d2u_module_manager = new D2UModuleManager($modules, '', 'd2u_linkbox');
     $d2u_module_manager->autoupdate();
+}
+
+// 1.4 Update database to fit wysiwyg editor
+if (rex_version::compare($this->getVersion(), '1.4.0', '<')) {
+    $result = rex_sql::factory();
+    $result->setQuery('SELECT * FROM '. \rex::getTablePrefix() .'d2u_linkbox_lang;');
+
+    for ($i = 0; $i < $result->getRows(); ++$i) {
+        $update_sql = rex_sql::factory();
+        $update_sql->setQuery('UPDATE `'. \rex::getTablePrefix() .'d2u_linkbox_lang` SET teaser = "'. addslashes(nl2br(stripslashes($result->getValue('teaser')))) .'" '
+            .'WHERE box_id = '. $result->getValue('box_id') .' AND clang_id = '. $result->getValue('clang_id') .';');
+        $result->next();
+    }
 }

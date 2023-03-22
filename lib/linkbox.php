@@ -186,12 +186,12 @@ class Linkbox implements \D2U_Helper\ITranslationHelper
      }
 
     /**
-      * Get all linkboxes.
-      * @param int $clang_id Redaxo language ID
-      * @param int $category_id category ID if only linkbox of that category should be returned
-      * @param bool $online_only If only online linkbox should be returned true, otherwise false
-      * @return Linkbox[] Array with linkbox objects
-      */
+     * Get all linkboxes.
+     * @param int $clang_id Redaxo language ID
+     * @param int $category_id category ID if only linkbox of that category should be returned
+     * @param bool $online_only If only online linkbox should be returned true, otherwise false
+     * @return Linkbox[] Array with linkbox objects
+     */
     public static function getAll($clang_id, $category_id = 0, $online_only = true)
     {
         $query = 'SELECT lang.box_id FROM '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '

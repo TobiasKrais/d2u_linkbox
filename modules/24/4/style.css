@@ -20,6 +20,6 @@
 .linkbox-mod-4-slider.carousel-item {
 	transition-duration: 1.5s !important;
 }
-.linkbox-title-lb-mod-4 {
+.linkbox-title-lb-mod-4, .linkbox-teaser-lb-mod-4 a {
 	color: white;
 }

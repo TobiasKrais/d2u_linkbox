@@ -31,7 +31,7 @@
 	left: auto;
 	right: 0;
 }
-.linkbox-content-lb-mod-3 {
+.linkbox-content-lb-mod-3, .linkbox-content-lb-mod-3 a {
 	color: white;
 	text-align: center;
 }

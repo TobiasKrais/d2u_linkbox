@@ -239,7 +239,7 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 							<div id="details_clang_<?= $rex_clang->getId() ?>">
 								<?php
                                     d2u_addon_backend_helper::form_input('d2u_linkbox_title', 'form[lang]['. $rex_clang->getId() .'][title]', $linkbox->title, $required, $readonly_lang);
-                                    d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', 'form[lang]['. $rex_clang->getId() .'][teaser]', $linkbox->teaser, 3, false, $readonly_lang, false);
+                                    d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', 'form[lang]['. $rex_clang->getId() .'][teaser]', $linkbox->teaser, 3, false, $readonly_lang, true);
                                     d2u_addon_backend_helper::form_mediafield('d2u_linkbox_picture_lang', 'picture_lang'. $rex_clang->getId(), $linkbox->picture_lang, $readonly_lang);
                                     d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document_lang', 'document_lang'. $rex_clang->getId(), $linkbox->document_lang, $readonly_lang);
                                     d2u_addon_backend_helper::form_input('d2u_linkbox_external_url_lang', 'form[lang]['. $rex_clang->getId() .'][external_url_lang]', $linkbox->external_url_lang, false, $readonly_lang);

@@ -61,7 +61,7 @@ if (rex::isBackend()) {
             echo '<div class="linkbox-mod-4"'. ('' !== $linkbox->background_color ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
             echo '<div class="linkbox-title-lb-mod-4">'. $linkbox->title .'</div>';
             if ('' !== $linkbox->teaser) {
-                echo '<div class="linkbox-teaser-lb-mod-4">'. nl2br($linkbox->teaser) .'</div>';
+                echo '<div class="linkbox-teaser-lb-mod-4">'. $linkbox->teaser .'</div>';
             }
             echo '</div>';
             if ('' !== $url) {

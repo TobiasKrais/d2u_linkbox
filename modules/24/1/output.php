@@ -49,7 +49,7 @@ if (rex::isBackend()) {
                 echo '</a>';
             }
             if ($show_teaser && '' !== $linkbox->teaser) {/** @phpstan-ignore-line */
-                echo '<div class="linkbox-teaser same-height">'. nl2br($linkbox->teaser) .'</div>';
+                echo '<div class="linkbox-teaser same-height">'. $linkbox->teaser .'</div>';
             }
             echo '</div>'; // class="linkbox"
             echo '</div>'; // class="linkbox-outer"
