@@ -55,13 +55,13 @@ if (class_exists('D2UModuleManager')) {
 }
 
 // 1.4 Update database to fit wysiwyg editor
-if (rex_version::compare($this->getVersion(), '1.4.0', '<')) {
+if (rex_version::compare($this->getVersion(), '1.4.0', '<')) { /** @phpstan-ignore-line */
     $result = rex_sql::factory();
     $result->setQuery('SELECT * FROM '. \rex::getTablePrefix() .'d2u_linkbox_lang;');
 
     for ($i = 0; $i < $result->getRows(); ++$i) {
         $update_sql = rex_sql::factory();
-        $update_sql->setQuery('UPDATE `'. \rex::getTablePrefix() .'d2u_linkbox_lang` SET teaser = "'. addslashes(nl2br(stripslashes($result->getValue('teaser')))) .'" '
+        $update_sql->setQuery('UPDATE `'. \rex::getTablePrefix() .'d2u_linkbox_lang` SET teaser = "'. addslashes(nl2br(stripslashes((string) $result->getValue('teaser')))) .'" '
             .'WHERE box_id = '. $result->getValue('box_id') .' AND clang_id = '. $result->getValue('clang_id') .';');
         $result->next();
     }
