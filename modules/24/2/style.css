@@ -5,7 +5,7 @@
 	color: white;
 	flex: 1 0 auto;
 }
-.linkbox-teaser a {
+.linkbox-teaser a, .linkbox-teaser a:hover {
 	color: white;
 }
 .linkbox-title {
