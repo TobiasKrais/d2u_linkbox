@@ -26,7 +26,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === (int) filter_input
             $linkbox->picture = $input_media[1];
             $linkbox->background_color = $form['background_color'];
             $linkbox->link_type = $form['link_type'];
-            $linkbox->article_id = !is_array($link_ids) ? 0 : $link_ids['REX_INPUT_LINK'][1];
+            $linkbox->article_id = is_array($link_ids['REX_INPUT_LINK']) ? $link_ids['REX_INPUT_LINK'][1] : 0;
             $linkbox->document = $input_media[2];
             $linkbox->external_url = $form['external_url'];
             if ('d2u_immo_property' === $linkbox->link_type) {
