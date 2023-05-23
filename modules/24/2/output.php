@@ -25,7 +25,7 @@ if (rex::isBackend()) {
     // Ausgabe im FRONTEND
     if ($category instanceof D2U_Linkbox\Category) { /** @phpstan-ignore-line */
         echo '<div class="col-12 col-sm-'. $cols_sm .' col-md-'. $cols_md .' col-lg-'. $cols_lg . $offset_lg .'" abstand>';
-        echo '<div class="row" data-match-height>';
+        echo '<div class="row">'; /** @phpstan-ignore-line */
         $linkboxes = $category->getLinkboxes(true);
 
         if ('' !== $heading) { /** @phpstan-ignore-line */
@@ -36,18 +36,22 @@ if (rex::isBackend()) {
 
         foreach ($linkboxes as $linkbox) {
             if (1 === $box_per_line) { /** @phpstan-ignore-line */
-                echo '<div class="col-12 linkbox-spacer">';
-            } else {
+                echo '<div class="col-12 d-flex linkbox-spacer">';
+            }
+            else if (6 === $box_per_line) { /** @phpstan-ignore-line */
+                echo '<div class="col-6 col-md-4 col-lg-2 d-flex linkbox-spacer">';
+            }
+            else {
                 echo '<div class="col-'. ($show_teaser ? '12' : '6') .' col-sm-6 ' /** @phpstan-ignore-line */
                     . ($box_per_line > 2 ? 'col-md-4 col-lg-'. (4 === $box_per_line ? '3' : '4') : '') /** @phpstan-ignore-line */
-                    .' linkbox-spacer">';
+                    .' d-flex linkbox-spacer">';
             }
 
             $bg_color = '';
             if ('' !== $linkbox->background_color) {
                 $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
             }
-            echo '<div class="linkbox"'. $bg_color .' data-height-watch>';
+            echo '<div class="linkbox flex-fill"'. $bg_color .' >';
 
             $url = $linkbox->getUrl();
             if ('' !== $url) {

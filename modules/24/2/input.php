@@ -142,7 +142,7 @@
 	<div class="col-xs-4">Anzahl Linkboxen / Zeile</div>
 	<div class="col-xs-8">
 		<?php
-            $values_number = [1, 2, 3, 4];
+            $values_number = [1, 2, 3, 4, 6];
             echo '<select name="REX_INPUT_VALUE[3]" class="form-control">';
             foreach ($values_number as $number) {
                 echo '<option value="'. $number .'" ';
