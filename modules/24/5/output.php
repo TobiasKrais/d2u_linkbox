@@ -76,7 +76,7 @@ if (rex::isBackend()) {
             echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. $bg_color .'>'; /** @phpstan-ignore-line */
             echo '<h3 class="linkbox-24-5-title">'. $linkbox->title .'</h3>';
             if ('' !== $linkbox->teaser) {
-                echo '<p class="linkbox-24-5-teaser">'. $linkbox->teaser .'</p>';
+                echo '<div class="linkbox-24-5-teaser">'. $linkbox->teaser .'</div>';
             }
             echo '</div>';
 

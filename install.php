@@ -49,7 +49,7 @@ if (class_exists('D2UModuleManager')) {
         6);
     $modules[] = new D2UModule('24-5',
         'D2U Linkbox - Linkboxen mit Text neben dem Bild',
-        3);
+        4);
     $d2u_module_manager = new D2UModuleManager($modules, '', 'd2u_linkbox');
     $d2u_module_manager->autoupdate();
 }

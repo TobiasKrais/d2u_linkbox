@@ -8,7 +8,7 @@ class D2ULinkboxModules
 {
     /**
      * Get modules offered by this addon.
-     * @return D2UModule[] Modules offered by this addon
+     * @return array<D2UModule> Modules offered by this addon
      */
     public static function getModules()
     {
@@ -27,7 +27,7 @@ class D2ULinkboxModules
             6);
         $modules[] = new D2UModule('24-5',
             'D2U Linkbox - Linkboxen mit Text neben dem Bild',
-            3);
+            4);
         return $modules;
     }
 }

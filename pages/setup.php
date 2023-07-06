@@ -29,7 +29,8 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.4.1-DEV:</p>
 <ul>
-	<li>Modul "24-2 D2U Linkbox - Linkboxen mit Überschrift unter Bild": Jetzt auch 6 Boxen pro Zeile möglich.</li>
+	<li>Modul 24-2 "D2U Linkbox - Linkboxen mit Überschrift unter Bild": Jetzt auch 6 Boxen pro Zeile möglich.</li>
+	<li>Modul 24-5 "D2U Linkbox - Linkboxen mit Text neben dem Bild": Teaser in div geändert um mit Texteditor kompatibel zu sein.</li>
 </ul>
 <p>1.4.0:</p>
 <ul>
