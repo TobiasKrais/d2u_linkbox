@@ -55,7 +55,7 @@ if (rex::isBackend()) {
 
             $url = $linkbox->getUrl();
             if ('' !== $url) {
-                echo '<a href="'. $url .'">';
+                echo '<a href="'. $url .'"'. ($linkbox->link_type === 'url' ? ' target="_blank"' : '').'>';
             }
 
             echo '<div class="linkbox-inner">';
