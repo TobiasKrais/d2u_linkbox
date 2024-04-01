@@ -1,6 +1,6 @@
 <?php
 $func = rex_request('func', 'string');
-$entry_id = (int) rex_request('entry_id', 'int');
+$entry_id = rex_request('entry_id', 'int');
 $message = rex_get('message', 'string');
 
 // Print comments
@@ -21,7 +21,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === (int) filter_input
     $box_id = $form['box_id'];
     foreach (rex_clang::getAll() as $rex_clang) {
         if (false === $linkbox) {
-            $linkbox = new D2U_Linkbox\Linkbox($box_id, $rex_clang->getId());
+            $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($box_id, $rex_clang->getId());
             $linkbox->box_id = $box_id; // Ensure correct ID in case first language has no object
             $linkbox->picture = $input_media[1];
             $linkbox->background_color = $form['background_color'];
@@ -43,7 +43,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === (int) filter_input
             $category_ids = isset($form['category_ids']) ? array_map('intval', $form['category_ids']) : [];
             $linkbox->categories = [];
             foreach ($category_ids as $category_id) {
-                $linkbox->categories[$category_id] = new D2U_Linkbox\Category($category_id, $rex_clang->getId());
+                $linkbox->categories[$category_id] = new TobiasKrais\D2ULinkbox\Category($category_id, $rex_clang->getId());
             }
             $linkbox->priority = $form['priority'];
             $linkbox->online_status = array_key_exists('online_status', $form) ? 'online' : 'offline';
@@ -88,7 +88,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_delete', FILTER_VALIDATE_INT) || '
         $form = rex_post('form', 'array', []);
         $box_id = $form['box_id'];
     }
-    $linkbox = new D2U_Linkbox\Linkbox($box_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+    $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($box_id, (int) rex_config::get('d2u_helper', 'default_lang'));
     $linkbox->box_id = $box_id; // Ensure correct ID in case language has no object
     $linkbox->delete();
 
@@ -97,7 +97,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_delete', FILTER_VALIDATE_INT) || '
 // Change online status
 elseif ('changestatus' === $func) {
     $box_id = $entry_id;
-    $linkbox = new D2U_Linkbox\Linkbox($box_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+    $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($box_id, (int) rex_config::get('d2u_helper', 'default_lang'));
     $linkbox->box_id = $box_id; // Ensure correct ID in case language has no object
     $linkbox->changeStatus();
 
@@ -118,14 +118,14 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 					<div class="panel-body-wrapper slide">
 						<?php
                             // Do not use last object from translations, because you don't know if it exists in DB
-                            $linkbox = new D2U_Linkbox\Linkbox($entry_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+                            $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($entry_id, (int) rex_config::get('d2u_helper', 'default_lang'));
                             $readonly = true;
                             if (rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]'))) {
                                 $readonly = false;
                             }
 
-                            d2u_addon_backend_helper::form_mediafield('d2u_helper_picture', '1', $linkbox->picture, $readonly);
-                            d2u_addon_backend_helper::form_input('d2u_linkbox_background_color', 'form[background_color]', $linkbox->background_color, false, false, 'color');
+                            \TobiasKrais\D2UHelper\BackendHelper::form_mediafield('d2u_helper_picture', '1', $linkbox->picture, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_input('d2u_linkbox_background_color', 'form[background_color]', $linkbox->background_color, false, false, 'color');
                             $options_link = [
                                 'article' => rex_i18n::msg('d2u_helper_article_id'),
                                 'document' => rex_i18n::msg('d2u_linkbox_document'),
@@ -146,17 +146,17 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                             if (rex_addon::get('d2u_courses')->isAvailable()) {
                                 $options_link['d2u_courses_category'] = rex_i18n::msg('d2u_courses') .': '. rex_i18n::msg('d2u_helper_category');
                             }
-                            d2u_addon_backend_helper::form_select('d2u_linkbox_linktype', 'form[link_type]', $options_link, [$linkbox->link_type], 1, false, $readonly);
-                            d2u_addon_backend_helper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, (int) rex_config::get('d2u_helper', 'default_lang'));
-                            d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document', '2', $linkbox->document, $readonly);
-                            d2u_addon_backend_helper::form_input('d2u_linkbox_external_url', 'form[external_url]', $linkbox->external_url, false, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_linkbox_linktype', 'form[link_type]', $options_link, [$linkbox->link_type], 1, false, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_linkfield('d2u_helper_article_id', '1', $linkbox->article_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+                            \TobiasKrais\D2UHelper\BackendHelper::form_mediafield('d2u_linkbox_document', '2', $linkbox->document, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_input('d2u_linkbox_external_url', 'form[external_url]', $linkbox->external_url, false, $readonly);
                             if (rex_addon::get('d2u_immo')->isAvailable()) {
                                 $options_immo = [];
                                 $properties = \D2U_Immo\Property::getAll(rex_clang::getCurrentId(), '', true);
                                 foreach ($properties as $property) {
                                     $options_immo[$property->property_id] = $property->name;
                                 }
-                                d2u_addon_backend_helper::form_select('d2u_immo_property', 'form[d2u_immo_property_id]', $options_immo, ['d2u_immo_property' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
+                                \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_immo_property', 'form[d2u_immo_property_id]', $options_immo, ['d2u_immo_property' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                             }
                             if (rex_addon::get('d2u_machinery')->isAvailable()) {
                                 if (rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
@@ -165,21 +165,21 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                                     foreach ($industry_sectors as $industry_sector) {
                                         $options_industry_sectors[$industry_sector->industry_sector_id] = $industry_sector->name;
                                     }
-                                    d2u_addon_backend_helper::form_select('d2u_machinery_industry_sectors', 'form[d2u_machinery_industry_sector_id]', $options_industry_sectors, ['d2u_machinery_industry_sector' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_machinery_industry_sectors', 'form[d2u_machinery_industry_sector_id]', $options_industry_sectors, ['d2u_machinery_industry_sector' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                                 }
                                 $options_machines = [];
                                 $machines = Machine::getAll(rex_clang::getCurrentId(), true);
                                 foreach ($machines as $machine) {
                                     $options_machines[$machine->machine_id] = $machine->name;
                                 }
-                                d2u_addon_backend_helper::form_select('d2u_machinery_machine', 'form[d2u_machinery_machine_id]', $options_machines, ['d2u_machinery_machine' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
+                                \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_machinery_machine', 'form[d2u_machinery_machine_id]', $options_machines, ['d2u_machinery_machine' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                                 if (rex_plugin::get('d2u_machinery', 'used_machines')->isAvailable()) {
                                     $options_used_machines = [];
                                     $used_machines = UsedMachine::getAll(rex_clang::getCurrentId(), true);
                                     foreach ($used_machines as $used_machine) {
                                         $options_used_machines[$used_machine->used_machine_id] = $used_machine->name;
                                     }
-                                    d2u_addon_backend_helper::form_select('d2u_machinery_used_machines_machine', 'form[d2u_machinery_used_machine_id]', $options_used_machines, ['d2u_machinery_used_machine' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_machinery_used_machines_machine', 'form[d2u_machinery_used_machine_id]', $options_used_machines, ['d2u_machinery_used_machine' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                                 }
                             }
                             if (rex_addon::get('d2u_courses')->isAvailable()) {
@@ -188,22 +188,22 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                                 foreach ($course_categories as $category) {
                                     $options_course_categories[$category->category_id] = ($category->parent_category instanceof D2U_Courses\Category ? ($category->parent_category->parent_category instanceof D2U_Courses\Category ? ($category->parent_category->parent_category->parent_category instanceof D2U_Courses\Category ? $category->parent_category->parent_category->parent_category->name .' → ' : ''). $category->parent_category->parent_category->name .' → ' : ''). $category->parent_category->name .' → ' : ''). $category->name;
                                 }
-                                d2u_addon_backend_helper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, ['d2u_courses_category' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
+                                \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, ['d2u_courses_category' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                             }
 
                             $options_categories = [];
-                            foreach (D2U_Linkbox\Category::getAll((int) rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId()), false) as $category) {
+                            foreach (TobiasKrais\D2ULinkbox\Category::getAll((int) rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId()), false) as $category) {
                                 $options_categories[$category->category_id] = $category->name;
                             }
-                            d2u_addon_backend_helper::form_select('d2u_helper_categories', 'form[category_ids][]', $options_categories, count($linkbox->categories) > 0 ? array_keys($linkbox->categories) : [], 5, true, $readonly);
-                            d2u_addon_backend_helper::form_input('header_priority', 'form[priority]', $linkbox->priority, true, $readonly, 'number');
-                            d2u_addon_backend_helper::form_checkbox('d2u_helper_online_status', 'form[online_status]', 'online', 'online' === $linkbox->online_status, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_helper_categories', 'form[category_ids][]', $options_categories, count($linkbox->categories) > 0 ? array_keys($linkbox->categories) : [], 5, true, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_input('header_priority', 'form[priority]', $linkbox->priority, true, $readonly, 'number');
+                            \TobiasKrais\D2UHelper\BackendHelper::form_checkbox('d2u_helper_online_status', 'form[online_status]', 'online', 'online' === $linkbox->online_status, $readonly);
                         ?>
 					</div>
 				</fieldset>
 				<?php
                     foreach (rex_clang::getAll() as $rex_clang) {
-                        $linkbox = new D2U_Linkbox\Linkbox($entry_id, $rex_clang->getId());
+                        $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($entry_id, $rex_clang->getId());
                         $required = $rex_clang->getId() === (int) (rex_config::get('d2u_helper', 'default_lang')) ? true : false;
 
                         $readonly_lang = true;
@@ -220,7 +220,7 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                                     $options_translations['yes'] = rex_i18n::msg('d2u_helper_translation_needs_update');
                                     $options_translations['no'] = rex_i18n::msg('d2u_helper_translation_is_uptodate');
                                     $options_translations['delete'] = rex_i18n::msg('d2u_helper_translation_delete');
-                                    d2u_addon_backend_helper::form_select('d2u_helper_translation', 'form[lang]['. $rex_clang->getId() .'][translation_needs_update]', $options_translations, [$linkbox->translation_needs_update], 1, false, $readonly_lang);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_helper_translation', 'form[lang]['. $rex_clang->getId() .'][translation_needs_update]', $options_translations, [$linkbox->translation_needs_update], 1, false, $readonly_lang);
                                 } else {
                                     echo '<input type="hidden" name="form[lang]['. $rex_clang->getId() .'][translation_needs_update]" value="">';
                                 }
@@ -238,11 +238,11 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 							</script>
 							<div id="details_clang_<?= $rex_clang->getId() ?>">
 								<?php
-                                    d2u_addon_backend_helper::form_input('d2u_linkbox_title', 'form[lang]['. $rex_clang->getId() .'][title]', $linkbox->title, $required, $readonly_lang);
-                                    d2u_addon_backend_helper::form_textarea('d2u_linkbox_teaser', 'form[lang]['. $rex_clang->getId() .'][teaser]', $linkbox->teaser, 3, false, $readonly_lang, true);
-                                    d2u_addon_backend_helper::form_mediafield('d2u_linkbox_picture_lang', 'picture_lang'. $rex_clang->getId(), $linkbox->picture_lang, $readonly_lang);
-                                    d2u_addon_backend_helper::form_mediafield('d2u_linkbox_document_lang', 'document_lang'. $rex_clang->getId(), $linkbox->document_lang, $readonly_lang);
-                                    d2u_addon_backend_helper::form_input('d2u_linkbox_external_url_lang', 'form[lang]['. $rex_clang->getId() .'][external_url_lang]', $linkbox->external_url_lang, false, $readonly_lang);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_input('d2u_linkbox_title', 'form[lang]['. $rex_clang->getId() .'][title]', $linkbox->title, $required, $readonly_lang);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_textarea('d2u_linkbox_teaser', 'form[lang]['. $rex_clang->getId() .'][teaser]', $linkbox->teaser, 3, false, $readonly_lang, true);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_mediafield('d2u_linkbox_picture_lang', 'picture_lang'. $rex_clang->getId(), $linkbox->picture_lang, $readonly_lang);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_mediafield('d2u_linkbox_document_lang', 'document_lang'. $rex_clang->getId(), $linkbox->document_lang, $readonly_lang);
+                                    \TobiasKrais\D2UHelper\BackendHelper::form_input('d2u_linkbox_external_url_lang', 'form[lang]['. $rex_clang->getId() .'][external_url_lang]', $linkbox->external_url_lang, false, $readonly_lang);
                                 ?>
 							</div>
 						</div>
@@ -329,8 +329,8 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 	</form>
 	<br>
 	<?php
-        echo d2u_addon_backend_helper::getCSS();
-        echo d2u_addon_backend_helper::getJS();
+        echo \TobiasKrais\D2UHelper\BackendHelper::getCSS();
+        echo \TobiasKrais\D2UHelper\BackendHelper::getJS();
 }
 
 if ('' === $func) {
@@ -368,7 +368,7 @@ if ('' === $func) {
         $category_ids_unfilterd = preg_grep('/^\s*$/s', explode('|', (string) $list_params->getValue('category_ids')), PREG_GREP_INVERT);
         $category_ids = is_array($category_ids_unfilterd) ? array_map('intval', $category_ids_unfilterd) : [];
         foreach ($category_ids as $category_id) {
-            $category = new D2U_Linkbox\Category($category_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+            $category = new TobiasKrais\D2ULinkbox\Category($category_id, (int) rex_config::get('d2u_helper', 'default_lang'));
             $cat_names[] = $category->name;
         }
         return implode(', ', $cat_names);

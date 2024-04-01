@@ -1,6 +1,6 @@
 <?php
 
-namespace D2U_Linkbox;
+namespace TobiasKrais\D2ULinkbox;
 
 use rex;
 use rex_config;
@@ -145,3 +145,8 @@ class Category
         return $error;
     }
 }
+
+namespace D2U_Linkbox;
+
+/** @deprecated Since 1.5.0, to be removed in 2.0.0. Use \TobiasKrais\D2ULinkbox\Category instead. */
+class Category extends \TobiasKrais\D2ULinkbox\Category {}

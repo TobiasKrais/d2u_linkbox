@@ -20,7 +20,7 @@ if ('save' === filter_input(INPUT_POST, 'btn_save')) {
 				<div class="panel-body-wrapper slide">
 					<?php
                         $options_sort = ['name' => rex_i18n::msg('d2u_helper_name'), 'priority' => rex_i18n::msg('header_priority')];
-                        d2u_addon_backend_helper::form_select('d2u_helper_sort', 'settings[default_sort]', $options_sort, [(string) rex_config::get('d2u_linkbox', 'default_sort')]);
+                        \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_helper_sort', 'settings[default_sort]', $options_sort, [(string) rex_config::get('d2u_linkbox', 'default_sort')]);
                     ?>
 				</div>
 			</fieldset>
@@ -35,6 +35,6 @@ if ('save' === filter_input(INPUT_POST, 'btn_save')) {
 	</div>
 </form>
 <?php
-    echo d2u_addon_backend_helper::getCSS();
-    echo d2u_addon_backend_helper::getJS();
-    echo d2u_addon_backend_helper::getJSOpenAll();
+    echo \TobiasKrais\D2UHelper\BackendHelper::getCSS();
+    echo \TobiasKrais\D2UHelper\BackendHelper::getJS();
+    echo \TobiasKrais\D2UHelper\BackendHelper::getJSOpenAll();

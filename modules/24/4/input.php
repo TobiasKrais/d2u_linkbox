@@ -9,7 +9,7 @@
 	<div class="col-xs-4">Linkbox Kategorie</div>
 	<div class="col-xs-8">
 		<?php
-            $categories = D2U_Linkbox\Category::getAll(rex_clang::getCurrentId(), false);
+            $categories = TobiasKrais\D2ULinkbox\Category::getAll(rex_clang::getCurrentId(), false);
             if (count($categories) > 0) {
                 echo '<select name="REX_INPUT_VALUE[1]" class="form-control">';
                 foreach ($categories as $category) {

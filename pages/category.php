@@ -1,6 +1,6 @@
 <?php
 $func = rex_request('func', 'string');
-$entry_id = (int) rex_request('entry_id', 'int');
+$entry_id = rex_request('entry_id', 'int');
 $message = rex_get('message', 'string');
 
 // Print comments
@@ -12,7 +12,7 @@ if ('' !== $message) {
 if (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === (int) filter_input(INPUT_POST, 'btn_apply')) {
     $form = rex_post('form', 'array', []);
 
-    $category = new D2U_Linkbox\Category($form['category_id'], (int) rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId()));
+    $category = new TobiasKrais\D2ULinkbox\Category($form['category_id'], (int) rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId()));
     $category->name = $form['name'];
 
     // message output
@@ -36,7 +36,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_delete', FILTER_VALIDATE_INT) || '
         $form = rex_post('form', 'array', []);
         $category_id = $form['category_id'];
     }
-    $category = new D2U_Linkbox\Category($category_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+    $category = new TobiasKrais\D2ULinkbox\Category($category_id, (int) rex_config::get('d2u_helper', 'default_lang'));
 
     // Check if object is used
     $uses_linkboxes = $category->getLinkboxes();
@@ -69,14 +69,14 @@ if ('edit' === $func || 'add' === $func) {
 					<div class="panel-body-wrapper slide">
 						<?php
                             // Do not use last object from translations, because you don't know if it exists in DB
-                            $category = new D2U_Linkbox\Category($entry_id, (int) rex_config::get('d2u_helper', 'default_lang'));
+                            $category = new TobiasKrais\D2ULinkbox\Category($entry_id, (int) rex_config::get('d2u_helper', 'default_lang'));
 
                             $readonly = true;
                             if (rex::getUser() instanceof rex_user && (rex::getUser()->isAdmin() || rex::getUser()->hasPerm('d2u_linkbox[edit_data]'))) {
                                 $readonly = false;
                             }
 
-                            d2u_addon_backend_helper::form_input('d2u_helper_name', 'form[name]', $category->name, true, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_input('d2u_helper_name', 'form[name]', $category->name, true, $readonly);
                         ?>
 					</div>
 				</fieldset>
@@ -99,9 +99,9 @@ if ('edit' === $func || 'add' === $func) {
 	</form>
 	<br>
 	<?php
-        echo d2u_addon_backend_helper::getCSS();
-        echo d2u_addon_backend_helper::getJS();
-        echo d2u_addon_backend_helper::getJSOpenAll();
+        echo \TobiasKrais\D2UHelper\BackendHelper::getCSS();
+        echo \TobiasKrais\D2UHelper\BackendHelper::getJS();
+        echo \TobiasKrais\D2UHelper\BackendHelper::getJSOpenAll();
 }
 
 if ('' === $func) {

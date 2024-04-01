@@ -2,17 +2,17 @@
 /*
  * Modules
  */
-$d2u_module_manager = new D2UModuleManager(D2ULinkboxModules::getModules(), 'modules/', 'd2u_linkbox');
+$d2u_module_manager = new \TobiasKrais\D2UHelper\ModuleManager(TobiasKrais\D2ULinkbox\Module::getModules(), 'modules/', 'd2u_linkbox');
 
-// D2UModuleManager actions
+// \TobiasKrais\D2UHelper\ModuleManager actions
 $d2u_module_id = rex_request('d2u_module_id', 'string');
-$paired_module = (int) rex_request('pair_'. $d2u_module_id, 'int');
+$paired_module = rex_request('pair_'. $d2u_module_id, 'int');
 $function = rex_request('function', 'string');
 if ('' !== $d2u_module_id) {
     $d2u_module_manager->doActions($d2u_module_id, $function, $paired_module);
 }
 
-// D2UModuleManager show list
+// \TobiasKrais\D2UHelper\ModuleManager show list
 $d2u_module_manager->showManagerList();
 
 /*
@@ -27,8 +27,18 @@ $d2u_module_manager->showManagerList();
 <h2>Support</h2>
 <p>Fehlermeldungen bitte im <a href="https://github.com/TobiasKrais/d2u_linkbox/" target="_blank">GitHub Repository</a> melden</p>
 <h2>Changelog</h2>
-<p>1.4.1-DEV:</p>
+<p>1.5.0-DEV:</p>
 <ul>
+<li>Vorbereitung auf R6: Folgende Klassen wurden umbenannt. Die alten Klassennamen funktionieren weiterhin, sind aber als veraltet markiert:
+		<ul>
+			<li><code>D2U_Linkbox\Category</code> wird zu <code>TobiasKrais\D2ULinkbox\Category</code>.</li>
+			<li><code>D2U_Linkbox\Linkbox</code> wird zu <code>TobiasKrais\D2ULinkbox\Linkbox</code>.</li>
+		</ul>
+		Folgende interne Klasse wurden wurden ebenfalls umbenannt. Es gibt keinen Übergang, da diese Klasse nur intern verwendet wird:
+		<ul>
+			<li><code>D2ULinkboxModules</code> wird zu <code>TobiasKrais\D2ULinkbox\Module</code>.</li>
+		</ul>
+	</li>
 	<li>Modul 24-2 "D2U Linkbox - Linkboxen mit Überschrift unter Bild": Jetzt auch 6 Boxen pro Zeile möglich. Externe Links öffnen in einem neuen Tab</li>
 	<li>Modul 24-5 "D2U Linkbox - Linkboxen mit Text neben dem Bild": Teaser in div geändert um mit Texteditor kompatibel zu sein.</li>
 </ul>

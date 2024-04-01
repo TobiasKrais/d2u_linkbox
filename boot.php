@@ -8,9 +8,10 @@ if (rex::isBackend() && is_object(rex::getUser())) {
 }
 
 if (rex::isBackend()) {
-    rex_extension::register('ART_PRE_DELETED', 'rex_d2u_linkbox_article_is_in_use');
-    rex_extension::register('CLANG_DELETED', 'rex_d2u_linkbox_clang_deleted');
-    rex_extension::register('MEDIA_IS_IN_USE', 'rex_d2u_linkbox_media_is_in_use');
+    rex_extension::register('ART_PRE_DELETED', rex_d2u_linkbox_article_is_in_use(...));
+    rex_extension::register('CLANG_DELETED', rex_d2u_linkbox_clang_deleted(...));
+    rex_extension::register('D2U_HELPER_TRANSLATION_LIST', rex_d2u_linkbox_translation_list(...));
+    rex_extension::register('MEDIA_IS_IN_USE', rex_d2u_linkbox_media_is_in_use(...));
 }
 
 /**
@@ -45,7 +46,6 @@ function rex_d2u_linkbox_article_is_in_use(rex_extension_point $ep)
     }
 
     return '';
-
 }
 
 /**
@@ -57,10 +57,10 @@ function rex_d2u_linkbox_clang_deleted(rex_extension_point $ep)
 {
     $warning = $ep->getSubject();
     $params = $ep->getParams();
-    $clang_id = $params['id'];
+    $clang_id = (int) $params['id'];
 
     // Delete
-    $linkboxes = D2U_Linkbox\Linkbox::getAll($clang_id, 0, false);
+    $linkboxes = TobiasKrais\D2ULinkbox\Linkbox::getAll($clang_id, 0, false);
     foreach ($linkboxes as $linkbox) {
         $linkbox->delete(false);
     }
@@ -77,7 +77,7 @@ function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep)
 {
     $warning = $ep->getSubject();
     $params = $ep->getParams();
-    $filename = addslashes($params['filename']);
+    $filename = addslashes((string) $params['filename']);
 
     // Linkbox
     $sql = rex_sql::factory();
@@ -95,4 +95,44 @@ function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep)
     }
 
     return $warning;
+}
+
+/**
+ * Addon translation list.
+ * @param rex_extension_point<array<string>> $ep Redaxo extension point
+ * @return array<array<string,array<int,array<string,string>>|string>|string> Addon translation list
+ */
+function rex_d2u_linkbox_translation_list(rex_extension_point $ep) {
+    $params = $ep->getParams();
+    $source_clang_id = (int) $params['source_clang_id'];
+    $target_clang_id = (int) $params['target_clang_id'];
+    $filter_type = (string) $params['filter_type'];
+
+    $list = $ep->getSubject();
+    $list_entry = [
+        'addon_name' => rex_i18n::msg('d2u_linkbox'),
+        'pages' => []
+    ];
+
+    $linkboxes = \TobiasKrais\D2ULinkbox\Linkbox::getTranslationHelperObjects($target_clang_id, $filter_type);
+    if (count($linkboxes) > 0) {
+        $html_linkboxes = '<ul>';
+        foreach ($linkboxes as $linkbox) {
+            if ('' === $linkbox->title) {
+                $linkbox = new \TobiasKrais\D2ULinkbox\Linkbox($linkbox->box_id, $source_clang_id);
+            }
+            $html_linkboxes .= '<li><a href="'. rex_url::backendPage('d2u_linkbox/linkbox', ['entry_id' => $linkbox->box_id, 'func' => 'edit']) .'">'. $linkbox->title .'</a></li>';
+        }
+        $html_linkboxes .= '</ul>';
+        
+        $list_entry['pages'][] = [
+            'title' => rex_i18n::msg('d2u_linkbox'),
+            'icon' => 'fa-window-maximize',
+            'html' => $html_linkboxes
+        ];
+    }
+
+    $list[] = $list_entry;
+
+    return $list;
 }

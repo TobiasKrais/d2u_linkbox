@@ -1,6 +1,6 @@
 <?php
 
-namespace D2U_Linkbox;
+namespace TobiasKrais\D2ULinkbox;
 
 use IndustrySector;
 use Machine;
@@ -18,7 +18,7 @@ use function is_array;
  * @api
  * Linkbox details
  */
-class Linkbox implements \D2U_Helper\ITranslationHelper
+class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
 {
     /** @var int Database linkbox ID */
     public int $box_id = 0;
@@ -400,3 +400,8 @@ class Linkbox implements \D2U_Helper\ITranslationHelper
         }
     }
 }
+
+namespace D2U_Linkbox;
+
+/** @deprecated Since 1.5.0, to be removed in 2.0.0. Use \TobiasKrais\D2ULinkbox\Linkbox instead. */
+class Linkbox extends \TobiasKrais\D2ULinkbox\Linkbox {}

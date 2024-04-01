@@ -33,26 +33,9 @@
     ->ensure();
 
 // Update modules
-if (class_exists('D2UModuleManager')) {
-    $modules = [];
-    $modules[] = new D2UModule('24-1',
-        'D2U Linkbox - Linkboxen mit Überschrift in Bild',
-        9);
-    $modules[] = new D2UModule('24-2',
-        'D2U Linkbox - Linkboxen mit Überschrift unter Bild',
-        11);
-    $modules[] = new D2UModule('24-3',
-        'D2U Linkbox - Farbboxen mit seitlichem Bild',
-        7);
-    $modules[] = new D2UModule('24-4',
-        'D2U Linkbox - Slider',
-        6);
-    $modules[] = new D2UModule('24-5',
-        'D2U Linkbox - Linkboxen mit Text neben dem Bild',
-        4);
-    $d2u_module_manager = new D2UModuleManager($modules, '', 'd2u_linkbox');
-    $d2u_module_manager->autoupdate();
-}
+include __DIR__ . DIRECTORY_SEPARATOR .'lib'. DIRECTORY_SEPARATOR .'Module.php';
+$d2u_module_manager = new \TobiasKrais\D2UHelper\ModuleManager(\TobiasKrais\D2ULinkbox\Module::getModules(), '', 'd2u_linkbox');
+$d2u_module_manager->autoupdate();
 
 // 1.4 Update database to fit wysiwyg editor
 if (rex_version::compare($this->getVersion(), '1.4.0', '<')) { /** @phpstan-ignore-line */
