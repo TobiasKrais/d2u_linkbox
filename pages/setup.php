@@ -27,9 +27,9 @@ $d2u_module_manager->showManagerList();
 <h2>Support</h2>
 <p>Fehlermeldungen bitte im <a href="https://github.com/TobiasKrais/d2u_linkbox/" target="_blank">GitHub Repository</a> melden</p>
 <h2>Changelog</h2>
-<p>1.5.0-DEV:</p>
+<p>1.5.0:</p>
 <ul>
-<li>Vorbereitung auf R6: Folgende Klassen wurden umbenannt. Die alten Klassennamen funktionieren weiterhin, sind aber als veraltet markiert:
+	<li>Vorbereitung auf R6: Folgende Klassen wurden umbenannt. Die alten Klassennamen funktionieren weiterhin, sind aber als veraltet markiert:
 		<ul>
 			<li><code>D2U_Linkbox\Category</code> wird zu <code>TobiasKrais\D2ULinkbox\Category</code>.</li>
 			<li><code>D2U_Linkbox\Linkbox</code> wird zu <code>TobiasKrais\D2ULinkbox\Linkbox</code>.</li>
