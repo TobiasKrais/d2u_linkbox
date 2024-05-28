@@ -3,7 +3,7 @@
 // 1.2 Update database
 $sql = rex_sql::factory();
 $sql->setQuery('SHOW COLUMNS FROM '. \rex::getTablePrefix() ."d2u_linkbox LIKE 'priority';");
-if (0 === (int) $sql->getRows()) {
+if (0 === $sql->getRows()) {
     \rex_sql_table::get(\rex::getTable('d2u_linkbox'))
         ->ensureColumn(new \rex_sql_column('priority', 'INT(10)', true))
         ->alter();

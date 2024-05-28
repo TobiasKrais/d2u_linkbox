@@ -164,7 +164,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
             .'WHERE box_id = '. $this->box_id;
         $result_main = rex_sql::factory();
         $result_main->setQuery($query_main);
-        if (0 === (int) $result_main->getRows()) {
+        if (0 === $result_main->getRows()) {
             $query = 'DELETE FROM '. rex::getTablePrefix() .'d2u_linkbox '
                 .'WHERE box_id = '. $this->box_id;
             $result = rex_sql::factory();
@@ -380,7 +380,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
 
         // When prio is too high or was deleted, simply add at end
         if ($this->priority > $result->getRows() || $delete) {
-            $this->priority = (int) $result->getRows() + 1;
+            $this->priority = $result->getRows() + 1;
         }
 
         $linkboxes = [];
