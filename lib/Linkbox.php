@@ -6,6 +6,7 @@ use IndustrySector;
 use Machine;
 use rex;
 use rex_addon;
+use rex_article;
 use rex_config;
 use rex_plugin;
 use rex_sql;
@@ -82,7 +83,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
      * @param int $box_id linkbox ID
      * @param int $clang_id Redaxo language ID
      */
-    public function __construct($box_id, $clang_id)
+    public function __construct(int $box_id, int $clang_id)
     {
         $this->clang_id = $clang_id;
         if ($box_id > 0) {
@@ -180,7 +181,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
       * Create an empty object instance.
       * @return Linkbox empty new object
       */
-     public static function factory()
+     public static function factory(): self
      {
          return new self(0, 0);
      }
@@ -190,9 +191,9 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
      * @param int $clang_id Redaxo language ID
      * @param int $category_id category ID if only linkbox of that category should be returned
      * @param bool $online_only If only online linkbox should be returned true, otherwise false
-     * @return Linkbox[] Array with linkbox objects
+     * @return array<int,self> Array with linkbox objects
      */
-    public static function getAll($clang_id, $category_id = 0, $online_only = true)
+    public static function getAll($clang_id, $category_id = 0, $online_only = true): array
     {
         $query = 'SELECT lang.box_id FROM '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
                 .'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
@@ -228,7 +229,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
      * @param string $type 'update' or 'missing'
      * @return Linkbox[] array with Linkbox objects
      */
-    public static function getTranslationHelperObjects($clang_id, $type)
+    public static function getTranslationHelperObjects($clang_id, $type): array
     {
         $query = 'SELECT lang.box_id FROM '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
                 .'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox AS main '
@@ -259,9 +260,10 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
 
     /**
      * Get link.
+     * @param $ignore_offline If true, ignore if the link is offline
      * @return string Link URL
      */
-    public function getUrl()
+    public function getUrl(bool $ignore_offline = true): string
     {
         if ('' !== $this->link) {
             return $this->link;
@@ -274,23 +276,42 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
         } elseif ('d2u_immo_property' === $this->link_type && $this->link_addon_id > 0 && rex_addon::get('d2u_immo')->isAvailable()) {
             $property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
             $this->link = $property->getUrl();
+            if (!$ignore_offline && 'offline' === $property->online_status) {
+                return '';
+            }
         } elseif ($this->link_addon_id > 0 && rex_addon::get('d2u_machinery')->isAvailable()) {
-            if ('d2u_immo_property' === $this->link_type && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+            if ('d2u_machinery_industry_sector' === $this->link_type && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
                 $industry_sector = new IndustrySector($this->link_addon_id, $this->clang_id);
                 $this->link = $industry_sector->getUrl();
+                if (!$ignore_offline && 'offline' === $industry_sector->online_status) {
+                    return '';
+                }
             } elseif ('d2u_machinery_machine' === $this->link_type) {
                 $machine = new Machine($this->link_addon_id, $this->clang_id);
                 $this->link = $machine->getUrl();
+                if (!$ignore_offline && 'offline' === $machine->online_status) {
+                    return '';
+                }
             }
-            if ('d2u_machinery_used_machine' === $this->link_type && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+            if ('d2u_machinery_used_machine' === $this->link_type && rex_plugin::get('d2u_machinery', 'used_machines')->isAvailable()) {
                 $used_machine = new UsedMachine($this->link_addon_id, $this->clang_id);
                 $this->link = $used_machine->getUrl();
+                if (!$ignore_offline && 'offline' === $used_machine->online_status) {
+                    return '';
+                }
             }
         } elseif ('d2u_courses_category' === $this->link_type && $this->link_addon_id > 0 && rex_addon::get('d2u_courses')->isAvailable()) {
             $category = new \D2U_Courses\Category($this->link_addon_id);
             $this->link = $category->getUrl();
+            if (!$ignore_offline && !$category->isOnline()) {
+                return '';
+            }
         } elseif (('' === $this->link_type || 'article' === $this->link_type) && $this->article_id > 0) {
             $this->link = rex_getUrl($this->article_id);
+            $article = rex_article::get($this->article_id);
+            if ($article instanceof rex_article && !$ignore_offline && !$article->isOnline()) {
+                return '';
+            }
         }
 
         return $this->link;
@@ -300,7 +321,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
      * Updates or inserts the object into database.
      * @return bool true if successful
      */
-    public function save()
+    public function save(): bool
     {
         $error = false;
 
@@ -365,7 +386,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
      * Reassigns priorities in database.
      * @param bool $delete Reorder priority after deletion
      */
-    private function setPriority($delete = false): void
+    private function setPriority(bool $delete = false): void
     {
         // Pull prios from database
         $query = 'SELECT box_id, priority FROM '. rex::getTablePrefix() .'d2u_linkbox '

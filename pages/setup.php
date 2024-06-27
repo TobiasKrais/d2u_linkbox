@@ -29,7 +29,7 @@ $d2u_module_manager->showManagerList();
 <h2>Changelog</h2>
 <p>1.5.1-DEV:</p>
 <ul>
-	<li>...</li>
+	<li>Funktion Linkbox::getUrl(...) bekommt neuen Parameter, der erlaubt offline URLs zu ignorieren.</li>
 </ul>
 <p>1.5.0:</p>
 <ul>
