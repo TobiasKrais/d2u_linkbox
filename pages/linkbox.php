@@ -20,7 +20,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === (int) filter_input
     $linkbox = false;
     $box_id = $form['box_id'];
     foreach (rex_clang::getAll() as $rex_clang) {
-        if (false === $linkbox) {
+        if (!$linkbox instanceof TobiasKrais\D2ULinkbox\Linkbox) {
             $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($box_id, $rex_clang->getId());
             $linkbox->box_id = $box_id; // Ensure correct ID in case first language has no object
             $linkbox->picture = $input_media[1];
