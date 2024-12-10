@@ -301,7 +301,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                 }
             }
         } elseif ('d2u_courses_category' === $this->link_type && $this->link_addon_id > 0 && rex_addon::get('d2u_courses')->isAvailable()) {
-            $category = new \D2U_Courses\Category($this->link_addon_id);
+            $category = new \TobiasKrais\D2UCourses\Category($this->link_addon_id);
             $this->link = $category->getUrl();
             if (!$ignore_offline && !$category->isOnline()) {
                 return '';

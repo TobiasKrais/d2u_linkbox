@@ -184,9 +184,9 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                             }
                             if (rex_addon::get('d2u_courses')->isAvailable()) {
                                 $options_course_categories = [];
-                                $course_categories = \D2U_Courses\Category::getAll();
+                                $course_categories = \TobiasKrais\D2UCourses\Category::getAll();
                                 foreach ($course_categories as $category) {
-                                    $options_course_categories[$category->category_id] = ($category->parent_category instanceof D2U_Courses\Category ? ($category->parent_category->parent_category instanceof D2U_Courses\Category ? ($category->parent_category->parent_category->parent_category instanceof D2U_Courses\Category ? $category->parent_category->parent_category->parent_category->name .' → ' : ''). $category->parent_category->parent_category->name .' → ' : ''). $category->parent_category->name .' → ' : ''). $category->name;
+                                    $options_course_categories[$category->category_id] = ($category->parent_category instanceof TobiasKrais\D2UCourses\Category ? ($category->parent_category->parent_category instanceof TobiasKrais\D2UCourses\Category ? ($category->parent_category->parent_category->parent_category instanceof TobiasKrais\D2UCourses\Category ? $category->parent_category->parent_category->parent_category->name .' → ' : ''). $category->parent_category->parent_category->name .' → ' : ''). $category->parent_category->name .' → ' : ''). $category->name;
                                 }
                                 \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_helper_category', 'form[d2u_courses_category_id]', $options_course_categories, ['d2u_courses_category' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                             }
