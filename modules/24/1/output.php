@@ -18,45 +18,44 @@ if (rex::isBackend()) {
     // Ausgabe im FRONTEND
     if ($category instanceof \TobiasKrais\D2ULinkbox\Category) { /** @phpstan-ignore-line */
         echo '<div class="col-12">';
-        echo '<div class="row">';
-        $linkboxes = $category->getLinkboxes(true);
+            echo '<div class="row">';
+                $linkboxes = $category->getLinkboxes(true);
 
-        if ('' !== $heading) { /** @phpstan-ignore-line */
-            echo '<div class="col-12">';
-            echo '<h1>'. $heading .'</h1>';
+                if ('' !== $heading) { /** @phpstan-ignore-line */
+                    echo '<div class="col-12">';
+                        echo '<h1>'. $heading .'</h1>';
+                    echo '</div>';
+                }
+
+                foreach ($linkboxes as $linkbox) {
+                    echo '<div class="col-12 col-sm-6 col-lg-'. (4 === $box_per_line ? '3' : '4') .' linkbox-spacer">'; /** @phpstan-ignore-line */
+                        echo '<div class="linkbox-outer">';
+                            echo '<div class="linkbox-mod-1">';
+                                $url = $linkbox->getUrl();
+                                if ('' !== $url) {
+                                    $url = '<a href="'. $url .'">';
+                                }
+                                echo $url;
+                                $bg_color = '';
+                                if ('' !== $linkbox->background_color) {
+                                    $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+                                }
+                                echo '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. $linkbox->title .'</div>';
+                                if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
+                                    echo '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
+                                        ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. $linkbox->title .'" loading="lazy">';
+                                }
+                                if ('' !== $url) {
+                                    echo '</a>';
+                                }
+                                if ($show_teaser && '' !== $linkbox->teaser) {/** @phpstan-ignore-line */
+                                    echo '<div class="linkbox-teaser pl-2 pr-2 same-height">'. $linkbox->teaser .'</div>';
+                                }
+                            echo '</div>'; // class="linkbox"
+                        echo '</div>'; // class="linkbox-outer"
+                    echo '</div>'; // class="col...
+                }
             echo '</div>';
-        }
-
-        foreach ($linkboxes as $linkbox) {
-            echo '<div class="col-12 col-sm-6 col-lg-'. (4 === $box_per_line ? '3' : '4') .' linkbox-spacer">'; /** @phpstan-ignore-line */
-            echo '<div class="linkbox-outer">';
-            echo '<div class="linkbox-mod-1">';
-            $url = $linkbox->getUrl();
-            if ('' !== $url) {
-                $url = '<a href="'. $url .'">';
-            }
-            echo $url;
-            $bg_color = '';
-            if ('' !== $linkbox->background_color) {
-                $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
-            }
-            echo '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. $linkbox->title .'</div>';
-            if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
-                echo '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
-                    ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. $linkbox->title .'" loading="lazy">';
-            }
-            if ('' !== $url) {
-                echo '</a>';
-            }
-            if ($show_teaser && '' !== $linkbox->teaser) {/** @phpstan-ignore-line */
-                echo '<div class="linkbox-teaser same-height">'. $linkbox->teaser .'</div>';
-            }
-            echo '</div>'; // class="linkbox"
-            echo '</div>'; // class="linkbox-outer"
-            echo '</div>'; // class="col...
-        }
-
-        echo '</div>';
         echo '</div>';
     }
 }

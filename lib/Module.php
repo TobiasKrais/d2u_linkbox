@@ -31,6 +31,9 @@ class Module
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-5',
             'D2U Linkbox - Linkboxen mit Text neben dem Bild',
             4);
+            $modules[] = new \TobiasKrais\D2UHelper\Module('24-6',
+            'D2U Linkbox - Linkboxen mit Text und Hoverbild',
+            1);
         return $modules;
     }
 }

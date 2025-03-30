@@ -68,7 +68,7 @@ if (rex::isBackend()) {
             if (!$picture_only) { /** @phpstan-ignore-line */
                 echo '<div class="linkbox-title"><h2>'. $linkbox->title .'</h2></div>';
                 if ($show_teaser && '' !== $linkbox->teaser) { /** @phpstan-ignore-line */
-                    echo '<div class="linkbox-teaser">'. $linkbox->teaser .'</div>';
+                    echo '<div class="linkbox-teaser pl-2 pr-2">'. $linkbox->teaser .'</div>';
                 }
             }
             if ('' !== $url) {
