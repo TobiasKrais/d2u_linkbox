@@ -33,6 +33,9 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
     /** @var string Language specific preview picture file name */
     public string $picture_lang = '';
 
+    /** @var string Pictogram */
+    public string $pictogram = '';
+    
     /** @var string Background color (hex) */
     public string $background_color = '';
 
@@ -108,6 +111,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                 $this->teaser = stripslashes((string) $result->getValue('teaser'));
                 $this->picture = (string) $result->getValue('picture');
                 $this->picture_lang = (string) $result->getValue('picture_lang');
+                $this->pictogram = (string) $result->getValue('pictogram');
                 $this->background_color = (string) $result->getValue('background_color');
                 $this->priority = (int) $result->getValue('priority');
                 $category_ids_unmapped = preg_grep('/^\s*$/s', explode('|', (string) $result->getValue('category_ids')), PREG_GREP_INVERT);
@@ -342,6 +346,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                     ."external_url = '". $this->external_url ."', "
                     ."category_ids = '|". implode('|', array_keys($this->categories)) ."|', "
                     ."picture = '". $this->picture ."', "
+                    ."pictogram = '". $this->pictogram ."', "
                     ."background_color = '". $this->background_color ."', "
                     .'priority = '. $this->priority .', '
                     ."online_status = '". $this->online_status ."' ";

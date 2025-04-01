@@ -24,6 +24,7 @@ if (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === (int) filter_input
             $linkbox = new TobiasKrais\D2ULinkbox\Linkbox($box_id, $rex_clang->getId());
             $linkbox->box_id = $box_id; // Ensure correct ID in case first language has no object
             $linkbox->picture = $input_media[1];
+            $linkbox->pictogram = $input_media[3];
             $linkbox->background_color = $form['background_color'];
             $linkbox->link_type = $form['link_type'];
             $linkbox->article_id = is_array($link_ids['REX_INPUT_LINK']) ? $link_ids['REX_INPUT_LINK'][1] : 0;
@@ -125,6 +126,7 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                             }
 
                             \TobiasKrais\D2UHelper\BackendHelper::form_mediafield('d2u_helper_picture', '1', $linkbox->picture, $readonly);
+                            \TobiasKrais\D2UHelper\BackendHelper::form_mediafield('2u_linkbox_pictogram', '3', $linkbox->pictogram, $readonly);
                             \TobiasKrais\D2UHelper\BackendHelper::form_input('d2u_linkbox_background_color', 'form[background_color]', $linkbox->background_color, false, false, 'color');
                             $options_link = [
                                 'article' => rex_i18n::msg('d2u_helper_article_id'),

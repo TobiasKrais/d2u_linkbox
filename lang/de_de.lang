@@ -7,6 +7,7 @@ d2u_linkbox_external_url_lang = Externe URL (überschreibt allg. URL)
 d2u_linkbox_linkbox = Linkbox
 d2u_linkbox_linktype = Link zu ...
 d2u_linkbox_no_linkboxes_found = Es wurden keine Linkboxen angelegt
+2u_linkbox_pictogram = Piktogramm (optional)
 d2u_linkbox_picture_lang = Bild (überschreibt allg. Bild)
 d2u_linkbox_title = Überschrift
 d2u_linkbox_teaser = Kurztext

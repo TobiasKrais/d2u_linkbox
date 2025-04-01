@@ -57,6 +57,9 @@
     opacity: 0;
     z-index: 1;
 }
+.linkbox-module-24-6 .linkbox-pictogram img {
+    max-height: 50px;
+}
 
 .linkbox-module-24-6:hover .linkbox-background {
     opacity: 1;

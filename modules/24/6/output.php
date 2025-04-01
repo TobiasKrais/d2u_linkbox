@@ -61,8 +61,11 @@ if (rex::isBackend()) {
                             
                             echo '<div class="linkbox-inner w-100 h-100">';
                                 echo '<div class="linkbox-content">';
+                                    if ('' !== $linkbox->pictogram) {
+                                        echo '<div class="linkbox-pictogram"><img src="'. rex_url::media($linkbox->pictogram) .'"></div>';
+                                    }
                                     echo '<h2 class="linkbox-title">'. $linkbox->title .'</h2>';
-                                    if ('' !== $linkbox->teaser) { /** @phpstan-ignore-line */
+                                    if ('' !== $linkbox->teaser) {
                                         echo '<div class="linkbox-teaser pl-2 pr-2">'. $linkbox->teaser .'</div>'; // Bootstrap-Klasse "p" für Absätze
                                     }
                                 echo '</div>';
