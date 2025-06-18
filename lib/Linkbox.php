@@ -269,10 +269,6 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
      */
     public function getUrl(bool $ignore_offline = true): string
     {
-        if ('' !== $this->link) {
-            return $this->link;
-        }
-
         if ('document' === $this->link_type && ('' !== $this->document || '' !== $this->document_lang)) {
             $this->link = rex_url::media('' !== $this->document_lang ? $this->document_lang : $this->document);
         } elseif ('url' === $this->link_type && ('' !== $this->external_url || '' !== $this->external_url_lang)) {
