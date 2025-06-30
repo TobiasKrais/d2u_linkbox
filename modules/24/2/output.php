@@ -71,10 +71,10 @@ if (rex::isBackend()) {
                     echo '<div class="linkbox-teaser pl-2 pr-2">'. $linkbox->teaser .'</div>';
                 }
             }
+            echo '</div>'; // class="linkbox-inner"
             if ('' !== $url) {
                 echo '</a>';
             }
-            echo '</div>'; // class="linkbox-inner"
             echo '</div>'; // class="linkbox"
             echo '</div>'; // class="col...
         }

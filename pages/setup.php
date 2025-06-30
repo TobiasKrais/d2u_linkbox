@@ -30,6 +30,7 @@ $d2u_module_manager->showManagerList();
 <p>1.5.1-DEV:</p>
 <ul>
 	<li>Funktion Linkbox::getUrl(...) bekommt neuen Parameter, der erlaubt offline URLs zu ignorieren.</li>
+	<li>Modul '24-2 D2U Linkbox - Linkboxen mit Überschrift unter Bild': Link korrekt abgeschlossen.</li>
 	<li>Modul '24-6 D2U Linkbox - Linkboxen mit Text und Hoverbild hinzugefügt.</li>
 </ul>
 <p>1.5.0:</p>
