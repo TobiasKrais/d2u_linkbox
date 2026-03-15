@@ -33,6 +33,12 @@ $d2u_module_manager->showManagerList();
 
 <?php if ($showChangelogOnly) { ?>
 <h2>Changelog</h2>
+<p>1.6.0-DEV:</p>
+<ul>
+	<li>Neue Module 24-7 bis 24-12 als Bootstrap-5-Varianten der bestehenden Beispielmodule hinzugefügt.</li>
+	<li>Module 24-1 bis 24-6 als "(BS4, deprecated)" markiert. Die BS4-Varianten werden im nächsten Major Release entfernt.</li>
+	<li>Benötigt d2u_helper &gt;= 2.1.0.</li>
+</ul>
 <p>1.5.1-DEV:</p>
 <ul>
 	<li>Funktion Linkbox::getUrl(...) bekommt neuen Parameter, der erlaubt offline URLs zu ignorieren.</li>

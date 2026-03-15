@@ -1,5 +1,5 @@
 package: d2u_linkbox
-version: '1.5.1'
+version: '1.6.0'
 author: Tobias Krais
 
 page:
@@ -20,7 +20,7 @@ page:
 
 requires:
     packages:
-        d2u_helper: '>=1.14.0'
+        d2u_helper: '>=2.1.0'
     php: '>=8.0'
 
 conflicts:
