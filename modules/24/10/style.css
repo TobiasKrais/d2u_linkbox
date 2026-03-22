@@ -5,9 +5,12 @@
 	text-align: center;
 }
 .linkbox-mod-4 {
-	background-color: white;
+	background-color: var(--linkbox-bg-color, var(--article-color-box));
 	margin: 2em 4em;
 	padding: 2em;
+}
+[data-bs-theme="dark"] .linkbox-mod-4 {
+	background-color: var(--linkbox-bg-color-dark, var(--linkbox-bg-color, var(--article-color-box)));
 }
 .linkbox-mod-4-slider {
 	background-size: cover;

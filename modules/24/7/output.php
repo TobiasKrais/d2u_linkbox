@@ -36,11 +36,15 @@ if (rex::isBackend()) {
                                     $url = '<a href="'. $url .'">';
                                 }
                                 echo $url;
-                                $bg_color = '';
+                                $style_vars = [];
                                 if ('' !== $linkbox->background_color) {
-                                    $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+                                    $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color;
                                 }
-                                echo '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. $linkbox->title .'</div>';
+                                if ('' !== $linkbox->background_color_dark) {
+                                    $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark;
+                                }
+                                $title_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
+                                echo '<div class="linkbox-title-lk-mod-1"'. $title_style .'>'. $linkbox->title .'</div>';
                                 if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
                                     echo '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
                                         ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. $linkbox->title .'" loading="lazy">';

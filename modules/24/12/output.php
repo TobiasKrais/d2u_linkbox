@@ -44,11 +44,15 @@ if (rex::isBackend()) {
                         .' linkbox-spacer">';
                 }
             
-                    $bg_color = '';
+                    $style_vars = [];
                     if ('' !== $linkbox->background_color) {
-                        $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+                        $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color;
                     }
-                    echo '<div class="linkbox-module-24-6 d-flex align-items-center justify-content-center text-center"'. $bg_color .'>'; // Bootstrap-Klassen für zentrierten Inhalt
+                    if ('' !== $linkbox->background_color_dark) {
+                        $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark;
+                    }
+                    $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
+                    echo '<div class="linkbox-module-24-6 d-flex align-items-center justify-content-center text-center"'. $box_style .'>'; // Bootstrap-Klassen für zentrierten Inhalt
                         if ($linkbox->getUrl() !== '') {
                             echo '<a href="'. $linkbox->getUrl() .'" class="linkbox-link">';
                         }

@@ -6,6 +6,7 @@
     ->ensureColumn(new \rex_sql_column('picture', 'VARCHAR(191)', true))
     ->ensureColumn(new \rex_sql_column('pictogram', 'VARCHAR(191)', true))
     ->ensureColumn(new \rex_sql_column('background_color', 'VARCHAR(7)', true))
+    ->ensureColumn(new \rex_sql_column('background_color_dark', 'VARCHAR(7)', true))
     ->ensureColumn(new \rex_sql_column('link_type', 'VARCHAR(50)', true))
     ->ensureColumn(new \rex_sql_column('article_id', 'INT(11)', true))
     ->ensureColumn(new \rex_sql_column('document', 'VARCHAR(255)', true))

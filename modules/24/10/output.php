@@ -57,8 +57,16 @@ if (rex::isBackend()) {
             if ('' !== $url) {
                 $url = '<a href="'. $url .'">';
             }
+            $style_vars = [];
+            if ('' !== $linkbox->background_color) {
+                $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color;
+            }
+            if ('' !== $linkbox->background_color_dark) {
+                $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark;
+            }
+            $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
             echo $url;
-            echo '<div class="linkbox-mod-4"'. ('' !== $linkbox->background_color ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
+            echo '<div class="linkbox-mod-4"'. $box_style .'>';
             echo '<div class="linkbox-title-lb-mod-4">'. $linkbox->title .'</div>';
             if ('' !== $linkbox->teaser) {
                 echo '<div class="linkbox-teaser-lb-mod-4">'. $linkbox->teaser .'</div>';

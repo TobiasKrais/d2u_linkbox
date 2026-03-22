@@ -1,5 +1,17 @@
 <?php
 
+// Rename dark mode background color column
+$sql = rex_sql::factory();
+$sql->setQuery('SHOW COLUMNS FROM '. \rex::getTablePrefix() ."d2u_linkbox LIKE 'dark_background_color';");
+$has_old_dark_background_color = $sql->getRows() > 0;
+
+$sql->setQuery('SHOW COLUMNS FROM '. \rex::getTablePrefix() ."d2u_linkbox LIKE 'background_color_dark';");
+$has_background_color_dark = $sql->getRows() > 0;
+
+if ($has_old_dark_background_color && !$has_background_color_dark) {
+    $sql->setQuery('ALTER TABLE `'. \rex::getTablePrefix() .'d2u_linkbox` CHANGE `dark_background_color` `background_color_dark` VARCHAR(7) NULL;');
+}
+
 // 1.2 Update database
 $sql = rex_sql::factory();
 $sql->setQuery('SHOW COLUMNS FROM '. \rex::getTablePrefix() ."d2u_linkbox LIKE 'priority';");

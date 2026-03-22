@@ -49,6 +49,7 @@ d2u_linkbox/
 - **Indentation:** 4 spaces in PHP classes, tabs in module files
 - **Comments:** English comments only
 - **Backend labels:** Use `rex_i18n::msg()` with keys from `lang/` files
+- **BS5 module colors:** Prefer d2u_helper CSS variables such as `var(--article-color-box)` / `var(--navi-color-bg)` with optional per-linkbox overrides via custom properties like `--linkbox-bg-color` and `--linkbox-bg-color-dark`, instead of inline `background-color`, so dark mode works automatically
 
 ## AGENTS.md Maintenance
 
@@ -58,7 +59,7 @@ d2u_linkbox/
 
 | Class | Description |
 | ----- | ----------- |
-| `Linkbox` | Linkbox model: picture, pictogram, background color, multiple link types (article, document, external URL, d2u_immo, d2u_machinery, d2u_courses), categories, priority, online status. Multilingual. Implements `ITranslationHelper` |
+| `Linkbox` | Linkbox model: picture, pictogram, light/dark background colors, multiple link types (article, document, external URL, d2u_immo, d2u_machinery, d2u_courses), categories, priority, online status. Multilingual. Implements `ITranslationHelper` |
 | `Category` | Category model: name, associated linkboxes |
 | `Module` | Module definitions and revision numbers for 6 modules |
 
@@ -66,7 +67,7 @@ d2u_linkbox/
 
 | Table | Description |
 | ----- | ----------- |
-| `rex_d2u_linkbox` | Linkboxes (language-independent): picture, pictogram, background color, link type, article/document/URL, category assignments, online status, priority |
+| `rex_d2u_linkbox` | Linkboxes (language-independent): picture, pictogram, light/dark background colors, link type, article/document/URL, category assignments, online status, priority |
 | `rex_d2u_linkbox_lang` | Linkboxes (language-specific): title, teaser, language-specific picture/document/URL, translation status |
 | `rex_d2u_linkbox_categories` | Categories: name |
 

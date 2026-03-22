@@ -39,6 +39,9 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
     /** @var string Background color (hex) */
     public string $background_color = '';
 
+    /** @var string Dark mode background color (hex) */
+    public string $background_color_dark = '';
+
     /** @var string Link type */
     public string $link_type = '';
 
@@ -113,6 +116,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                 $this->picture_lang = (string) $result->getValue('picture_lang');
                 $this->pictogram = (string) $result->getValue('pictogram');
                 $this->background_color = (string) $result->getValue('background_color');
+                $this->background_color_dark = (string) $result->getValue('background_color_dark');
                 $this->priority = (int) $result->getValue('priority');
                 $category_ids_unmapped = preg_grep('/^\s*$/s', explode('|', (string) $result->getValue('category_ids')), PREG_GREP_INVERT);
                 $category_ids = is_array($category_ids_unmapped) ? array_map('intval', $category_ids_unmapped) : [];
@@ -344,6 +348,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                     ."picture = '". $this->picture ."', "
                     ."pictogram = '". $this->pictogram ."', "
                     ."background_color = '". $this->background_color ."', "
+                    ."background_color_dark = '". $this->background_color_dark ."', "
                     .'priority = '. $this->priority .', '
                     ."online_status = '". $this->online_status ."' ";
 

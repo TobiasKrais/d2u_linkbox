@@ -40,8 +40,18 @@ if (rex::isBackend()) {
             if ('' !== $url) {
                 $url = '<a href="'. $url .'">';
             }
+            $style_vars = [];
+            if ('' !== $linkbox->background_color) {
+                $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color;
+                $style_vars[] = '--linkbox-border-color: '. $linkbox->background_color;
+            }
+            if ('' !== $linkbox->background_color_dark) {
+                $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark;
+                $style_vars[] = '--linkbox-border-color-dark: '. $linkbox->background_color_dark;
+            }
+            $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
             echo $url;
-            echo '<div class="linkbox-mod-3"'. ('' !== $linkbox->background_color ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
+            echo '<div class="linkbox-mod-3"'. $box_style .'>';
             echo '<div class="row">';
 
             // Picture
@@ -49,14 +59,14 @@ if (rex::isBackend()) {
             if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
                 $picture .= '<div class="picbox-'. $pic_orientation .'-inner">';
                 $picture .= '<div><img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture)
-                    .'"'. ('' !== $linkbox->background_color ? ' style="border: 1px solid '. $linkbox->background_color .'"' : '') .' loading="lazy"></div>';
-                $picture .= '<div class="border-lb-mod-3"'. ('' !== $linkbox->background_color ? ' style="border-color:'. $linkbox->background_color .'"' : '') .'></div>';
+                    .'" loading="lazy"></div>';
+                $picture .= '<div class="border-lb-mod-3"></div>';
                 $picture .= '</div>';
             }
             $picture .= '</div>';
 
             // Textbox
-            $text = '<div class="col-12 col-md-6">';
+            $text = '<div class="col-12 col-md-6 text-lb-mod-3">';
             $text .= '<div class="linkbox-content-lb-mod-3">';
             $text .= '<div class="linkbox-title-lb-mod-3">'. $linkbox->title .'</div>';
             if ('' !== $linkbox->teaser) {

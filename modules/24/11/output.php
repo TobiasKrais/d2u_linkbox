@@ -69,11 +69,15 @@ if (rex::isBackend()) {
                 echo '</div>';
             }
 
-            $bg_color = '';
+            $style_vars = [];
             if ('' !== $linkbox->background_color) {
-                $bg_color = ' style="background-color: '. $linkbox->background_color .'dd"'; // Add "dd" to generate opacity
+                $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color .'dd';
             }
-            echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. $bg_color .'>'; /** @phpstan-ignore-line */
+            if ('' !== $linkbox->background_color_dark) {
+                $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark .'dd';
+            }
+            $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
+            echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. $box_style .'>'; /** @phpstan-ignore-line */
             echo '<h3 class="linkbox-24-5-title">'. $linkbox->title .'</h3>';
             if ('' !== $linkbox->teaser) {
                 echo '<div class="linkbox-24-5-teaser">'. $linkbox->teaser .'</div>';

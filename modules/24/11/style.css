@@ -13,10 +13,16 @@
 }
 
 .linkbox-24-5-title-box, .linkbox-24-5-title-box-left, .linkbox-24-5-title-box-right {
+	background-color: var(--linkbox-bg-color, color-mix(in srgb, var(--article-color-box) 87%, transparent));
 	margin: -3em auto 0 1em;
 	max-width: 80%;
 	padding: 1em;
 	position: relative;
+}
+[data-bs-theme="dark"] .linkbox-24-5-title-box,
+[data-bs-theme="dark"] .linkbox-24-5-title-box-left,
+[data-bs-theme="dark"] .linkbox-24-5-title-box-right {
+	background-color: var(--linkbox-bg-color-dark, var(--linkbox-bg-color, color-mix(in srgb, var(--article-color-box) 87%, transparent)));
 }
 .linkbox-24-5-picture img {
 	width: 100%;
