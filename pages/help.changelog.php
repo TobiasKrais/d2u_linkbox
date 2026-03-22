@@ -1,4 +1,8 @@
 <h2>Changelog</h2>
+<p>1.6.1-DEV:</p>
+<ul>
+	<li>...</li>
+</ul>
 <p>1.6.0:</p>
 <ul>
 	<li>Neue Module 24-7 bis 24-12 als Bootstrap-5-Varianten der bestehenden Beispielmodule hinzugefügt.</li>
