@@ -12,14 +12,14 @@ Nur projektspezifische Regeln, die für KI-Arbeit relevant sind.
 
 ## Wichtige Projekthinweise
 
-- Wenn Backend-Translation-Keys hinzugefügt, umbenannt oder entfernt werden, müssen alle Sprachdateien in `lang/` synchron gehalten werden. Aktuell: `de_de`, `en_gb`, `nl_nl`.
+- Wenn Backend-Translation-Keys hinzugefügt, umbenannt oder entfernt werden, müssen alle Sprachdateien in `lang/` synchron gehalten werden.
 - Für `d2u_machinery`-Links die Verfügbarkeit über `\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive()` prüfen, nicht über alte Plugin-Checks.
 - In BS5-Modulen für Farben bevorzugt `d2u_helper` CSS-Variablen wie `var(--article-color-box)` oder `var(--navi-color-bg)` verwenden. Keine festen Inline-Hintergrundfarben einführen, damit Dark Mode weiter funktioniert.
 
 ## Modul-Änderungen
 
-- Wenn ein Modul unter `modules/24/*` geändert wird, Changelog in `pages/help.changelog.php` prüfen oder aktualisieren.
-- Die Revisionsnummer in `lib/Module.php` nur einmal pro Release erhöhen. Wenn die Zielversion im Changelog bereits `-DEV` trägt, innerhalb derselben Entwicklungsphase nicht erneut hochzählen.
+- Wenn ein Modul unter `modules/24/*` geändert wird, Changelog in `pages/help.changelog.php` prüfen oder aktualisieren und die Revisionsnummer in `lib/Module.php` nur einmal pro Release erhöhen.
+- Versionshinweise für Module: Wenn die Zielversion im Changelog bereits `-DEV` trägt, innerhalb derselben Entwicklungsphase keine weitere Revisionsnummer für dasselbe Modul hochzählen. Erst mit der nächsten Release-Version wieder erneut erhöhen.
 - In Changelog-Dateien, AGENTS.md und README.md sind Umlaute erlaubt und müssen nicht auf ASCII umgeschrieben werden.
 
 ## Pflege
