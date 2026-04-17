@@ -1,0 +1,18 @@
+d2u_linkbox = D2U Linkbox
+d2u_linkbox_background_color = Achtergrondkleur
+d2u_linkbox_document = Document uit mediapool
+d2u_linkbox_document_lang = Document uit mediapool (overschrijft algemeen document)
+d2u_linkbox_external_url = Externe URL
+d2u_linkbox_external_url_lang = Externe URL (overschrijft algemene URL)
+d2u_linkbox_linkbox = Linkbox
+d2u_linkbox_linktype = Link naar ...
+d2u_linkbox_no_linkboxes_found = Er zijn geen linkboxen aangemaakt
+2u_linkbox_pictogram = Pictogram (optioneel)
+d2u_linkbox_picture_lang = Afbeelding (overschrijft algemene afbeelding)
+d2u_linkbox_title = Koptekst
+d2u_linkbox_teaser = Korte tekst
+
+d2u_linkbox_rights_all = D2U Linkbox add-on
+d2u_linkbox_rights_edit_data = D2U Linkbox add-on: bewerkingsrechten voor algemene gegevens en taaloverstijgende inhoud
+d2u_linkbox_rights_edit_lang = D2U Linkbox add-on: bewerkingsrechten voor vertalingen en taalspecifieke inhoud (de talen uit de rolinstellingen zijn van toepassing)
+d2u_linkbox_rights_settings = D2U Linkbox add-on: instellingen

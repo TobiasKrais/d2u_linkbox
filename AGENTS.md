@@ -1,155 +1,28 @@
-# D2U Linkbox - Redaxo Addon
+# D2U Linkbox - Agent Notes
 
-A Redaxo 5 CMS addon for managing link boxes with images, titles, teasers, and various link types. Supports internal articles, documents, external URLs, and deep links to other D2U addons (d2u_immo, d2u_machinery, d2u_courses). Includes 6 different frontend display variants.
+Nur projektspezifische Regeln, die für KI-Arbeit relevant sind.
 
-## Tech Stack
+## Kernregeln
 
-- **Language:** PHP >= 8.0
-- **CMS:** Redaxo >= 5.19.0 (via d2u_helper)
-- **Frontend Framework:** Bootstrap 4/5 (via d2u_helper templates)
-- **Namespace:** `TobiasKrais\D2ULinkbox`
+- Namespace für Addon-Klassen: `TobiasKrais\D2ULinkbox`
+- Veralteter Namespace für Rückwärtskompatibilität: `D2U_Linkbox`
+- Einrückung: 4 Spaces in PHP-Klassen, Tabs in Moduldateien
+- Kommentare nur auf Englisch
+- Backend-Labels immer über `rex_i18n::msg()` mit Keys aus `lang/`
 
-## Project Structure
+## Wichtige Projekthinweise
 
-```text
-d2u_linkbox/
-├── boot.php               # Addon bootstrap (extension points, permissions)
-├── install.php             # Installation (database tables)
-├── update.php              # Update (calls install.php)
-├── uninstall.php           # Cleanup (database tables)
-├── package.yml             # Addon configuration, version, dependencies
-├── README.md
-├── lang/                   # Backend translations (de_de, en_gb)
-├── lib/                    # PHP classes
-│   ├── Linkbox.php         # Linkbox model (multilingual, multiple link types)
-│   ├── Category.php        # Category model
-│   └── Module.php          # Module definitions and revisions
-├── modules/                # 6 module variants in group 24
-│   └── 24/
-│       ├── 1/              # Linkboxen mit Überschrift in Bild
-│       ├── 2/              # Linkboxen mit Überschrift unter Bild
-│       ├── 3/              # Farbboxen mit seitlichem Bild
-│       ├── 4/              # Slider
-│       ├── 5/              # Linkboxen mit Text neben dem Bild
-│       └── 6/              # Linkboxen mit Text und Hoverbild
-└── pages/                  # Backend pages
-    ├── index.php           # Page router
-    ├── linkbox.php         # Linkbox management (CRUD)
-    ├── category.php        # Category management
-    ├── settings.php        # Addon settings (sort order)
-    ├── setup.php           # Module manager
-    └── help.changelog.php  # Changelog
-```
+- Wenn Backend-Translation-Keys hinzugefügt, umbenannt oder entfernt werden, müssen alle Sprachdateien in `lang/` synchron gehalten werden. Aktuell: `de_de`, `en_gb`, `nl_nl`.
+- Für `d2u_machinery`-Links die Verfügbarkeit über `\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive()` prüfen, nicht über alte Plugin-Checks.
+- In BS5-Modulen für Farben bevorzugt `d2u_helper` CSS-Variablen wie `var(--article-color-box)` oder `var(--navi-color-bg)` verwenden. Keine festen Inline-Hintergrundfarben einführen, damit Dark Mode weiter funktioniert.
 
-## Coding Conventions
+## Modul-Änderungen
 
-- **Namespace:** `TobiasKrais\D2ULinkbox` for all classes
-- **Deprecated Namespace:** `D2U_Linkbox` (backward compatibility)
-- **Naming:** camelCase for variables, PascalCase for classes
-- **Indentation:** 4 spaces in PHP classes, tabs in module files
-- **Comments:** English comments only
-- **Backend labels:** Use `rex_i18n::msg()` with keys from `lang/` files
-- **BS5 module colors:** Prefer d2u_helper CSS variables such as `var(--article-color-box)` / `var(--navi-color-bg)` with optional per-linkbox overrides via custom properties like `--linkbox-bg-color` and `--linkbox-bg-color-dark`, instead of inline `background-color`, so dark mode works automatically
-- **d2u_machinery links:** For industry sector and used machine link types, check availability via `\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive()`. The helper supports both legacy plugins (< 1.6.0) and addon extensions (>= 1.6.0).
+- Wenn ein Modul unter `modules/24/*` geändert wird, Changelog in `pages/help.changelog.php` prüfen oder aktualisieren.
+- Die Revisionsnummer in `lib/Module.php` nur einmal pro Release erhöhen. Wenn die Zielversion im Changelog bereits `-DEV` trägt, innerhalb derselben Entwicklungsphase nicht erneut hochzählen.
+- In Changelog-Dateien, AGENTS.md und README.md sind Umlaute erlaubt und müssen nicht auf ASCII umgeschrieben werden.
 
-## AGENTS.md Maintenance
+## Pflege
 
-- When new project insights are gained during work and they are relevant to agent guidance, workflows, conventions, architecture, or known pitfalls, update this AGENTS.md accordingly.
-
-## Key Classes
-
-| Class | Description |
-| ----- | ----------- |
-| `Linkbox` | Linkbox model: picture, pictogram, light/dark background colors, multiple link types (article, document, external URL, d2u_immo, d2u_machinery, d2u_courses), categories, priority, online status. Multilingual. Implements `ITranslationHelper` |
-| `Category` | Category model: name, associated linkboxes |
-| `Module` | Module definitions and revision numbers for 6 modules |
-
-## Database Tables
-
-| Table | Description |
-| ----- | ----------- |
-| `rex_d2u_linkbox` | Linkboxes (language-independent): picture, pictogram, light/dark background colors, link type, article/document/URL, category assignments, online status, priority |
-| `rex_d2u_linkbox_lang` | Linkboxes (language-specific): title, teaser, language-specific picture/document/URL, translation status |
-| `rex_d2u_linkbox_categories` | Categories: name |
-
-## Architecture
-
-### Extension Points
-
-| Extension Point | Location | Purpose |
-| --------------- | -------- | ------- |
-| `ART_PRE_DELETED` | boot.php (backend) | Prevents deletion of articles used by linkboxes |
-| `CLANG_DELETED` | boot.php (backend) | Cleans up language-specific data when a language is deleted |
-| `D2U_HELPER_TRANSLATION_LIST` | boot.php (backend) | Registers addon in D2U Helper translation manager |
-| `MEDIA_IS_IN_USE` | boot.php (backend) | Prevents deletion of media files used by linkboxes |
-
-### Link Types
-
-| Type | Target |
-| ---- | ------ |
-| `article` | Internal Redaxo article |
-| `document` | Media pool document |
-| `url` | External URL |
-| `d2u_immo_property` | D2U Immo property |
-| `d2u_machinery_industry_sector` | D2U Machinery industry sector |
-| `d2u_machinery_machine` | D2U Machinery machine |
-| `d2u_machinery_used_machine` | D2U Machinery used machine |
-| `d2u_courses_category` | D2U Courses category |
-
-### Modules
-
-6 module variants in group 24:
-
-| Module | Name | Description |
-| ------ | ---- | ----------- |
-| 24-1 | Linkboxen mit Überschrift in Bild | Image overlay title |
-| 24-2 | Linkboxen mit Überschrift unter Bild | Title below image |
-| 24-3 | Farbboxen mit seitlichem Bild | Colored boxes with side image |
-| 24-4 | Slider | Sliding linkbox carousel |
-| 24-5 | Linkboxen mit Text neben dem Bild | Text beside image |
-| 24-6 | Linkboxen mit Text und Hoverbild | Text with hover image |
-
-#### Module Versioning
-
-Each module has a revision number defined in `lib/Module.php` inside the `getModules()` method. When a module is changed:
-
-1. Add a changelog entry in `pages/help.changelog.php` describing the change.
-2. Increment the module's revision number in `Module::getModules()` by one.
-
-**Important:** The revision only needs to be incremented **once per release**, not per commit. Check the changelog: if the version number is followed by `-DEV`, the release is still in development and no additional revision bump is needed.
-
-## Settings
-
-Managed via `pages/settings.php` and stored in `rex_config`:
-
-- `default_sort` — Sort by name or priority (default: `name`)
-
-## Dependencies
-
-| Package | Version | Purpose |
-| ------- | ------- | ------- |
-| `d2u_helper` | >= 1.14.0 | Backend/frontend helpers, module manager, translation interface |
-
-### Optional Integrations
-
-- `d2u_immo` — Deep linking to properties
-- `d2u_machinery` (with plugins `industry_sectors`, `used_machines`) — Deep linking to machines
-- `d2u_courses` — Deep linking to course categories
-
-## Multi-language Support
-
-- **Backend:** de_de, en_gb
-
-## Versioning
-
-This addon follows [Semantic Versioning](https://semver.org/):
-
-- **Major** (1st digit): Breaking changes (e.g. removed classes, renamed methods, incompatible DB changes)
-- **Minor** (2nd digit): New features, new modules, new database fields (backward compatible)
-- **Patch** (3rd digit): Bug fixes, small improvements (backward compatible)
-
-The version number is maintained in `package.yml`. During development, the changelog uses a `-DEV` suffix.
-
-## Changelog
-
-The changelog is located in `pages/help.changelog.php`.
+- Diese Datei kurz und handlungsorientiert halten.
+- Neue Einträge nur aufnehmen, wenn sie wiederkehrende Stolperfallen, verbindliche Projektkonventionen oder agentenrelevante Workflows betreffen.
