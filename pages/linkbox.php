@@ -434,6 +434,14 @@ if ('' === $func) {
         $list->addLinkAttribute(rex_i18n::msg('delete_module'), 'data-confirm', rex_i18n::msg('d2u_helper_confirm_delete'));
     }
 
+    $list->addColumn(rex_i18n::msg('d2u_helper_open_frontend'), '');
+    $list->setColumnLayout(rex_i18n::msg('d2u_helper_open_frontend'), ['', '<td class="rex-table-action">###VALUE###</td>']);
+    $list->setColumnFormat(rex_i18n::msg('d2u_helper_open_frontend'), 'custom', static function ($params) {
+        $listParams = $params['list'];
+
+        return BackendHelper::getFrontendLinkButton((new \TobiasKrais\D2ULinkbox\Linkbox((int) $listParams->getValue('box_id'), (int) rex_config::get('d2u_helper', 'default_lang')))->getUrl());
+    });
+
     $list->setNoRowsMessage(rex_i18n::msg('d2u_linkbox_no_linkboxes_found'));
 
     $fragment = new rex_fragment();
