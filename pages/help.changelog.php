@@ -1,4 +1,8 @@
 <h2>Changelog</h2>
+<p>1.6.2-DEV:</p>
+<ul>
+	<li>...</li>
+</ul>
 <p>1.6.1:</p>
 <ul>
 	<li>Niederländische Backend-Sprachdatei hinzugefügt.</li>
