@@ -2,8 +2,10 @@
 
 namespace TobiasKrais\D2ULinkbox;
 
-use IndustrySector;
-use Machine;
+use TobiasKrais\D2UImmo\Property;
+use TobiasKrais\D2UMachinery\IndustrySector;
+use TobiasKrais\D2UMachinery\Machine;
+use TobiasKrais\D2UMachinery\UsedMachine;
 use rex;
 use rex_addon;
 use rex_article;
@@ -11,7 +13,6 @@ use rex_config;
 use rex_plugin;
 use rex_sql;
 use rex_url;
-use UsedMachine;
 
 use function is_array;
 
@@ -278,13 +279,13 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
         } elseif ('url' === $this->link_type && ('' !== $this->external_url || '' !== $this->external_url_lang)) {
             $this->link = '' !== $this->external_url_lang ? $this->external_url_lang : $this->external_url;
         } elseif ('d2u_immo_property' === $this->link_type && $this->link_addon_id > 0 && rex_addon::get('d2u_immo')->isAvailable()) {
-            $property = new \D2U_Immo\Property($this->link_addon_id, $this->clang_id);
+            $property = new Property($this->link_addon_id, $this->clang_id);
             $this->link = $property->getUrl();
             if (!$ignore_offline && 'offline' === $property->online_status) {
                 return '';
             }
         } elseif ($this->link_addon_id > 0 && rex_addon::get('d2u_machinery')->isAvailable()) {
-            if ('d2u_machinery_industry_sector' === $this->link_type && rex_plugin::get('d2u_machinery', 'industry_sectors')->isAvailable()) {
+            if ('d2u_machinery_industry_sector' === $this->link_type && \TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive('industry_sectors')) {
                 $industry_sector = new IndustrySector($this->link_addon_id, $this->clang_id);
                 $this->link = $industry_sector->getUrl();
                 if (!$ignore_offline && 'offline' === $industry_sector->online_status) {
@@ -297,7 +298,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                     return '';
                 }
             }
-            if ('d2u_machinery_used_machine' === $this->link_type && rex_plugin::get('d2u_machinery', 'used_machines')->isAvailable()) {
+            if ('d2u_machinery_used_machine' === $this->link_type && \TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive('used_machines')) {
                 $used_machine = new UsedMachine($this->link_addon_id, $this->clang_id);
                 $this->link = $used_machine->getUrl();
                 if (!$ignore_offline && 'offline' === $used_machine->online_status) {
@@ -395,8 +396,8 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
     private function setPriority(bool $delete = false): void
     {
         // Pull prios from database
-        $query = 'SELECT box_id, priority FROM '. rex::getTablePrefix() .'d2u_linkbox '
-            .'WHERE box_id <> '. $this->box_id .' ORDER BY priority';
+        $query = 'SELECT box_id FROM '. rex::getTablePrefix() .'d2u_linkbox '
+            .'WHERE box_id <> '. $this->box_id .' ORDER BY priority, box_id';
         $result = rex_sql::factory();
         $result->setQuery($query);
 
@@ -412,7 +413,7 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
 
         $linkboxes = [];
         for ($i = 0; $i < $result->getRows(); ++$i) {
-            $linkboxes[$result->getValue('priority')] = $result->getValue('box_id');
+            $linkboxes[] = (int) $result->getValue('box_id');
             $result->next();
         }
         array_splice($linkboxes, $this->priority - 1, 0, [$this->box_id]);

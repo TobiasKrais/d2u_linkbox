@@ -1,4 +1,6 @@
 <?php
+
+use TobiasKrais\D2UHelper\BackendHelper;
 // save settings
 if ('save' === filter_input(INPUT_POST, 'btn_save')) {
     $settings = rex_post('settings', 'array', []);
@@ -20,7 +22,7 @@ if ('save' === filter_input(INPUT_POST, 'btn_save')) {
 				<div class="panel-body-wrapper slide">
 					<?php
                         $options_sort = ['name' => rex_i18n::msg('d2u_helper_name'), 'priority' => rex_i18n::msg('header_priority')];
-                        \TobiasKrais\D2UHelper\BackendHelper::form_select('d2u_helper_sort', 'settings[default_sort]', $options_sort, [(string) rex_config::get('d2u_linkbox', 'default_sort')]);
+						BackendHelper::form_select('d2u_helper_sort', 'settings[default_sort]', $options_sort, [(string) rex_config::get('d2u_linkbox', 'default_sort')]);
                     ?>
 				</div>
 			</fieldset>
@@ -35,6 +37,6 @@ if ('save' === filter_input(INPUT_POST, 'btn_save')) {
 	</div>
 </form>
 <?php
-    echo \TobiasKrais\D2UHelper\BackendHelper::getCSS();
-    echo \TobiasKrais\D2UHelper\BackendHelper::getJS();
-    echo \TobiasKrais\D2UHelper\BackendHelper::getJSOpenAll();
+	echo BackendHelper::getCSS();
+	echo BackendHelper::getJS();
+	echo BackendHelper::getJSOpenAll();

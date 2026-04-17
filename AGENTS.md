@@ -50,6 +50,7 @@ d2u_linkbox/
 - **Comments:** English comments only
 - **Backend labels:** Use `rex_i18n::msg()` with keys from `lang/` files
 - **BS5 module colors:** Prefer d2u_helper CSS variables such as `var(--article-color-box)` / `var(--navi-color-bg)` with optional per-linkbox overrides via custom properties like `--linkbox-bg-color` and `--linkbox-bg-color-dark`, instead of inline `background-color`, so dark mode works automatically
+- **d2u_machinery links:** For industry sector and used machine link types, check availability via `\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive()`. The helper supports both legacy plugins (< 1.6.0) and addon extensions (>= 1.6.0).
 
 ## AGENTS.md Maintenance
 

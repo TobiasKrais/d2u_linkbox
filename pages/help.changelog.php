@@ -1,7 +1,9 @@
 <h2>Changelog</h2>
-<p>1.6.1-DEV:</p>
+<p>1.6.1:</p>
 <ul>
-	<li>...</li>
+	<li>Bugfix: Prioritäten werden bei Linkboxen nach dem Speichern wieder stabil neu durchnummeriert, auch wenn in der Datenbank bereits doppelte Werte vorhanden sind.</li>
+	<li>Backend-Listen sortierbar gemacht und Standardsortierungen von SQL-Queries auf <code>rex_list</code>-<code>defaultSort</code> umgestellt.</li>
+	<li>Die Priorität von Linkboxen kann in der Backend-Liste jetzt direkt per Hoch-/Runter-Buttons geändert werden.</li>
 </ul>
 <p>1.6.0:</p>
 <ul>
