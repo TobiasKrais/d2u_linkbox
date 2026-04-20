@@ -89,7 +89,7 @@ class Category
      * @param bool $only_online Show only online linkbox
      * @return Linkbox[] Linkboxes in this category
      */
-    public function getLinkboxes($only_online = false)
+    public function getLinkboxes($only_online = false): array
     {
         $query = 'SELECT lang.box_id FROM '. rex::getTablePrefix() .'d2u_linkbox_lang AS lang '
             .'LEFT JOIN '. rex::getTablePrefix() .'d2u_linkbox AS linkbox '
@@ -106,12 +106,13 @@ class Category
         $result = rex_sql::factory();
         $result->setQuery($query);
 
-        $linkbox = [];
+        $linkboxes = [];
         for ($i = 0; $i < $result->getRows(); ++$i) {
-            $linkbox[] = new Linkbox((int) $result->getValue('box_id'), $this->clang_id);
+            $linkboxes[] = new Linkbox((int) $result->getValue('box_id'), $this->clang_id);
             $result->next();
         }
-        return $linkbox;
+
+        return $linkboxes;
     }
 
     /**
