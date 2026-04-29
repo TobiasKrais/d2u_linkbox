@@ -3,6 +3,7 @@
 <ul>
 	<li>Backend: CSRF-Schutz fuer Speichern-, Loesch-, Status- und Prioritaetsaktionen der Linkboxverwaltung ergaenzt.</li>
 	<li>Backend: CSRF-Schutz fuer Modul-Installation, -Update und -Deinstallation auf der Setup-Seite ergaenzt.</li>
+	<li>Sicherheit: Hex-Farben (Linkbox-Hintergrundfarbe Light/Dark) werden vor dem Speichern strikt validiert (#RGB / #RRGGBB / #RRGGBBAA), damit keine CSS-Werte ueber das Backend eingeschleust werden koennen.</li>
 	<li>Bugfix: Category::getLinkboxes(...) garantiert jetzt zentral einen Array-Rückgabewert, damit Projektmodule mit foreach/shuffle bei leeren Kategorien nicht auf <code>null</code> laufen.</li>
 </ul>
 <p>1.6.1:</p>
