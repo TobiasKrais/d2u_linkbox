@@ -2,6 +2,7 @@
 <p>1.6.2-DEV:</p>
 <ul>
 	<li>Backend: CSRF-Schutz fuer Speichern-, Loesch-, Status- und Prioritaetsaktionen der Linkboxverwaltung ergaenzt.</li>
+	<li>Backend: CSRF-Schutz fuer Modul-Installation, -Update und -Deinstallation auf der Setup-Seite ergaenzt.</li>
 	<li>Bugfix: Category::getLinkboxes(...) garantiert jetzt zentral einen Array-Rückgabewert, damit Projektmodule mit foreach/shuffle bei leeren Kategorien nicht auf <code>null</code> laufen.</li>
 </ul>
 <p>1.6.1:</p>
