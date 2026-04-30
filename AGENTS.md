@@ -20,7 +20,7 @@ Nur projektspezifische Regeln, die für KI-Arbeit relevant sind.
 
 - Wenn ein Modul unter `modules/24/*` geändert wird, Changelog in `pages/help.changelog.php` prüfen oder aktualisieren und die Revisionsnummer in `lib/Module.php` nur einmal pro Release erhöhen.
 - Versionshinweise für Module: Wenn die Zielversion im Changelog bereits `-DEV` trägt, innerhalb derselben Entwicklungsphase keine weitere Revisionsnummer für dasselbe Modul hochzählen. Erst mit der nächsten Release-Version wieder erneut erhöhen.
-- In Changelog-Dateien, AGENTS.md und README.md sind Umlaute erlaubt und müssen nicht auf ASCII umgeschrieben werden.
+- In Changelog-Dateien, AGENTS.md und README.md echte Umlaute (ä, ö, ü, Ä, Ö, Ü, ß) verwenden und nicht als ae/oe/ue/Ae/Oe/Ue/ss umschreiben.
 
 ## Pflege
 
