@@ -16,7 +16,7 @@ if (rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? $category->name : 'keine';  /** @phpstan-ignore-line */ ?><br>
+	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine';  /** @phpstan-ignore-line */ ?><br>
 <?php
 } else {
     // Ausgabe im FRONTEND
@@ -27,7 +27,7 @@ if (rex::isBackend()) {
         if ('' !== $heading) { /** @phpstan-ignore-line */
             echo '<div class="row">';
             echo '<div class="col-12">';
-            echo '<h1 class="heading-lb-mod-3">'. $heading .'</h1>';
+            echo '<h1 class="heading-lb-mod-3">'. rex_escape($heading) .'</h1>';
             echo '</div>';
             echo '</div>';
         }
@@ -38,7 +38,7 @@ if (rex::isBackend()) {
             echo '<div class="col-12">';
             $url = $linkbox->getUrl();
             if ('' !== $url) {
-                $url = '<a href="'. $url .'">';
+                $url = '<a href="'. rex_escape($url) .'">';
             }
             $style_vars = [];
             if ('' !== $linkbox->background_color) {
@@ -68,7 +68,7 @@ if (rex::isBackend()) {
             // Textbox
             $text = '<div class="col-12 col-md-6 text-lb-mod-3">';
             $text .= '<div class="linkbox-content-lb-mod-3">';
-            $text .= '<div class="linkbox-title-lb-mod-3">'. $linkbox->title .'</div>';
+            $text .= '<div class="linkbox-title-lb-mod-3">'. rex_escape($linkbox->title) .'</div>';
             if ('' !== $linkbox->teaser) {
                 $text .= '<div class="linkbox-teaser-lb-mod-3">'. $linkbox->teaser .'</div>';
             }

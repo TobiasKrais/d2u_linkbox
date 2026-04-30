@@ -46,8 +46,11 @@ if (rex_version::compare($this->getVersion(), '1.4.0', '<')) { /** @phpstan-igno
 
     for ($i = 0; $i < $result->getRows(); ++$i) {
         $update_sql = rex_sql::factory();
-        $update_sql->setQuery('UPDATE `'. \rex::getTablePrefix() .'d2u_linkbox_lang` SET teaser = "'. addslashes(nl2br(stripslashes((string) $result->getValue('teaser')))) .'" '
-            .'WHERE box_id = '. $result->getValue('box_id') .' AND clang_id = '. $result->getValue('clang_id') .';');
+        $update_sql->setQuery(
+            'UPDATE `'. \rex::getTablePrefix() .'d2u_linkbox_lang` SET teaser = :teaser '
+            .'WHERE box_id = '. (int) $result->getValue('box_id') .' AND clang_id = '. (int) $result->getValue('clang_id') .';',
+            [':teaser' => nl2br(stripslashes((string) $result->getValue('teaser')))],
+        );
         $result->next();
     }
 }

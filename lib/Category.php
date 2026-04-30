@@ -128,15 +128,15 @@ class Category
 
         if (0 === $this->category_id || $pre_save_category !== $this) {
             $query = rex::getTablePrefix() .'d2u_linkbox_categories SET '
-                    ."name = '". addslashes($this->name) ."' ";
+                    .'name = :name ';
 
             if (0 === $this->category_id) {
                 $query = 'INSERT INTO '. $query;
             } else {
-                $query = 'UPDATE '. $query .' WHERE category_id = '. $this->category_id;
+                $query = 'UPDATE '. $query .' WHERE category_id = '. (int) $this->category_id;
             }
             $result = rex_sql::factory();
-            $result->setQuery($query);
+            $result->setQuery($query, [':name' => $this->name]);
             if (0 === $this->category_id) {
                 $this->category_id = (int) $result->getLastId();
                 $error = !$result->hasError();

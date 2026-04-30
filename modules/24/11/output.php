@@ -19,7 +19,7 @@ if (rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? $category->name : 'keine'; /** @phpstan-ignore-line */ ?><br>
+	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 	Darstellungsart: <?php echo $display_type_1_row ? 'Eine Box - ganze Breite' : 'Boxen nebeneinander (abhängig von Bildschirmgröße)'; /** @phpstan-ignore-line */ ?><br>
 <?php
 } else {
@@ -31,7 +31,7 @@ if (rex::isBackend()) {
 
         if ('' !== $heading) { /** @phpstan-ignore-line */
             echo '<div class="col-12">';
-            echo '<h2>'. $heading .'</h2>';
+            echo '<h2>'. rex_escape($heading) .'</h2>';
             echo '</div>';
         }
 
@@ -57,7 +57,7 @@ if (rex::isBackend()) {
 
             $url = $linkbox->getUrl();
             if ('' !== $url) {
-                echo '<a href="'. $url .'">';
+                echo '<a href="'. rex_escape($url) .'">';
             }
 
             if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
@@ -65,7 +65,7 @@ if (rex::isBackend()) {
                 $picture = '' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture;
                 $media = rex_media::get($picture);
                 $title = $media instanceof rex_media ? $media->getValue('title') : '';
-                echo '<img src="'. rex_media_manager::getUrl($picture_type, $picture) .'" alt="'. $title .'" title="'. $title .'" loading="lazy">';
+                echo '<img src="'. rex_media_manager::getUrl($picture_type, $picture) .'" alt="'. rex_escape($title) .'" title="'. rex_escape($title) .'" loading="lazy">';
                 echo '</div>';
             }
 
@@ -78,7 +78,7 @@ if (rex::isBackend()) {
             }
             $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
             echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. $box_style .'>'; /** @phpstan-ignore-line */
-            echo '<h3 class="linkbox-24-5-title">'. $linkbox->title .'</h3>';
+            echo '<h3 class="linkbox-24-5-title">'. rex_escape($linkbox->title) .'</h3>';
             if ('' !== $linkbox->teaser) {
                 echo '<div class="linkbox-24-5-teaser">'. $linkbox->teaser .'</div>';
             }

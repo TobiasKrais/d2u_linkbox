@@ -4,8 +4,9 @@
 	<li>Backend: CSRF-Schutz fuer Speichern-, Loesch-, Status- und Prioritaetsaktionen der Linkboxverwaltung ergaenzt.</li>
 	<li>Backend: CSRF-Schutz fuer Modul-Installation, -Update und -Deinstallation auf der Setup-Seite ergaenzt.</li>
 	<li>Sicherheit: Hex-Farben (Linkbox-Hintergrundfarbe Light/Dark) werden vor dem Speichern strikt validiert (#RGB / #RRGGBB / #RRGGBBAA), damit keine CSS-Werte ueber das Backend eingeschleust werden koennen.</li>
-	<li>Bugfix: Category::getLinkboxes(...) garantiert jetzt zentral einen Array-Rückgabewert, damit Projektmodule mit foreach/shuffle bei leeren Kategorien nicht auf <code>null</code> laufen.</li>
-</ul>
+	<li>Bugfix: Category::getLinkboxes(...) garantiert jetzt zentral einen Array-Rückgabewert, damit Projektmodule mit foreach/shuffle bei leeren Kategorien nicht auf <code>null</code> laufen.</li>        <li>Security: Die <code>media-is-in-use</code>-Extension-Points in <code>boot.php</code> verwenden jetzt gebundene Parameter statt SQL-String-Konkatenation mit <code>addslashes()</code>.</li>
+        <li>Security: Die <code>save()</code>-Methoden in <code>lib/Category.php</code> und <code>lib/Linkbox.php</code> verwenden jetzt gebundene Parameter statt SQL-String-Konkatenation mit <code>addslashes()</code>.</li>
+        <li>Security: Modul-Ausgaben (<code>modules/24/1-12/output.php</code>) härten Backend-Eingaben gegen XSS via <code>rex_escape()</code> für Linkbox-Titel, Überschriften, Kategoriename, Bildtitel und URLs in <code>href</code>-Attributen. <code>install.php</code>-Migration verwendet gebundene Parameter beim <code>UPDATE</code> von Linkbox-Teasern.</li></ul>
 <p>1.6.1:</p>
 <ul>
 	<li>Niederländische Backend-Sprachdatei hinzugefügt.</li>

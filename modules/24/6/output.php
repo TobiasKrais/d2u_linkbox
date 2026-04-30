@@ -15,7 +15,7 @@ if (rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? $category->name : 'keine'; /** @phpstan-ignore-line */ ?><br>
+	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?= $box_per_line ?><br>
 <?php
 } else {
@@ -27,7 +27,7 @@ if (rex::isBackend()) {
 
             if ('' !== $heading) { /** @phpstan-ignore-line */
                 echo '<div class="col-12">';
-                echo '<h1>'. $heading .'</h1>';
+                echo '<h1>'. rex_escape($heading) .'</h1>';
                 echo '</div>';
             }
 
@@ -50,7 +50,7 @@ if (rex::isBackend()) {
                     }
                     echo '<div class="linkbox-module-24-6 d-flex align-items-center justify-content-center text-center"'. $bg_color .'>'; // Bootstrap-Klassen für zentrierten Inhalt
                         if ($linkbox->getUrl() !== '') {
-                            echo '<a href="'. $linkbox->getUrl() .'" class="linkbox-link"">';
+                            echo '<a href="'. rex_escape($linkbox->getUrl()) .'" class="linkbox-link"">';
                         }
                         
                             $picture = '' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture;
@@ -64,7 +64,7 @@ if (rex::isBackend()) {
                                     if ('' !== $linkbox->pictogram) {
                                         echo '<div class="linkbox-pictogram"><img src="'. rex_url::media($linkbox->pictogram) .'"></div>';
                                     }
-                                    echo '<h2 class="linkbox-title">'. $linkbox->title .'</h2>';
+                                    echo '<h2 class="linkbox-title">'. rex_escape($linkbox->title) .'</h2>';
                                     if ('' !== $linkbox->teaser) {
                                         echo '<div class="linkbox-teaser pl-2 pr-2">'. $linkbox->teaser .'</div>'; // Bootstrap-Klasse "p" für Absätze
                                     }

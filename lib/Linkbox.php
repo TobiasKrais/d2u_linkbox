@@ -372,16 +372,16 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
             $pre_save_linkbox = new self($this->box_id, $this->clang_id);
             if ($pre_save_linkbox !== $this) {
                 $query = 'REPLACE INTO '. rex::getTablePrefix() .'d2u_linkbox_lang SET '
-                        ."box_id = '". $this->box_id ."', "
-                        ."clang_id = '". $this->clang_id ."', "
+                        .'box_id = '. (int) $this->box_id .', '
+                        .'clang_id = '. (int) $this->clang_id .', '
                         ."picture_lang = '". $this->picture_lang ."', "
                         ."document_lang = '". $this->document_lang ."', "
                         ."external_url_lang = '". $this->external_url_lang ."', "
-                        ."title = '". addslashes($this->title) ."', "
-                        ."teaser = '". addslashes($this->teaser) ."', "
+                        .'title = :title, '
+                        .'teaser = :teaser, '
                         ."translation_needs_update = '". $this->translation_needs_update ."' ";
                 $result = rex_sql::factory();
-                $result->setQuery($query);
+                $result->setQuery($query, [':title' => $this->title, ':teaser' => $this->teaser]);
                 $error = $result->hasError();
             }
         }

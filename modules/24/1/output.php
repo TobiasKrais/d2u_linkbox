@@ -10,7 +10,7 @@ if (rex::isBackend()) {
 ?>
 	<h1 style="font-size: 1.5em;">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
-	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? $category->name : 'keine'; /** @phpstan-ignore-line */ ?>
+	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?= $box_per_line ?><br>
 	Teaser anzeigen: <?php echo $show_teaser ? 'Ja' : 'Nein'; /** @phpstan-ignore-line */ ?><br>
 <?php
@@ -23,7 +23,7 @@ if (rex::isBackend()) {
 
                 if ('' !== $heading) { /** @phpstan-ignore-line */
                     echo '<div class="col-12">';
-                        echo '<h1>'. $heading .'</h1>';
+                        echo '<h1>'. rex_escape($heading) .'</h1>';
                     echo '</div>';
                 }
 
@@ -33,17 +33,17 @@ if (rex::isBackend()) {
                             echo '<div class="linkbox-mod-1">';
                                 $url = $linkbox->getUrl();
                                 if ('' !== $url) {
-                                    $url = '<a href="'. $url .'">';
+                                    $url = '<a href="'. rex_escape($url) .'">';
                                 }
                                 echo $url;
                                 $bg_color = '';
                                 if ('' !== $linkbox->background_color) {
                                     $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
                                 }
-                                echo '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. $linkbox->title .'</div>';
+                                echo '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. rex_escape($linkbox->title) .'</div>';
                                 if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
                                     echo '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
-                                        ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. $linkbox->title .'" loading="lazy">';
+                                        ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. rex_escape($linkbox->title) .'" loading="lazy">';
                                 }
                                 if ('' !== $url) {
                                     echo '</a>';
