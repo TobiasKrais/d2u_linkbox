@@ -62,8 +62,24 @@ if (rex::isBackend()) {
                 echo '<a href="'. rex_escape($url) .'"'. ($linkbox->link_type === 'url' ? ' target="_blank"' : '').'>';
             }
 
+            /** @var TobiasKrais\D2ULinkbox\Linkbox $linkbox */
             echo '<div class="linkbox-inner">';
-            if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
+            $defaultPictogram = '' !== $linkbox->pictogram ? $linkbox->pictogram : $linkbox->pictogram_dark;
+            $darkPictogram = '' !== $linkbox->pictogram_dark ? $linkbox->pictogram_dark : '';
+            if ('' !== $defaultPictogram) {
+                $pictogramMedia = rex_media::get($defaultPictogram);
+                $pictogramTitle = $pictogramMedia instanceof rex_media ? $pictogramMedia->getValue('title') : $linkbox->title;
+                $hasDarkPictogram = '' !== $darkPictogram && $darkPictogram !== $defaultPictogram;
+                echo '<div class="linkbox-pictogram'. ($hasDarkPictogram ? ' linkbox-pictogram-has-dark' : '') .'">';
+                echo '<img class="linkbox-pictogram-light" src="'. rex_url::media($defaultPictogram) .'" alt="'. rex_escape((string) $pictogramTitle) .'" title="'. rex_escape((string) $pictogramTitle) .'" loading="lazy">';
+                if ($hasDarkPictogram) {
+                    $darkPictogramMedia = rex_media::get($darkPictogram);
+                    $darkPictogramTitle = $darkPictogramMedia instanceof rex_media ? $darkPictogramMedia->getValue('title') : $linkbox->title;
+                    echo '<img class="linkbox-pictogram-dark" src="'. rex_url::media($darkPictogram) .'" alt="'. rex_escape((string) $darkPictogramTitle) .'" title="'. rex_escape((string) $darkPictogramTitle) .'" loading="lazy">';
+                }
+                echo '</div>';
+            }
+            else if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
                 $picture = '' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture;
                 $media = rex_media::get($picture);
                 $title = $media instanceof rex_media ? $media->getValue('title') : '';

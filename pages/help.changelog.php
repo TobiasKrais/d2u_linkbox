@@ -1,12 +1,18 @@
 <h2>Changelog</h2>
 <p>1.6.2-DEV:</p>
 <ul>
+	<li>Backend/Frontend: Linkboxen haben jetzt ein optionales eigenes Piktogramm für den Dark Mode; die Piktogramm-Ausgabe schaltet im Frontend passend zum Theme um.</li>
+	<li>Backend: Der Medienpool-Löschschutz berücksichtigt jetzt auch die in Linkboxen hinterlegten Piktogramme und Dark-Mode-Piktogramme.</li>
+	<li>Modul 24-8 (BS5): Nutzt jetzt vorhandene Piktogramme in der Ausgabe und fällt nur ohne Piktogramm auf das Bild zurück.</li>
+	<li>Backend: Einstellungen und Setup sind im Menü jetzt wie bei d2u_immo unter einem gemeinsamen rechten System-Menü gebündelt.</li>
+	<li>Backend: Das neue verschachtelte System-Menü löst die Seiten Einstellungen und Setup jetzt wieder korrekt über eigene Wrapper-Dateien auf.</li>
 	<li>Backend: CSRF-Schutz fuer Speichern-, Loesch-, Status- und Prioritaetsaktionen der Linkboxverwaltung ergaenzt.</li>
 	<li>Backend: CSRF-Schutz fuer Modul-Installation, -Update und -Deinstallation auf der Setup-Seite ergaenzt.</li>
 	<li>Sicherheit: Hex-Farben (Linkbox-Hintergrundfarbe Light/Dark) werden vor dem Speichern strikt validiert (#RGB / #RRGGBB / #RRGGBBAA), damit keine CSS-Werte ueber das Backend eingeschleust werden koennen.</li>
 	<li>Bugfix: Category::getLinkboxes(...) garantiert jetzt zentral einen Array-Rückgabewert, damit Projektmodule mit foreach/shuffle bei leeren Kategorien nicht auf <code>null</code> laufen.</li>        <li>Security: Die <code>media-is-in-use</code>-Extension-Points in <code>boot.php</code> verwenden jetzt gebundene Parameter statt SQL-String-Konkatenation mit <code>addslashes()</code>.</li>
-        <li>Security: Die <code>save()</code>-Methoden in <code>lib/Category.php</code> und <code>lib/Linkbox.php</code> verwenden jetzt gebundene Parameter statt SQL-String-Konkatenation mit <code>addslashes()</code>.</li>
-        <li>Security: Modul-Ausgaben (<code>modules/24/1-12/output.php</code>) härten Backend-Eingaben gegen XSS via <code>rex_escape()</code> für Linkbox-Titel, Überschriften, Kategoriename, Bildtitel und URLs in <code>href</code>-Attributen. <code>install.php</code>-Migration verwendet gebundene Parameter beim <code>UPDATE</code> von Linkbox-Teasern.</li></ul>
+    <li>Security: Die <code>save()</code>-Methoden in <code>lib/Category.php</code> und <code>lib/Linkbox.php</code> verwenden jetzt gebundene Parameter statt SQL-String-Konkatenation mit <code>addslashes()</code>.</li>
+    <li>Security: Modul-Ausgaben (<code>modules/24/1-12/output.php</code>) härten Backend-Eingaben gegen XSS via <code>rex_escape()</code> für Linkbox-Titel, Überschriften, Kategoriename, Bildtitel und URLs in <code>href</code>-Attributen. <code>install.php</code>-Migration verwendet gebundene Parameter beim <code>UPDATE</code> von Linkbox-Teasern.</li>
+</ul>
 <p>1.6.1:</p>
 <ul>
 	<li>Niederländische Backend-Sprachdatei hinzugefügt.</li>

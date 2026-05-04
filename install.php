@@ -5,6 +5,7 @@
     ->setPrimaryKey('box_id')
     ->ensureColumn(new \rex_sql_column('picture', 'VARCHAR(191)', true))
     ->ensureColumn(new \rex_sql_column('pictogram', 'VARCHAR(191)', true))
+    ->ensureColumn(new \rex_sql_column('pictogram_dark', 'VARCHAR(191)', true))
     ->ensureColumn(new \rex_sql_column('background_color', 'VARCHAR(7)', true))
     ->ensureColumn(new \rex_sql_column('background_color_dark', 'VARCHAR(7)', true))
     ->ensureColumn(new \rex_sql_column('link_type', 'VARCHAR(50)', true))

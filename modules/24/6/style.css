@@ -60,6 +60,15 @@
 .linkbox-module-24-6 .linkbox-pictogram img {
     max-height: 50px;
 }
+.linkbox-module-24-6 .linkbox-pictogram-dark {
+	display: none;
+}
+[data-bs-theme="dark"] .linkbox-module-24-6 .linkbox-pictogram-has-dark .linkbox-pictogram-dark {
+	display: inline-block;
+}
+[data-bs-theme="dark"] .linkbox-module-24-6 .linkbox-pictogram-has-dark .linkbox-pictogram-light {
+	display: none;
+}
 
 .linkbox-module-24-6:hover .linkbox-background {
     opacity: 1;

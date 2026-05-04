@@ -84,8 +84,13 @@ function rex_d2u_linkbox_media_is_in_use(rex_extension_point $ep)
     $sql->setQuery('SELECT lang.box_id, title FROM `' . rex::getTablePrefix() . 'd2u_linkbox_lang` AS lang '
         .'LEFT JOIN `' . rex::getTablePrefix() . 'd2u_linkbox` AS linkbox '
             . 'ON lang.box_id = linkbox.box_id '
-        .'WHERE picture = :filename AND clang_id = '. (int) rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId()) .' '
-        .'GROUP BY box_id, title', [':filename' => $filename]);
+        .'WHERE (picture = :picture_filename OR pictogram = :pictogram_filename OR pictogram_dark = :pictogram_dark_filename) '
+        .'AND clang_id = '. (int) rex_config::get('d2u_helper', 'default_lang', rex_clang::getStartId()) .' '
+        .'GROUP BY box_id, title', [
+            ':picture_filename' => $filename,
+            ':pictogram_filename' => $filename,
+            ':pictogram_dark_filename' => $filename,
+        ]);
 
     // Linkbox Warnings
     for ($i = 0; $i < $sql->getRows(); ++$i) {

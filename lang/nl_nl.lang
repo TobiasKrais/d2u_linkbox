@@ -8,6 +8,7 @@ d2u_linkbox_linkbox = Linkbox
 d2u_linkbox_linktype = Link naar ...
 d2u_linkbox_no_linkboxes_found = Er zijn geen linkboxen aangemaakt
 2u_linkbox_pictogram = Pictogram (optioneel)
+d2u_linkbox_pictogram_dark = Pictogram voor donkere modus (optioneel)
 d2u_linkbox_picture_lang = Afbeelding (overschrijft algemene afbeelding)
 d2u_linkbox_title = Koptekst
 d2u_linkbox_teaser = Korte tekst

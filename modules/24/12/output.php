@@ -65,8 +65,20 @@ if (rex::isBackend()) {
                             
                             echo '<div class="linkbox-inner w-100 h-100">';
                                 echo '<div class="linkbox-content">';
-                                    if ('' !== $linkbox->pictogram) {
-                                        echo '<div class="linkbox-pictogram"><img src="'. rex_url::media($linkbox->pictogram) .'"></div>';
+                                    $defaultPictogram = '' !== $linkbox->pictogram ? $linkbox->pictogram : $linkbox->pictogram_dark;
+                                    $darkPictogram = '' !== $linkbox->pictogram_dark ? $linkbox->pictogram_dark : '';
+                                    if ('' !== $defaultPictogram) {
+                                        $defaultPictogramMedia = rex_media::get($defaultPictogram);
+                                        $defaultPictogramTitle = $defaultPictogramMedia instanceof rex_media ? $defaultPictogramMedia->getValue('title') : $linkbox->title;
+                                        $hasDarkPictogram = '' !== $darkPictogram && $darkPictogram !== $defaultPictogram;
+                                        echo '<div class="linkbox-pictogram'. ($hasDarkPictogram ? ' linkbox-pictogram-has-dark' : '') .'">';
+                                        echo '<img class="linkbox-pictogram-light" src="'. rex_url::media($defaultPictogram) .'" alt="'. rex_escape((string) $defaultPictogramTitle) .'" title="'. rex_escape((string) $defaultPictogramTitle) .'" loading="lazy">';
+                                        if ($hasDarkPictogram) {
+                                            $darkPictogramMedia = rex_media::get($darkPictogram);
+                                            $darkPictogramTitle = $darkPictogramMedia instanceof rex_media ? $darkPictogramMedia->getValue('title') : $linkbox->title;
+                                            echo '<img class="linkbox-pictogram-dark" src="'. rex_url::media($darkPictogram) .'" alt="'. rex_escape((string) $darkPictogramTitle) .'" title="'. rex_escape((string) $darkPictogramTitle) .'" loading="lazy">';
+                                        }
+                                        echo '</div>';
                                     }
                                     echo '<h2 class="linkbox-title">'. rex_escape($linkbox->title) .'</h2>';
                                     if ('' !== $linkbox->teaser) {

@@ -47,6 +47,7 @@ if (!$invalidCsrf && (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === 
             $linkbox->box_id = $box_id; // Ensure correct ID in case first language has no object
             $linkbox->picture = $input_media[1];
             $linkbox->pictogram = $input_media[3];
+            $linkbox->pictogram_dark = $input_media[4];
             $linkbox->background_color = BackendHelper::sanitizeHexColor($form['background_color'] ?? '');
             $linkbox->background_color_dark = BackendHelper::sanitizeHexColor($form['background_color_dark'] ?? '');
             $linkbox->link_type = $form['link_type'];
@@ -166,6 +167,7 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 
                             BackendHelper::form_mediafield('d2u_helper_picture', '1', $linkbox->picture, $readonly);
                             BackendHelper::form_mediafield('2u_linkbox_pictogram', '3', $linkbox->pictogram, $readonly);
+                            BackendHelper::form_mediafield('d2u_linkbox_pictogram_dark', '4', $linkbox->pictogram_dark, $readonly);
                             BackendHelper::form_input_color_pair('d2u_linkbox_background_color', 'form[background_color]', $linkbox->background_color, 'form[background_color_dark]', $linkbox->background_color_dark, true);
                             $options_link = [
                                 'article' => rex_i18n::msg('d2u_helper_article_id'),

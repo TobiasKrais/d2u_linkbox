@@ -33,13 +33,13 @@ class Module
             4);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-6',
             'D2U Linkbox - Linkboxen mit Text und Hoverbild (BS4, deprecated)',
-            1);
+            2);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-7',
             'D2U Linkbox - Linkboxen mit Überschrift in Bild (BS5)',
             1);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-8',
             'D2U Linkbox - Linkboxen mit Überschrift unter Bild (BS5)',
-            1);
+            2);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-9',
             'D2U Linkbox - Farbboxen mit seitlichem Bild (BS5)',
             1);
@@ -51,7 +51,7 @@ class Module
             1);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-12',
             'D2U Linkbox - Linkboxen mit Text und Hoverbild (BS5)',
-            1);
+            2);
         return $modules;
     }
 }
