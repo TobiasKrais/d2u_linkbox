@@ -15,7 +15,7 @@ $picture_type = 'REX_VALUE[5]' === '' ? 'd2u_helper_sm' : 'REX_VALUE[5]'; /** @p
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?= $box_per_line ?><br>
@@ -47,11 +47,14 @@ if (rex::isBackend()) {
                     .' d-flex linkbox-spacer">';
             }
 
-            $bg_color = '';
+            $attributes = [];
             if ('' !== $linkbox->background_color) {
-                $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+                $attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color) .'"';
             }
-            echo '<div class="linkbox flex-fill"'. $bg_color .' >';
+            if ('' !== $linkbox->background_color_dark) {
+                $attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark) .'"';
+            }
+            echo '<div class="linkbox flex-fill"'. implode('', $attributes) .' >';
 
             $url = $linkbox->getUrl();
             if ('' !== $url) {

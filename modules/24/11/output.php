@@ -17,7 +17,7 @@ $display_type_1_row = 2 !== (int) 'REX_VALUE[3]'; /** @phpstan-ignore-line */
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 	Darstellungsart: <?php echo $display_type_1_row ? 'Eine Box - ganze Breite' : 'Boxen nebeneinander (abhängig von Bildschirmgröße)'; /** @phpstan-ignore-line */ ?><br>
@@ -69,15 +69,14 @@ if (rex::isBackend()) {
                 echo '</div>';
             }
 
-            $style_vars = [];
+            $attributes = [];
             if ('' !== $linkbox->background_color) {
-                $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color .'dd';
+                $attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color .'dd') .'"';
             }
             if ('' !== $linkbox->background_color_dark) {
-                $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark .'dd';
+                $attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark .'dd') .'"';
             }
-            $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
-            echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. $box_style .'>'; /** @phpstan-ignore-line */
+            echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. implode('', $attributes) .'>'; /** @phpstan-ignore-line */
             echo '<h3 class="linkbox-24-5-title">'. rex_escape($linkbox->title) .'</h3>';
             if ('' !== $linkbox->teaser) {
                 echo '<div class="linkbox-24-5-teaser">'. $linkbox->teaser .'</div>';

@@ -8,7 +8,7 @@ $show_teaser = 'REX_VALUE[4]' === 'true' ? true : false; /** @phpstan-ignore-lin
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?= $box_per_line ?><br>
@@ -36,11 +36,14 @@ if (rex::isBackend()) {
                                     $url = '<a href="'. rex_escape($url) .'">';
                                 }
                                 echo $url;
-                                $bg_color = '';
+                                $attributes = [];
                                 if ('' !== $linkbox->background_color) {
-                                    $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+                                    $attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color) .'"';
                                 }
-                                echo '<div class="linkbox-title-lk-mod-1"'. $bg_color .'>'. rex_escape($linkbox->title) .'</div>';
+                                if ('' !== $linkbox->background_color_dark) {
+                                    $attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark) .'"';
+                                }
+                                echo '<div class="linkbox-title-lk-mod-1"'. implode('', $attributes) .'>'. rex_escape($linkbox->title) .'</div>';
                                 if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
                                     echo '<img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='.
                                         ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .'" alt="'. rex_escape($linkbox->title) .'" loading="lazy">';

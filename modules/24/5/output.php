@@ -17,7 +17,7 @@ $display_type_1_row = 2 !== (int) 'REX_VALUE[3]'; /** @phpstan-ignore-line */
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 	Darstellungsart: <?php echo $display_type_1_row ? 'Eine Box - ganze Breite' : 'Boxen nebeneinander (abhängig von Bildschirmgröße)'; /** @phpstan-ignore-line */ ?><br>
@@ -69,11 +69,14 @@ if (rex::isBackend()) {
                 echo '</div>';
             }
 
-            $bg_color = '';
+            $attributes = [];
             if ('' !== $linkbox->background_color) {
-                $bg_color = ' style="background-color: '. $linkbox->background_color .'dd"'; // Add "dd" to generate opacity
+                $attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color .'dd') .'"';
             }
-            echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. $bg_color .'>'; /** @phpstan-ignore-line */
+            if ('' !== $linkbox->background_color_dark) {
+                $attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark .'dd') .'"';
+            }
+            echo '<div class="linkbox-24-5-title-box'. ($display_type_1_row ? ($counter % 2 > 0 ? '-left' : '-right') : '') .'"'. implode('', $attributes) .'>'; /** @phpstan-ignore-line */
             echo '<h3 class="linkbox-24-5-title">'. rex_escape($linkbox->title) .'</h3>';
             if ('' !== $linkbox->teaser) {
                 echo '<div class="linkbox-24-5-teaser">'. $linkbox->teaser .'</div>';

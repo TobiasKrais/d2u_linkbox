@@ -35,12 +35,13 @@
 	padding: 1.5rem 1rem 0.5rem;
 }
 .linkbox-pictogram img {
+	display: block;
 	max-width: 100%;
 	max-height: 96px;
 	width: auto;
 	height: auto;
 }
-.linkbox-pictogram-dark {
+.linkbox-pictogram img + img {
 	display: none;
 }
 [data-bs-theme="dark"] .linkbox-pictogram-has-dark .linkbox-pictogram-dark {

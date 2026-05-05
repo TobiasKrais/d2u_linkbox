@@ -13,11 +13,14 @@
 
 .linkbox-title-lk-mod-1 {
     padding: 0.25em 0.5em;
-    background: var(--navi-color-bg);
+	background: var(--linkbox-bg-color, var(--navi-color-bg));
 	color: white;
 	font-size: 1.25em;
 	font-weight: bold;
     margin: 1.5em 0 0 0.25em;
 	position: absolute;
 	right: 0;
+}
+[data-bs-theme="dark"] .linkbox-title-lk-mod-1 {
+	background: var(--linkbox-bg-color-dark, var(--linkbox-bg-color, var(--navi-color-bg)));
 }

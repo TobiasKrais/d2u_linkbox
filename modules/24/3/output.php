@@ -14,7 +14,7 @@ $heading = 'REX_VALUE[2]';
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine';  /** @phpstan-ignore-line */ ?><br>
 <?php
@@ -40,8 +40,17 @@ if (rex::isBackend()) {
             if ('' !== $url) {
                 $url = '<a href="'. rex_escape($url) .'">';
             }
+            $attributes = [];
+            if ('' !== $linkbox->background_color) {
+                $attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color) .'"';
+                $attributes[] = ' data-linkbox-border-color="'. rex_escape($linkbox->background_color) .'"';
+            }
+            if ('' !== $linkbox->background_color_dark) {
+                $attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark) .'"';
+                $attributes[] = ' data-linkbox-border-color-dark="'. rex_escape($linkbox->background_color_dark) .'"';
+            }
             echo $url;
-            echo '<div class="linkbox-mod-3"'. ('' !== $linkbox->background_color ? ' style="background-color:'. $linkbox->background_color .'"' : '') .'>';
+            echo '<div class="linkbox-mod-3"'. implode('', $attributes) .'>';
             echo '<div class="row">';
 
             // Picture
@@ -49,8 +58,8 @@ if (rex::isBackend()) {
             if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
                 $picture .= '<div class="picbox-'. $pic_orientation .'-inner">';
                 $picture .= '<div><img src="index.php?rex_media_type=d2u_helper_sm&rex_media_file='. ('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture)
-                    .'"'. ('' !== $linkbox->background_color ? ' style="border: 1px solid '. $linkbox->background_color .'"' : '') .' loading="lazy"></div>';
-                $picture .= '<div class="border-lb-mod-3"'. ('' !== $linkbox->background_color ? ' style="border-color:'. $linkbox->background_color .'"' : '') .'></div>';
+                    .'" loading="lazy"></div>';
+                $picture .= '<div class="border-lb-mod-3"></div>';
                 $picture .= '</div>';
             }
             $picture .= '</div>';

@@ -8,6 +8,9 @@ if (rex::isBackend() && is_object(rex::getUser())) {
 }
 
 if (rex::isBackend()) {
+	rex_view::addCssFile(rex_url::addonAssets('d2u_linkbox', 'd2u_linkbox_backend.css'));
+	rex_view::addJsFile(rex_url::addonAssets('d2u_linkbox', 'd2u_linkbox_backend.js'));
+
     rex_extension::register('ART_PRE_DELETED', rex_d2u_linkbox_article_is_in_use(...));
     rex_extension::register('CLANG_DELETED', rex_d2u_linkbox_clang_deleted(...));
     rex_extension::register('D2U_HELPER_TRANSLATION_LIST', rex_d2u_linkbox_translation_list(...));

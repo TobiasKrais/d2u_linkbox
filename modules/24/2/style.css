@@ -29,7 +29,11 @@
     transition: all 0.2s ease-out;
 }
 .linkbox {
+	background-color: var(--linkbox-bg-color, var(--article-color-box));
 	hyphens: auto;
+}
+[data-bs-theme="dark"] .linkbox {
+	background-color: var(--linkbox-bg-color-dark, var(--linkbox-bg-color, var(--article-color-box)));
 }
 .linkbox a:hover {
 	text-decoration: none;

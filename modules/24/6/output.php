@@ -13,7 +13,7 @@ $picture_type = 'REX_VALUE[5]' === '' ? 'd2u_helper_sm' : 'REX_VALUE[5]'; /** @p
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 	Anzahl Linkboxen pro Zeile (große Bildschirme): <?= $box_per_line ?><br>
@@ -44,19 +44,25 @@ if (rex::isBackend()) {
                         .' linkbox-spacer">';
                 }
             
-                    $bg_color = '';
+                    $picture = '' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture;
+                    $attributes = [];
                     if ('' !== $linkbox->background_color) {
-                        $bg_color = ' style="background-color: '. $linkbox->background_color .'"';
+                        $attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color) .'"';
                     }
-                    echo '<div class="linkbox-module-24-6 d-flex align-items-center justify-content-center text-center"'. $bg_color .'>'; // Bootstrap-Klassen für zentrierten Inhalt
+                    if ('' !== $linkbox->background_color_dark) {
+                        $attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark) .'"';
+                    }
+                    if ('' !== $picture) {
+                        $attributes[] = ' data-linkbox-hover-image="'. rex_escape(rex_media_manager::getUrl($picture_type, $picture)) .'"';
+                    }
+                    echo '<div class="linkbox-module-24-6 d-flex align-items-center justify-content-center text-center"'. implode('', $attributes) .'>'; // Bootstrap-Klassen für zentrierten Inhalt
                         if ($linkbox->getUrl() !== '') {
                             echo '<a href="'. rex_escape($linkbox->getUrl()) .'" class="linkbox-link"">';
                         }
                         
-                            $picture = '' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture;
                             $media = rex_media::get($picture);
                             if ($media instanceof rex_media) {
-                                echo '<div class="linkbox-background w-100 h-100" style="background-image: url(\''. rex_media_manager::getUrl($picture_type, $picture) .'\');"></div>';
+                                echo '<div class="linkbox-background w-100 h-100"></div>';
                             }
                             
                             echo '<div class="linkbox-inner w-100 h-100">';

@@ -13,6 +13,7 @@
 	background-color: var(--linkbox-bg-color-dark, var(--linkbox-bg-color, var(--article-color-box)));
 }
 .linkbox-mod-4-slider {
+	background-image: var(--linkbox-bg-image);
 	background-size: cover;
 	background-position: center;
 	padding: 2em;

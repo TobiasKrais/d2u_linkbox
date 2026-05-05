@@ -2,6 +2,7 @@
 <p>1.6.2-DEV:</p>
 <ul>
 	<li>Backend/Frontend: Linkboxen haben jetzt ein optionales eigenes Piktogramm für den Dark Mode; die Piktogramm-Ausgabe schaltet im Frontend passend zum Theme um.</li>
+	<li>Backend: Die Modul-Inputs 24-1 bis 24-12 sind jetzt frei von Inline-CSS und Inline-JS und nutzen gemeinsame Backend-Assets fuer Formularlogik und Vorschau.</li>
 	<li>Backend: Der Medienpool-Löschschutz berücksichtigt jetzt auch die in Linkboxen hinterlegten Piktogramme und Dark-Mode-Piktogramme.</li>
 	<li>Modul 24-8 (BS5): Nutzt jetzt vorhandene Piktogramme in der Ausgabe und fällt nur ohne Piktogramm auf das Bild zurück.</li>
 	<li>Backend: Einstellungen und Setup sind im Menü jetzt wie bei d2u_immo unter einem gemeinsamen rechten System-Menü gebündelt.</li>

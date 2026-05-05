@@ -6,7 +6,7 @@ $heading = 'REX_VALUE[2]';
 if (rex::isBackend()) {
     // Ausgabe im BACKEND
 ?>
-	<h1 style="font-size: 1.5em;">Linkboxen</h1>
+    <h1 class="d2u-linkbox-module-preview-title">Linkboxen</h1>
 	Überschrift: REX_VALUE[2]<br>
 	Gewählte Kategorie: <?php echo $category instanceof TobiasKrais\D2ULinkbox\Category ? rex_escape($category->name) : 'keine'; /** @phpstan-ignore-line */ ?><br>
 <?php
@@ -51,22 +51,25 @@ if (rex::isBackend()) {
                 echo ' active';
                 $slide_is_active = false;
             }
-            echo '" style="background-image: url('. rex_url::media('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture) .')">';
+            $slide_attributes = [];
+            if ('' !== $linkbox->picture || '' !== $linkbox->picture_lang) {
+                $slide_attributes[] = ' data-linkbox-bg-image="'. rex_escape(rex_url::media('' !== $linkbox->picture_lang ? $linkbox->picture_lang : $linkbox->picture)) .'"';
+            }
+            echo '"'. implode('', $slide_attributes) .'>';
 
             $url = $linkbox->getUrl();
             if ('' !== $url) {
                 $url = '<a href="'. rex_escape($url) .'">';
             }
-            $style_vars = [];
+            $box_attributes = [];
             if ('' !== $linkbox->background_color) {
-                $style_vars[] = '--linkbox-bg-color: '. $linkbox->background_color;
+                $box_attributes[] = ' data-linkbox-bg-color="'. rex_escape($linkbox->background_color) .'"';
             }
             if ('' !== $linkbox->background_color_dark) {
-                $style_vars[] = '--linkbox-bg-color-dark: '. $linkbox->background_color_dark;
+                $box_attributes[] = ' data-linkbox-bg-color-dark="'. rex_escape($linkbox->background_color_dark) .'"';
             }
-            $box_style = count($style_vars) > 0 ? ' style="'. implode('; ', $style_vars) .';"' : '';
             echo $url;
-            echo '<div class="linkbox-mod-4"'. $box_style .'>';
+            echo '<div class="linkbox-mod-4"'. implode('', $box_attributes) .'>';
             echo '<div class="linkbox-title-lb-mod-4">'. rex_escape($linkbox->title) .'</div>';
             if ('' !== $linkbox->teaser) {
                 echo '<div class="linkbox-teaser-lb-mod-4">'. $linkbox->teaser .'</div>';
