@@ -1,28 +1,25 @@
 # D2U Linkbox - Agent Notes
 
-Nur projektspezifische Regeln, die für KI-Arbeit relevant sind.
+Rules only. Short. Actionable.
 
-## Kernregeln
+## Core Rules
 
-- Namespace für Addon-Klassen: `TobiasKrais\D2ULinkbox`
-- Veralteter Namespace für Rückwärtskompatibilität: `D2U_Linkbox`
-- Einrückung: 4 Spaces in PHP-Klassen, Tabs in Moduldateien
-- Kommentare nur auf Englisch
-- Backend-Labels immer über `rex_i18n::msg()` mit Keys aus `lang/`
+- Namespace: `TobiasKrais\D2ULinkbox`
+- Legacy namespace: `D2U_Linkbox`
+- PHP classes: 4 spaces. Module files: tabs
+- Comments only in English
+- Backend labels always via `rex_i18n::msg()` with keys from `lang/`
 
-## Wichtige Projekthinweise
+## When Changing
 
-- Wenn Backend-Translation-Keys hinzugefügt, umbenannt oder entfernt werden, müssen alle Sprachdateien in `lang/` synchron gehalten werden.
-- Für `d2u_machinery`-Links die Verfügbarkeit über `\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive()` prüfen, nicht über alte Plugin-Checks.
-- In BS5-Modulen für Farben bevorzugt `d2u_helper` CSS-Variablen wie `var(--article-color-box)` oder `var(--navi-color-bg)` verwenden. Keine festen Inline-Hintergrundfarben einführen, damit Dark Mode weiter funktioniert.
+- Keep backend translation keys in sync across all files under `lang/`
+- For `d2u_machinery` links always use `\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive()`, never old plugin checks
+- In BS5 modules, solve colors through d2u_helper CSS variables. Do not add fixed inline background colors.
+- For changes under `modules/24/*`: check or update changelog in `pages/help.changelog.php`
+- Raise revision in `lib/Module.php` only once per release
+- If target version in changelog already has `-DEV`: do not raise again in same phase
+- Use real umlauts in changelog files, AGENTS.md, and README.md
 
-## Modul-Änderungen
+## Maintenance
 
-- Wenn ein Modul unter `modules/24/*` geändert wird, Changelog in `pages/help.changelog.php` prüfen oder aktualisieren und die Revisionsnummer in `lib/Module.php` nur einmal pro Release erhöhen.
-- Versionshinweise für Module: Wenn die Zielversion im Changelog bereits `-DEV` trägt, innerhalb derselben Entwicklungsphase keine weitere Revisionsnummer für dasselbe Modul hochzählen. Erst mit der nächsten Release-Version wieder erneut erhöhen.
-- In Changelog-Dateien, AGENTS.md und README.md echte Umlaute (ä, ö, ü, Ä, Ö, Ü, ß) verwenden und nicht als ae/oe/ue/Ae/Oe/Ue/ss umschreiben.
-
-## Pflege
-
-- Diese Datei kurz und handlungsorientiert halten.
-- Neue Einträge nur aufnehmen, wenn sie wiederkehrende Stolperfallen, verbindliche Projektkonventionen oder agentenrelevante Workflows betreffen.
+- Keep only recurring pitfalls, fixed conventions, and agent-relevant workflows here
