@@ -1,6 +1,7 @@
 <h2>Changelog</h2>
 <p>1.6.2-DEV:</p>
 <ul>
+	<li>Backend: Abbrechen-Buttons in Linkbox- und Kategorieformularen fuehren jetzt wieder zur Liste.</li>
 	<li>Backend/Frontend: Linkboxen haben jetzt ein optionales eigenes Piktogramm für den Dark Mode; die Piktogramm-Ausgabe schaltet im Frontend passend zum Theme um.</li>
 	<li>Backend: Die Modul-Inputs 24-1 bis 24-12 sind jetzt frei von Inline-CSS und Inline-JS und nutzen gemeinsame Backend-Assets fuer Formularlogik und Vorschau.</li>
 	<li>Backend: Der Medienpool-Löschschutz berücksichtigt jetzt auch die in Linkboxen hinterlegten Piktogramme und Dark-Mode-Piktogramme.</li>
