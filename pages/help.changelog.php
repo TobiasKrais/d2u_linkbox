@@ -1,5 +1,5 @@
 <h2>Changelog</h2>
-<p>1.6.2-DEV:</p>
+<p>1.6.2:</p>
 <ul>
 	<li>Backend: Abbrechen-Buttons in Linkbox- und Kategorieformularen fuehren jetzt wieder zur Liste.</li>
 	<li>Backend/Frontend: Linkboxen haben jetzt ein optionales eigenes Piktogramm für den Dark Mode; die Piktogramm-Ausgabe schaltet im Frontend passend zum Theme um.</li>
