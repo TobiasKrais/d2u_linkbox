@@ -1,4 +1,5 @@
-# d2u_linkbox
+# D2U Linkbox Addon
+
 Ein paar Boxen mit Bild, Titel und optionalem Link ganz einfach in Redaxo 5 verwaltet
 
 Dieses Addon bietet ein einfaches Modul zur Ausgabe von Boxen, die lediglich ein Bild und einen Titel beinhalten. Diese Boxen können optional mit einem Link versehen werden, und On-/Offline geschalten werden.
