@@ -1,7 +1,7 @@
 <h2>Changelog</h2>
 <p>1.6.3-DEV:</p>
 <ul>
-	<li>...</li>
+	<li>Security/Bugfix: Die <code>save()</code>-Methode in <code>lib/Linkbox.php</code> verwendet jetzt durchgaengig gebundene Parameter statt SQL-String-Konkatenation (u. a. <code>link_type</code>, <code>document</code>, <code>external_url</code>, <code>picture</code>, <code>pictogram</code>, <code>background_color</code>, <code>online_status</code> sowie die Sprachfelder); IDs werden nach <code>int</code> gecastet. Verhindert SQL-Injection und <code>rex_sql_exception</code> bei Werten mit Anfuehrungszeichen.</li>
 </ul>
 <p>1.6.2:</p>
 <ul>

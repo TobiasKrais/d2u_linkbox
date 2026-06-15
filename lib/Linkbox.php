@@ -344,28 +344,39 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
 
         if (0 === $this->box_id || $pre_save_linkbox !== $this) {
             $query = rex::getTablePrefix() .'d2u_linkbox SET '
-                    ."link_type = '". $this->link_type ."', "
-                    .'article_id = '. ($this->article_id > 0 ? $this->article_id : 0) .', '
-                    ."document = '". $this->document ."', "
-                    .'link_addon_id = '. ($this->link_addon_id > 0 ? $this->link_addon_id : 0) .', '
-                    ."external_url = '". $this->external_url ."', "
-                    ."category_ids = '|". implode('|', array_keys($this->categories)) ."|', "
-                    ."picture = '". $this->picture ."', "
-                    ."pictogram = '". $this->pictogram ."', "
-                    ."pictogram_dark = '". $this->pictogram_dark ."', "
-                    ."background_color = '". $this->background_color ."', "
-                    ."background_color_dark = '". $this->background_color_dark ."', "
-                    .'priority = '. $this->priority .', '
-                    ."online_status = '". $this->online_status ."' ";
+                    .'link_type = :link_type, '
+                    .'article_id = '. ($this->article_id > 0 ? (int) $this->article_id : 0) .', '
+                    .'document = :document, '
+                    .'link_addon_id = '. ($this->link_addon_id > 0 ? (int) $this->link_addon_id : 0) .', '
+                    .'external_url = :external_url, '
+                    .'category_ids = :category_ids, '
+                    .'picture = :picture, '
+                    .'pictogram = :pictogram, '
+                    .'pictogram_dark = :pictogram_dark, '
+                    .'background_color = :background_color, '
+                    .'background_color_dark = :background_color_dark, '
+                    .'priority = '. (int) $this->priority .', '
+                    .'online_status = :online_status ';
 
             if (0 === $this->box_id) {
                 $query = 'INSERT INTO '. $query;
             } else {
-                $query = 'UPDATE '. $query .' WHERE box_id = '. $this->box_id;
+                $query = 'UPDATE '. $query .' WHERE box_id = '. (int) $this->box_id;
             }
 
             $result = rex_sql::factory();
-            $result->setQuery($query);
+            $result->setQuery($query, [
+                ':link_type' => $this->link_type,
+                ':document' => $this->document,
+                ':external_url' => $this->external_url,
+                ':category_ids' => '|'. implode('|', array_keys($this->categories)) .'|',
+                ':picture' => $this->picture,
+                ':pictogram' => $this->pictogram,
+                ':pictogram_dark' => $this->pictogram_dark,
+                ':background_color' => $this->background_color,
+                ':background_color_dark' => $this->background_color_dark,
+                ':online_status' => $this->online_status,
+            ]);
             if (0 === $this->box_id) {
                 $this->box_id = (int) $result->getLastId();
                 $error = $result->hasError();
@@ -379,14 +390,21 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
                 $query = 'REPLACE INTO '. rex::getTablePrefix() .'d2u_linkbox_lang SET '
                         .'box_id = '. (int) $this->box_id .', '
                         .'clang_id = '. (int) $this->clang_id .', '
-                        ."picture_lang = '". $this->picture_lang ."', "
-                        ."document_lang = '". $this->document_lang ."', "
-                        ."external_url_lang = '". $this->external_url_lang ."', "
+                        .'picture_lang = :picture_lang, '
+                        .'document_lang = :document_lang, '
+                        .'external_url_lang = :external_url_lang, '
                         .'title = :title, '
                         .'teaser = :teaser, '
-                        ."translation_needs_update = '". $this->translation_needs_update ."' ";
+                        .'translation_needs_update = :translation_needs_update ';
                 $result = rex_sql::factory();
-                $result->setQuery($query, [':title' => $this->title, ':teaser' => $this->teaser]);
+                $result->setQuery($query, [
+                    ':picture_lang' => $this->picture_lang,
+                    ':document_lang' => $this->document_lang,
+                    ':external_url_lang' => $this->external_url_lang,
+                    ':title' => $this->title,
+                    ':teaser' => $this->teaser,
+                    ':translation_needs_update' => $this->translation_needs_update,
+                ]);
                 $error = $result->hasError();
             }
         }
