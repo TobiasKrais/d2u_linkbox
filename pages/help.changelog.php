@@ -1,4 +1,8 @@
 <h2>Changelog</h2>
+<p>1.6.4-DEV:</p>
+<ul>
+	<li>...</li>
+</ul>
 <p>1.6.3:</p>
 <ul>
 	<li>Bugfix: Die BS4-Module 24-3 (Farbboxen mit seitlichem Bild), 24-4 (Slider) und 24-5 (Text neben Bild) zeigten die im Backend gewählte Hintergrundfarbe nicht mehr an. Ihre <code>style.css</code> wurde beim Umstieg auf das <code>data-linkbox-*</code>/CSS-Variablen-System nicht angepasst und nutzt jetzt <code>var(--linkbox-bg-color)</code> (inkl. Dark-Mode und Pfeil-Border bei 24-3). Modul-Revisionen entsprechend erhöht.</li>
