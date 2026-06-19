@@ -1,6 +1,7 @@
 <h2>Changelog</h2>
 <p>1.6.3-DEV:</p>
 <ul>
+	<li>Bugfix: Die Backend-Seiten Einstellungen und Setup waren nicht mehr aufrufbar (<code>Failed opening required '.../pages/settings.php'</code>), weil die zugehörigen Inhaltsdateien <code>pages/settings.php</code> und <code>pages/setup.php</code> versehentlich gelöscht worden waren, während die Wrapper-Dateien sie weiterhin eingebunden haben. Der Seiteninhalt steht jetzt direkt in <code>pages/settings.settings.php</code> und <code>pages/settings.setup.php</code> (kein <code>require</code> mehr).</li>
 	<li>Security/Bugfix: Die <code>save()</code>-Methode in <code>lib/Linkbox.php</code> verwendet jetzt durchgaengig gebundene Parameter statt SQL-String-Konkatenation (u. a. <code>link_type</code>, <code>document</code>, <code>external_url</code>, <code>picture</code>, <code>pictogram</code>, <code>background_color</code>, <code>online_status</code> sowie die Sprachfelder); IDs werden nach <code>int</code> gecastet. Verhindert SQL-Injection und <code>rex_sql_exception</code> bei Werten mit Anfuehrungszeichen.</li>
 </ul>
 <p>1.6.2:</p>
