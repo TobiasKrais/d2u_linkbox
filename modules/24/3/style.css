@@ -2,6 +2,13 @@
 	text-align: center;
 }
 
+.linkbox-mod-3 {
+	background-color: var(--linkbox-bg-color, var(--article-color-box));
+}
+[data-bs-theme="dark"] .linkbox-mod-3 {
+	background-color: var(--linkbox-bg-color-dark, var(--linkbox-bg-color, var(--article-color-box)));
+}
+
 .linkbox {
 	hyphens: auto;
 }
@@ -21,11 +28,15 @@
 }
 .border-lb-mod-3 {
 	border: 1.5rem solid transparent;
+	border-color: var(--linkbox-border-color, transparent);
 	bottom: auto;
 	content: " ";
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+}
+[data-bs-theme="dark"] .border-lb-mod-3 {
+	border-color: var(--linkbox-border-color-dark, var(--linkbox-border-color, transparent));
 }
 .picbox-left-inner .border-lb-mod-3 {
 	left: auto;

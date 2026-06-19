@@ -24,13 +24,13 @@ class Module
             12);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-3',
             'D2U Linkbox - Farbboxen mit seitlichem Bild (BS4, deprecated)',
-            8);
+            9);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-4',
             'D2U Linkbox - Slider (BS4, deprecated)',
-            7);
+            8);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-5',
             'D2U Linkbox - Linkboxen mit Text neben dem Bild (BS4, deprecated)',
-            4);
+            5);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-6',
             'D2U Linkbox - Linkboxen mit Text und Hoverbild (BS4, deprecated)',
             2);
