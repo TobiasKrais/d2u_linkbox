@@ -1,7 +1,7 @@
 <h2>Changelog</h2>
 <p>1.6.4-DEV:</p>
 <ul>
-	<li>...</li>
+	<li>Bugfix: Der Online/Offline-Umschalter sowie der Löschen-Link in der Linkbox-Liste führten zu einem CSRF-Fehler, weil die Links kein CSRF-Token enthielten. Beide Links hängen das Token jetzt an (analog zu den Prioritäts-Buttons).</li>
 </ul>
 <p>1.6.3:</p>
 <ul>
