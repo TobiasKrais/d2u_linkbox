@@ -30,7 +30,9 @@ if (rex::isBackend()) {
 
         if ('' !== $heading) { /** @phpstan-ignore-line */
             echo '<div class="col-12">';
-            echo '<h1>'. rex_escape($heading) .'</h1>';
+            // Heading is authored by trusted backend editors and may contain simple
+            // formatting HTML (e.g. <br>), consistent with the teaser output below.
+            echo '<h1>'. $heading .'</h1>';
             echo '</div>';
         }
 
