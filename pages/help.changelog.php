@@ -1,5 +1,5 @@
 <h2>Changelog</h2>
-<p>1.6.4-DEV:</p>
+<p>1.6.4:</p>
 <ul>
 	<li>Bugfix: Der Online/Offline-Umschalter sowie der Löschen-Link in der Linkbox-Liste führten zu einem CSRF-Fehler, weil die Links kein CSRF-Token enthielten. Beide Links hängen das Token jetzt an (analog zu den Prioritäts-Buttons).</li>
 	<li>Bugfix: Modul 24-2 (BS4) gab eine im Überschrift-Feld hinterlegte einfache Formatierung (z. B. <code>&lt;br&gt;</code>) im Frontend als sichtbaren HTML-Code statt gerendert aus. Die Überschrift wird jetzt wie der Teaser als vom Backend-Redakteur gepflegter HTML-Inhalt ausgegeben. Modul-Revision erhöht.</li>
