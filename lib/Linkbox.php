@@ -20,7 +20,7 @@ use function is_array;
  * @api
  * Linkbox details
  */
-class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
+class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper, \TobiasKrais\D2UHelper\ITranslateable
 {
     /** @var int Database linkbox ID */
     public int $box_id = 0;
@@ -324,6 +324,43 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper
         }
 
         return $this->link;
+    }
+
+    /**
+     * Translate this linkbox from a source language into its own (target)
+     * language using ai_platform and store the result.
+     * @param int $sourceClangId Redaxo clang id of the source language
+     * @return bool true on success
+     */
+    public function translateFrom(int $sourceClangId): bool
+    {
+        if ($this->box_id <= 0 || $sourceClangId === $this->clang_id) {
+            return false;
+        }
+
+        $source = new self($this->box_id, $sourceClangId);
+        if ($source->box_id <= 0) {
+            return false;
+        }
+        if ('' === $source->title && '' === $source->teaser) {
+            return false;
+        }
+
+        try {
+            $translated = \TobiasKrais\D2UHelper\AiTranslationHelper::translateFields([
+                'title' => ['value' => $source->title, 'html' => false],
+                'teaser' => ['value' => $source->teaser, 'html' => true],
+            ], $sourceClangId, $this->clang_id);
+        } catch (\Throwable $e) {
+            return false;
+        }
+
+        $this->title = $translated['title'];
+        $this->teaser = $translated['teaser'];
+        $this->translation_needs_update = 'no';
+
+        // save() returns the error flag (true on error), so success is its negation.
+        return false === $this->save();
     }
 
     /**

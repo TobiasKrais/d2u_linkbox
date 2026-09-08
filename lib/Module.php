@@ -39,7 +39,7 @@ class Module
             1);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-8',
             'D2U Linkbox - Linkboxen mit Überschrift unter Bild (BS5)',
-            2);
+            3);
         $modules[] = new \TobiasKrais\D2UHelper\Module('24-9',
             'D2U Linkbox - Farbboxen mit seitlichem Bild (BS5)',
             1);
