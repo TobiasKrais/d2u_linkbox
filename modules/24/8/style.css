@@ -4,6 +4,7 @@
 .linkbox-teaser {
 	color: white;
 	flex: 1 0 auto;
+	padding: 10px 15px;
 }
 .linkbox-teaser a, .linkbox-teaser a:hover, .linkbox-teaser a:visited {
 	color: white;

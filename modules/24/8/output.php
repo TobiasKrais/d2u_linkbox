@@ -87,7 +87,7 @@ if (rex::isBackend()) {
             if (!$picture_only) { /** @phpstan-ignore-line */
                 echo '<div class="linkbox-title"><h2>'. rex_escape($linkbox->title) .'</h2></div>';
                 if ($show_teaser && '' !== $linkbox->teaser) { /** @phpstan-ignore-line */
-                    echo '<div class="linkbox-teaser ps-2 pe-2">'. $linkbox->teaser .'</div>';
+                    echo '<div class="linkbox-teaser">'. $linkbox->teaser .'</div>';
                 }
             }
             echo '</div>'; // class="linkbox-inner"
