@@ -1,4 +1,5 @@
 <?php
+/* d2u_translate: 2:text */
 $category_id = (int) 'REX_VALUE[1]' > 0 ? (int) 'REX_VALUE[1]' : 0; /** @phpstan-ignore-line */
 $category = $category_id > 0 ? new TobiasKrais\D2ULinkbox\Category($category_id, rex_clang::getCurrentId()) : false; /** @phpstan-ignore-line */
 $heading = 'REX_VALUE[2]';

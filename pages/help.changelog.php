@@ -2,6 +2,7 @@
 <p>1.6.5-DEV:</p>
 <ul>
 	<li>Modul 24-8 (BS5): Teaser-Padding ist jetzt einheitlich zum Titel (<code>10px 15px</code>) und wird in der <code>style.css</code> gesetzt statt über die Bootstrap-Utility-Klassen <code>ps-2 pe-2</code> im Ausgabe-Markup. Modul-Revision erhöht.</li>
+	<li>Neu: Module mit übersetzbarem Textinhalt (Titel) tragen einen <code>d2u_translate</code>-Marker im Modul-Code. In Verbindung mit d2u_helper (Slice-Übersetzung) erscheint dadurch im Content-Editor an übersetzbaren Slices ein KI-Übersetzen-Button. Modul-Revisionen erhöht.</li>
 	<li>Neu: KI-Übersetzung in der Übersetzungshilfe von d2u_helper. Ist das Addon <code>ai_platform</code> installiert und ein Standard-Textprofil konfiguriert, lassen sich fehlende oder zu aktualisierende Übersetzungen von Linkboxen (Titel, Teaser) direkt in der Übersetzungshilfe automatisch übersetzen (einzeln oder alle auf einmal). Dazu implementiert <code>Linkbox</code> das neue Interface <code>TobiasKrais\D2UHelper\ITranslateable</code> und die <code>boot.php</code> beantwortet den Extension Point <code>D2U_HELPER_TRANSLATE_OBJECT</code>.</li>
 </ul>
 <p>1.6.4:</p>

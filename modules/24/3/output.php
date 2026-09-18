@@ -1,4 +1,5 @@
 <?php
+/* d2u_translate: 2:text */
 $cols = 0 === (int) 'REX_VALUE[20]' ? 12 : (int) 'REX_VALUE[20]'; /** @phpstan-ignore-line */
 
 $offset_lg_cols = (int) 'REX_VALUE[17]';
