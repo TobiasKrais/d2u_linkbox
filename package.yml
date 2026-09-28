@@ -37,6 +37,7 @@ conflicts:
 
 default_config:
     default_sort: 'name'
+    category_usage_tables: ''
 
 installer_ignore:
     - .github

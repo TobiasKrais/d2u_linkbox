@@ -116,6 +116,119 @@ class Category
     }
 
     /**
+     * Deletes this category together with its linkboxes. Linkboxes assigned only
+     * to this category are removed completely; linkboxes shared with other
+     * categories keep existing and only lose the reference to this category.
+     */
+    public function deleteWithLinkboxes(): void
+    {
+        $sql = rex_sql::factory();
+        $sql->setQuery('SELECT box_id, clang_id, category_ids FROM '. rex::getTablePrefix() ."d2u_linkbox_lang WHERE category_ids LIKE '%|". $this->category_id ."|%'");
+        $rows = [];
+        for ($i = 0; $i < $sql->getRows(); ++$i) {
+            $rows[] = [
+                'box_id' => (int) $sql->getValue('box_id'),
+                'clang_id' => (int) $sql->getValue('clang_id'),
+                'category_ids' => (string) $sql->getValue('category_ids'),
+            ];
+            $sql->next();
+        }
+
+        foreach ($rows as $row) {
+            $ids = array_values(array_filter(array_map('intval', explode('|', $row['category_ids']))));
+            $remaining = array_values(array_diff($ids, [$this->category_id]));
+            if (0 === count($remaining)) {
+                // Linkbox belongs only to this category: remove this language row (and the
+                // box itself once no language rows remain).
+                (new Linkbox($row['box_id'], $row['clang_id']))->delete(false);
+            } else {
+                // Keep the shared linkbox, only unassign this category.
+                $update = rex_sql::factory();
+                $update->setQuery('UPDATE '. rex::getTablePrefix() .'d2u_linkbox_lang SET category_ids = :ids WHERE box_id = :box AND clang_id = :clang', [
+                    ':ids' => '|'. implode('|', $remaining) .'|',
+                    ':box' => $row['box_id'],
+                    ':clang' => $row['clang_id'],
+                ]);
+            }
+        }
+
+        $this->delete();
+    }
+
+    /**
+     * Sanitizes a table or column identifier from the usage-detection JSON.
+     * @return string the identifier if it is a safe alnum/underscore name, otherwise ''
+     */
+    private static function safeIdentifier(string $identifier): string
+    {
+        return 1 === preg_match('/^[a-zA-Z0-9_]+$/', $identifier) ? $identifier : '';
+    }
+
+    /**
+     * Checks whether a category id is referenced by any of the module usage tables
+     * configured in the 'category_usage_tables' setting (JSON). Without a valid
+     * configuration nothing is considered used.
+     * @param int $category_id category id to look for
+     */
+    public static function isUsedInModules(int $category_id): bool
+    {
+        $config = trim((string) rex_config::get('d2u_linkbox', 'category_usage_tables', ''));
+        if ('' === $config) {
+            return false;
+        }
+        $tables = json_decode($config, true);
+        if (!is_array($tables)) {
+            return false;
+        }
+
+        foreach ($tables as $table_config) {
+            if (!is_array($table_config)) {
+                continue;
+            }
+            $table = self::safeIdentifier((string) ($table_config['table'] ?? ''));
+            $field = self::safeIdentifier((string) ($table_config['field'] ?? ''));
+            if ('' === $table || '' === $field) {
+                continue;
+            }
+            $db_table = str_starts_with($table, rex::getTablePrefix()) ? $table : rex::getTable($table);
+
+            $where = '';
+            $raw_where = trim((string) ($table_config['where'] ?? ''));
+            if ('' !== $raw_where && 1 === preg_match('/^[a-zA-Z0-9_]+\s*=\s*[a-zA-Z0-9_]+$/', $raw_where)) {
+                $where = ' AND '. $raw_where;
+            }
+
+            $sql = rex_sql::factory();
+            $sql->setQuery('SELECT 1 FROM `'. $db_table .'` '
+                .'WHERE (`'. $field .'` = :id OR FIND_IN_SET(:id, `'. $field .'`) OR `'. $field .'` LIKE :pipe)'. $where .' LIMIT 1', [
+                    ':id' => (string) $category_id,
+                    ':pipe' => '%|'. $category_id .'|%',
+                ]);
+            if ($sql->getRows() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns all categories that are not referenced by any configured module usage.
+     * @param int $clang_id redaxo clang id
+     * @return Category[] unused categories keyed by category id
+     */
+    public static function getUnusedCategories($clang_id): array
+    {
+        $unused = [];
+        foreach (self::getAll($clang_id, false) as $category) {
+            if (!self::isUsedInModules($category->category_id)) {
+                $unused[$category->category_id] = $category;
+            }
+        }
+        return $unused;
+    }
+
+    /**
      * Updates or inserts the object into database.
      * @return bool true if successful
      */

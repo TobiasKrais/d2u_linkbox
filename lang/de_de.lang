@@ -17,3 +17,12 @@ d2u_linkbox_rights_all = D2U Linkbox Addon
 d2u_linkbox_rights_edit_data = D2U Linkbox Addon: Editierrechte für allgemeine Daten und sprachübergreifende Inhalte
 d2u_linkbox_rights_edit_lang = D2U Linkbox Addon: Editierrechte für Übersetzungen und sprachspezifische Inhalte (es gelten die Sprachen der Rolleneinstellungen)
 d2u_linkbox_rights_settings = D2U Linkbox Addon: Einstellungen
+d2u_linkbox_settings_category_usage_tables = Kategorie-Verwendungsprüfungen (JSON)
+d2u_linkbox_settings_category_usage_tables_description = Hier wird definiert, in welchen Modul-Feldern nach der Verwendung von Linkbox-Kategorien gesucht wird. Erwartet wird ein JSON-Array mit Objekten aus table, field und optional where. Kategorien, deren ID in keinem dieser Felder vorkommt, gelten als ungenutzt und können unten mitsamt ihren Linkboxen gelöscht werden. Der Filter where erlaubt einfache Bedingungen wie module_id = 24.
+d2u_linkbox_settings_json_invalid = Das JSON für die Kategorie-Verwendungsprüfungen ist ungültig.
+d2u_linkbox_settings_unused_categories = Nicht genutzte Kategorien
+d2u_linkbox_settings_unused_categories_configure_first = Bitte zuerst die Kategorie-Verwendungsprüfungen (JSON) speichern, um ungenutzte Kategorien zu erkennen.
+d2u_linkbox_settings_unused_categories_none = Es wurden keine ungenutzten Kategorien gefunden.
+d2u_linkbox_settings_delete_unused = Ausgewählte Kategorien mitsamt Linkboxen löschen
+d2u_linkbox_settings_unused_delete_confirm = Wirklich die ausgewählten Kategorien und ihre Linkboxen unwiderruflich löschen?
+d2u_linkbox_settings_unused_deleted = {0} Kategorie(n) mitsamt Linkboxen gelöscht.

@@ -17,3 +17,12 @@ d2u_linkbox_rights_all = D2U Linkbox add-on
 d2u_linkbox_rights_edit_data = D2U Linkbox add-on: bewerkingsrechten voor algemene gegevens en taaloverstijgende inhoud
 d2u_linkbox_rights_edit_lang = D2U Linkbox add-on: bewerkingsrechten voor vertalingen en taalspecifieke inhoud (de talen uit de rolinstellingen zijn van toepassing)
 d2u_linkbox_rights_settings = D2U Linkbox add-on: instellingen
+d2u_linkbox_settings_category_usage_tables = Categoriegebruikscontroles (JSON)
+d2u_linkbox_settings_category_usage_tables_description = Hier wordt bepaald in welke modulevelden naar het gebruik van linkbox-categorieën wordt gezocht. Verwacht wordt een JSON-array met objecten met table, field en optioneel where. Categorieën waarvan de ID in geen van deze velden voorkomt, gelden als ongebruikt en kunnen hieronder samen met hun linkboxen worden verwijderd. De where-filter staat eenvoudige voorwaarden toe zoals module_id = 24.
+d2u_linkbox_settings_json_invalid = De JSON voor de categoriegebruikscontroles is ongeldig.
+d2u_linkbox_settings_unused_categories = Ongebruikte categorieën
+d2u_linkbox_settings_unused_categories_configure_first = Sla eerst de categoriegebruikscontroles (JSON) op om ongebruikte categorieën te detecteren.
+d2u_linkbox_settings_unused_categories_none = Geen ongebruikte categorieën gevonden.
+d2u_linkbox_settings_delete_unused = Geselecteerde categorieën samen met hun linkboxen verwijderen
+d2u_linkbox_settings_unused_delete_confirm = De geselecteerde categorieën en hun linkboxen definitief verwijderen?
+d2u_linkbox_settings_unused_deleted = {0} categorie(ën) samen met hun linkboxen verwijderd.
