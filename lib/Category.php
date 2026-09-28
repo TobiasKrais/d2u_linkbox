@@ -122,13 +122,15 @@ class Category
      */
     public function deleteWithLinkboxes(): void
     {
+        // category_ids is language independent and lives on the main table.
         $sql = rex_sql::factory();
-        $sql->setQuery('SELECT box_id, clang_id, category_ids FROM '. rex::getTablePrefix() ."d2u_linkbox_lang WHERE category_ids LIKE '%|". $this->category_id ."|%'");
+        $sql->setQuery('SELECT box_id, category_ids FROM '. rex::getTablePrefix() .'d2u_linkbox WHERE category_ids LIKE :like', [
+            ':like' => '%|'. $this->category_id .'|%',
+        ]);
         $rows = [];
         for ($i = 0; $i < $sql->getRows(); ++$i) {
             $rows[] = [
                 'box_id' => (int) $sql->getValue('box_id'),
-                'clang_id' => (int) $sql->getValue('clang_id'),
                 'category_ids' => (string) $sql->getValue('category_ids'),
             ];
             $sql->next();
@@ -138,16 +140,14 @@ class Category
             $ids = array_values(array_filter(array_map('intval', explode('|', $row['category_ids']))));
             $remaining = array_values(array_diff($ids, [$this->category_id]));
             if (0 === count($remaining)) {
-                // Linkbox belongs only to this category: remove this language row (and the
-                // box itself once no language rows remain).
-                (new Linkbox($row['box_id'], $row['clang_id']))->delete(false);
+                // Linkbox belongs only to this category: remove it in all languages.
+                (new Linkbox($row['box_id'], $this->clang_id))->delete(true);
             } else {
                 // Keep the shared linkbox, only unassign this category.
                 $update = rex_sql::factory();
-                $update->setQuery('UPDATE '. rex::getTablePrefix() .'d2u_linkbox_lang SET category_ids = :ids WHERE box_id = :box AND clang_id = :clang', [
+                $update->setQuery('UPDATE '. rex::getTablePrefix() .'d2u_linkbox SET category_ids = :ids WHERE box_id = :box', [
                     ':ids' => '|'. implode('|', $remaining) .'|',
                     ':box' => $row['box_id'],
-                    ':clang' => $row['clang_id'],
                 ]);
             }
         }
