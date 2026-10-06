@@ -65,6 +65,8 @@ if (!$invalidCsrf && (1 === (int) filter_input(INPUT_POST, 'btn_save') || 1 === 
                 $linkbox->link_addon_id = (int) $form['d2u_machinery_industry_sector_id'];
             } elseif ('d2u_machinery_machine' === $linkbox->link_type) {
                 $linkbox->link_addon_id = (int) $form['d2u_machinery_machine_id'];
+            } elseif ('d2u_machinery_category' === $linkbox->link_type) {
+                $linkbox->link_addon_id = (int) $form['d2u_machinery_category_id'];
             } elseif ('d2u_machinery_used_machine' === $linkbox->link_type) {
                 $linkbox->link_addon_id = (int) $form['d2u_machinery_used_machine_id'];
             } elseif ('d2u_courses_category' === $linkbox->link_type) {
@@ -187,6 +189,7 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                                     $options_link['d2u_machinery_industry_sector'] = rex_i18n::msg('d2u_machinery_meta_title') .': '. rex_i18n::msg('d2u_machinery_industry_sectors');
                                 }
                                 $options_link['d2u_machinery_machine'] = rex_i18n::msg('d2u_machinery_meta_title') .': '. rex_i18n::msg('d2u_machinery_machine');
+                                $options_link['d2u_machinery_category'] = rex_i18n::msg('d2u_machinery_meta_title') .': '. rex_i18n::msg('d2u_helper_category');
                                 if (\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive('used_machines')) {
                                     $options_link['d2u_machinery_used_machine'] = rex_i18n::msg('d2u_machinery_meta_title') .': '. rex_i18n::msg('d2u_machinery_used_machines_machine');
                                 }
@@ -221,6 +224,12 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
                                     $options_machines[$machine->machine_id] = $machine->name;
                                 }
                                 BackendHelper::form_select('d2u_machinery_machine', 'form[d2u_machinery_machine_id]', $options_machines, ['d2u_machinery_machine' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
+                                $options_machine_categories = [];
+                                $machine_categories = \TobiasKrais\D2UMachinery\Category::getAll(rex_clang::getCurrentId());
+                                foreach ($machine_categories as $machine_category) {
+                                    $options_machine_categories[$machine_category->category_id] = ($machine_category->parent_category instanceof \TobiasKrais\D2UMachinery\Category ? $machine_category->parent_category->name .' → ' : ''). $machine_category->name;
+                                }
+                                BackendHelper::form_select('d2u_helper_category', 'form[d2u_machinery_category_id]', $options_machine_categories, ['d2u_machinery_category' === $linkbox->link_type ? $linkbox->link_addon_id : ''], 1, false, $readonly);
                                 if (\TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive('used_machines')) {
                                     $options_used_machines = [];
                                     $used_machines = UsedMachine::getAll(rex_clang::getCurrentId(), true);
@@ -313,6 +322,7 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 					$('#form\\[d2u_immo_property_id\\]').hide();
 					$('#form\\[d2u_machinery_industry_sector_id\\]').hide();
 					$('#form\\[d2u_machinery_machine_id\\]').hide();
+					$('#form\\[d2u_machinery_category_id\\]').hide();
 					$('#form\\[d2u_machinery_used_machine_id\\]').hide();
 					$('#form\\[d2u_courses_category_id\\]').hide();
 
@@ -343,6 +353,9 @@ if ('edit' === $func || 'clone' === $func || 'add' === $func) {
 					}
 					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_machine") {
 						$('#form\\[d2u_machinery_machine_id\\]').show();
+					}
+					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_category") {
+						$('#form\\[d2u_machinery_category_id\\]').show();
 					}
 					else if($('select[name="form\\[link_type\\]"]').val() === "d2u_machinery_used_machine") {
 						$('#form\\[d2u_machinery_used_machine_id\\]').show();

@@ -301,6 +301,10 @@ class Linkbox implements \TobiasKrais\D2UHelper\ITranslationHelper, \TobiasKrais
                 if (!$ignore_offline && 'offline' === $machine->online_status) {
                     return '';
                 }
+            } elseif ('d2u_machinery_category' === $this->link_type) {
+                // Maschinen-Kategorien sind Kernobjekte (kein Offline-Status).
+                $category = new \TobiasKrais\D2UMachinery\Category($this->link_addon_id, $this->clang_id);
+                $this->link = $category->getUrl();
             }
             if ('d2u_machinery_used_machine' === $this->link_type && \TobiasKrais\D2UHelper\FrontendHelper::isD2UMachineryExtensionActive('used_machines')) {
                 $used_machine = new UsedMachine($this->link_addon_id, $this->clang_id);
